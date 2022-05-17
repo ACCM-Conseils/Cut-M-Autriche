@@ -155,6 +155,17 @@ namespace CUT_M
                     lblDiametre.Text = produit.diametre.ToString();
                     lblEtage.Text = produit.etage.ToString();
                     lblQte.Text = prod.restant.ToString();
+
+                    lblInfo.Text = "Positionner la pièce";
+
+                    ////Vérif DI 0 si niveau bas -> message Fermer la porte
+
+                    ////Vérif DI 1 si niveau bas -> message Activer le laser
+
+                    ////Si DI 0 et DI 1 niveau haut envoi position angulaire passer les 4 bits à DI 0,1,2,3 et mettre DI 4 à niveau haut
+                    ///
+
+
                 }
             }
             else
@@ -213,6 +224,13 @@ namespace CUT_M
                     }
                 }
                 while (ok == false);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Etes vous sûr ?", "Information", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
             }
         }
     }
