@@ -39,8 +39,8 @@ namespace CUT_M
         private void InitCutM()
         {
             m_bStart = false;			// the action stops at the beginning
-            m_szIP = "192.168.1.250";	// modbus slave IP address
-            m_iPort = 502;				// modbus TCP port is 502
+            m_szIP = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam1");	// modbus slave IP address for Adam1
+            m_iPort = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "PortAdam1"));				// modbus TCP port for Adam1
             adamModbus = new AdamSocket();
             adamModbus.SetTimeout(1000, 1000, 1000);
 
@@ -95,9 +95,7 @@ namespace CUT_M
                     MessageBox.Show("GetWDTMask() failed;");
 
                 this.timer1.Interval = 500;
-                this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-
-                timer1.Start();
+                this.timer1.Tick += new System.EventHandler(this.timer1_Tick);                
             }
             else
             {
@@ -151,7 +149,16 @@ namespace CUT_M
                     good = false;
                 }
 
-                goodConditions = false;
+                txtDO0.Text = bData[12].ToString();
+                txtDO1.Text = bData[13].ToString();
+                txtDO2.Text = bData[14].ToString();
+                txtDO3.Text = bData[15].ToString();
+                txtDO4.Text = bData[16].ToString();
+
+                goodConditions = good;
+
+                if(!goodConditions && bData[16])
+                    ChangeOID(16, 0);
 
                 lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
             }
@@ -275,6 +282,8 @@ namespace CUT_M
         {
             if (comboBox1.SelectedIndex > 0)
             {
+                timer1.Start();
+                ChangeOID(16, 0);
                 txtRefManuelle.Enabled = false;
                 txtQteManuelle.Enabled = false;
                 lblInfo.Text = "";
@@ -314,8 +323,41 @@ namespace CUT_M
 
         }
 
+        private void ChangeOID(int i_iCh, int etat)
+        {
+            int iOnOff, iStart = 17 + i_iCh - m_iDiTotal;
+
+            timer1.Enabled = false;
+
+            iOnOff = etat;
+
+            if (adamModbus.Modbus().ForceSingleCoil(iStart, iOnOff))
+                RefreshDIO();
+            else
+                MessageBox.Show("Set digital output failed!", "Error");
+
+            timer1.Enabled = true;
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
+            String _ref = comboBox1.Text;
+
+            Produit produit = produits.FirstOrDefault(m => m.reference == _ref);
+
+            if (produit != null)
+            {
+                int DO0 = int.Parse(produit.positionangle[0].ToString());
+                int DO1 = int.Parse(produit.positionangle[1].ToString());
+                int DO2 = int.Parse(produit.positionangle[2].ToString());
+                int DO3 = int.Parse(produit.positionangle[3].ToString());
+                ChangeOID(12, DO0);
+                ChangeOID(13, DO1);
+                ChangeOID(14, DO2);
+                ChangeOID(15, DO3);
+                ChangeOID(16, 1);
+            }
+
             if (goodConditions)
             {
             }
