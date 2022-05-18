@@ -29,6 +29,7 @@ namespace CUT_M
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,6 +51,8 @@ namespace CUT_M
             this.txtQteManuelle = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblEtat = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -58,10 +61,9 @@ namespace CUT_M
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(250, 208);
+            this.pictureBox1.Size = new System.Drawing.Size(375, 320);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -69,20 +71,18 @@ namespace CUT_M
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(488, 16);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(732, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(237, 73);
+            this.label1.Size = new System.Drawing.Size(354, 108);
             this.label1.TabIndex = 1;
             this.label1.Text = "CUT-M";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(255, 322);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(382, 495);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.Size = new System.Drawing.Size(120, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Saisie manuelle";
             // 
@@ -94,11 +94,9 @@ namespace CUT_M
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.lblDiametre);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(795, 193);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(1192, 297);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(438, 317);
+            this.groupBox1.Size = new System.Drawing.Size(657, 488);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Production en cours";
@@ -107,17 +105,19 @@ namespace CUT_M
             // 
             this.lblEtage.AutoSize = true;
             this.lblEtage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEtage.Location = new System.Drawing.Point(20, 212);
+            this.lblEtage.Location = new System.Drawing.Point(30, 326);
+            this.lblEtage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEtage.Name = "lblEtage";
-            this.lblEtage.Size = new System.Drawing.Size(0, 24);
+            this.lblEtage.Size = new System.Drawing.Size(0, 33);
             this.lblEtage.TabIndex = 5;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 177);
+            this.label9.Location = new System.Drawing.Point(32, 272);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 13);
+            this.label9.Size = new System.Drawing.Size(131, 20);
             this.label9.TabIndex = 4;
             this.label9.Text = "N° étage mandrin";
             // 
@@ -125,17 +125,19 @@ namespace CUT_M
             // 
             this.lblQte.AutoSize = true;
             this.lblQte.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQte.Location = new System.Drawing.Point(20, 134);
+            this.lblQte.Location = new System.Drawing.Point(30, 206);
+            this.lblQte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblQte.Name = "lblQte";
-            this.lblQte.Size = new System.Drawing.Size(0, 24);
+            this.lblQte.Size = new System.Drawing.Size(0, 33);
             this.lblQte.TabIndex = 3;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 104);
+            this.label7.Location = new System.Drawing.Point(32, 160);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.Size = new System.Drawing.Size(133, 20);
             this.label7.TabIndex = 2;
             this.label7.Text = "Quantité restante";
             // 
@@ -143,17 +145,19 @@ namespace CUT_M
             // 
             this.lblDiametre.AutoSize = true;
             this.lblDiametre.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDiametre.Location = new System.Drawing.Point(20, 65);
+            this.lblDiametre.Location = new System.Drawing.Point(30, 100);
+            this.lblDiametre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDiametre.Name = "lblDiametre";
-            this.lblDiametre.Size = new System.Drawing.Size(0, 24);
+            this.lblDiametre.Size = new System.Drawing.Size(0, 33);
             this.lblDiametre.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 40);
+            this.label4.Location = new System.Drawing.Point(32, 62);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.Size = new System.Drawing.Size(74, 20);
             this.label4.TabIndex = 0;
             this.label4.Text = "Diamètre";
             // 
@@ -161,19 +165,17 @@ namespace CUT_M
             // 
             this.txtRefManuelle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRefManuelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRefManuelle.Location = new System.Drawing.Point(258, 337);
-            this.txtRefManuelle.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRefManuelle.Location = new System.Drawing.Point(387, 518);
             this.txtRefManuelle.Name = "txtRefManuelle";
-            this.txtRefManuelle.Size = new System.Drawing.Size(262, 32);
+            this.txtRefManuelle.Size = new System.Drawing.Size(392, 44);
             this.txtRefManuelle.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 258);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(382, 397);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 13);
+            this.label3.Size = new System.Drawing.Size(205, 20);
             this.label3.TabIndex = 6;
             this.label3.Text = "Référence à partir du fichier";
             // 
@@ -182,9 +184,10 @@ namespace CUT_M
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(258, 460);
+            this.button1.Location = new System.Drawing.Point(387, 708);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(324, 50);
+            this.button1.Size = new System.Drawing.Size(486, 77);
             this.button1.TabIndex = 7;
             this.button1.Text = "RAZ production";
             this.button1.UseVisualStyleBackColor = false;
@@ -193,9 +196,11 @@ namespace CUT_M
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lblInfo);
-            this.groupBox2.Location = new System.Drawing.Point(265, 547);
+            this.groupBox2.Location = new System.Drawing.Point(398, 842);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(968, 146);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(1452, 225);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Informations";
@@ -204,9 +209,10 @@ namespace CUT_M
             // 
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfo.Location = new System.Drawing.Point(12, 46);
+            this.lblInfo.Location = new System.Drawing.Point(18, 71);
+            this.lblInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(305, 25);
+            this.lblInfo.Size = new System.Drawing.Size(450, 37);
             this.lblInfo.TabIndex = 0;
             this.lblInfo.Text = "Choisir ou saisir une référence";
             // 
@@ -214,9 +220,10 @@ namespace CUT_M
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(258, 274);
+            this.comboBox1.Location = new System.Drawing.Point(387, 422);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(324, 24);
+            this.comboBox1.Size = new System.Drawing.Size(484, 33);
             this.comboBox1.TabIndex = 9;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -225,9 +232,10 @@ namespace CUT_M
             this.button2.BackColor = System.Drawing.Color.DodgerBlue;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(258, 394);
+            this.button2.Location = new System.Drawing.Point(387, 606);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(324, 50);
+            this.button2.Size = new System.Drawing.Size(486, 77);
             this.button2.TabIndex = 10;
             this.button2.Text = "Démarrage production";
             this.button2.UseVisualStyleBackColor = false;
@@ -237,37 +245,45 @@ namespace CUT_M
             // 
             this.txtQteManuelle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtQteManuelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQteManuelle.Location = new System.Drawing.Point(524, 337);
-            this.txtQteManuelle.Margin = new System.Windows.Forms.Padding(2);
+            this.txtQteManuelle.Location = new System.Drawing.Point(786, 518);
             this.txtQteManuelle.Name = "txtQteManuelle";
-            this.txtQteManuelle.Size = new System.Drawing.Size(58, 32);
+            this.txtQteManuelle.Size = new System.Drawing.Size(86, 44);
             this.txtQteManuelle.TabIndex = 11;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(229, 306);
+            this.label5.Location = new System.Drawing.Point(344, 471);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(21, 13);
+            this.label5.Size = new System.Drawing.Size(30, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "Ou";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(521, 322);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(782, 495);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(24, 13);
+            this.label6.Size = new System.Drawing.Size(35, 20);
             this.label6.TabIndex = 13;
             this.label6.Text = "Qte";
             // 
+            // lblEtat
+            // 
+            this.lblEtat.AutoSize = true;
+            this.lblEtat.Location = new System.Drawing.Point(1510, 33);
+            this.lblEtat.Name = "lblEtat";
+            this.lblEtat.Size = new System.Drawing.Size(0, 30);
+            this.lblEtat.TabIndex = 14;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1285, 721);
+            this.ClientSize = new System.Drawing.Size(1928, 1109);
+            this.Controls.Add(this.lblEtat);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtQteManuelle);
@@ -282,7 +298,6 @@ namespace CUT_M
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -317,6 +332,8 @@ namespace CUT_M
         private System.Windows.Forms.TextBox txtQteManuelle;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblEtat;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
