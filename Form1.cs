@@ -23,6 +23,7 @@ namespace CUT_M
         private int m_iPort;
         private int m_iDoTotal, m_iDiTotal, m_iCount;
         private static bool[] bData;
+        private static bool goodConditions=false;
 
         private static List<Produit> produits = new List<Produit>();
         private static List<Production> production = new List<Production>();
@@ -136,10 +137,23 @@ namespace CUT_M
                 Array.Copy(bDiData, 0, bData, 0, m_iDiTotal);
                 Array.Copy(bDoData, 0, bData, m_iDiTotal, m_iDoTotal);
 
-                if (bData[2])
-                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Porte fermée"; }));
-                else
-                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Porte ouverte"; }));
+                bool good = true;
+                String Message = string.Empty;
+
+                if (!bData[0])
+                {
+                    Message += "Fermer la porte" + Environment.NewLine;
+                    good = false;
+                }
+                if (!bData[1])
+                {
+                    Message += "Activer le laser" + Environment.NewLine;
+                    good = false;
+                }
+
+                goodConditions = false;
+
+                lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
             }
         }
 
@@ -302,10 +316,11 @@ namespace CUT_M
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (adamModbus.Connect(m_szIP, ProtocolType.Tcp, m_iPort))
-            {               
-                RefreshDIO();   
+            if (goodConditions)
+            {
             }
+            else
+                MessageBox.Show("Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information");
 
                 /*var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
                 int qte = obj.restant-=1;
