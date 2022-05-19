@@ -54,6 +54,8 @@ namespace CUT_M
             this.lblEtat = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtDO4 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -63,6 +65,8 @@ namespace CUT_M
             this.txtDO1 = new System.Windows.Forms.TextBox();
             this.txtDO0 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txt1DO4 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -71,10 +75,8 @@ namespace CUT_M
             this.txt1DO2 = new System.Windows.Forms.TextBox();
             this.txt1DO1 = new System.Windows.Forms.TextBox();
             this.txt1DO0 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtDO4 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txt1DO4 = new System.Windows.Forms.TextBox();
+            this.lblEtat2 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,7 +88,7 @@ namespace CUT_M
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(250, 208);
             this.pictureBox1.TabIndex = 0;
@@ -122,9 +124,9 @@ namespace CUT_M
             this.groupBox1.Controls.Add(this.lblDiametre);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Location = new System.Drawing.Point(795, 193);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(438, 317);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -189,7 +191,7 @@ namespace CUT_M
             this.txtRefManuelle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRefManuelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRefManuelle.Location = new System.Drawing.Point(258, 337);
-            this.txtRefManuelle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRefManuelle.Margin = new System.Windows.Forms.Padding(2);
             this.txtRefManuelle.Name = "txtRefManuelle";
             this.txtRefManuelle.Size = new System.Drawing.Size(262, 32);
             this.txtRefManuelle.TabIndex = 5;
@@ -265,7 +267,7 @@ namespace CUT_M
             this.txtQteManuelle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtQteManuelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtQteManuelle.Location = new System.Drawing.Point(524, 337);
-            this.txtQteManuelle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtQteManuelle.Margin = new System.Windows.Forms.Padding(2);
             this.txtQteManuelle.Name = "txtQteManuelle";
             this.txtQteManuelle.Size = new System.Drawing.Size(58, 32);
             this.txtQteManuelle.TabIndex = 11;
@@ -311,13 +313,32 @@ namespace CUT_M
             this.groupBox3.Controls.Add(this.txtDO1);
             this.groupBox3.Controls.Add(this.txtDO0);
             this.groupBox3.Location = new System.Drawing.Point(8, 363);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(95, 330);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ADAM 1";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 262);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(32, 13);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "DO 4";
+            // 
+            // txtDO4
+            // 
+            this.txtDO4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDO4.Location = new System.Drawing.Point(15, 283);
+            this.txtDO4.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDO4.Name = "txtDO4";
+            this.txtDO4.Size = new System.Drawing.Size(67, 20);
+            this.txtDO4.TabIndex = 31;
             // 
             // label12
             // 
@@ -363,7 +384,7 @@ namespace CUT_M
             // 
             this.txtDO3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDO3.Location = new System.Drawing.Point(15, 226);
-            this.txtDO3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDO3.Margin = new System.Windows.Forms.Padding(2);
             this.txtDO3.Name = "txtDO3";
             this.txtDO3.Size = new System.Drawing.Size(67, 20);
             this.txtDO3.TabIndex = 26;
@@ -372,7 +393,7 @@ namespace CUT_M
             // 
             this.txtDO2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDO2.Location = new System.Drawing.Point(15, 172);
-            this.txtDO2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDO2.Margin = new System.Windows.Forms.Padding(2);
             this.txtDO2.Name = "txtDO2";
             this.txtDO2.Size = new System.Drawing.Size(67, 20);
             this.txtDO2.TabIndex = 25;
@@ -381,7 +402,7 @@ namespace CUT_M
             // 
             this.txtDO1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDO1.Location = new System.Drawing.Point(15, 122);
-            this.txtDO1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDO1.Margin = new System.Windows.Forms.Padding(2);
             this.txtDO1.Name = "txtDO1";
             this.txtDO1.Size = new System.Drawing.Size(67, 20);
             this.txtDO1.TabIndex = 24;
@@ -390,7 +411,7 @@ namespace CUT_M
             // 
             this.txtDO0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDO0.Location = new System.Drawing.Point(15, 72);
-            this.txtDO0.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDO0.Margin = new System.Windows.Forms.Padding(2);
             this.txtDO0.Name = "txtDO0";
             this.txtDO0.Size = new System.Drawing.Size(67, 20);
             this.txtDO0.TabIndex = 23;
@@ -408,13 +429,32 @@ namespace CUT_M
             this.groupBox4.Controls.Add(this.txt1DO1);
             this.groupBox4.Controls.Add(this.txt1DO0);
             this.groupBox4.Location = new System.Drawing.Point(123, 363);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(95, 330);
             this.groupBox4.TabIndex = 31;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "ADAM 2";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 262);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(32, 13);
+            this.label18.TabIndex = 32;
+            this.label18.Text = "DO 4";
+            // 
+            // txt1DO4
+            // 
+            this.txt1DO4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO4.Location = new System.Drawing.Point(15, 283);
+            this.txt1DO4.Margin = new System.Windows.Forms.Padding(2);
+            this.txt1DO4.Name = "txt1DO4";
+            this.txt1DO4.Size = new System.Drawing.Size(67, 20);
+            this.txt1DO4.TabIndex = 31;
             // 
             // label13
             // 
@@ -460,7 +500,7 @@ namespace CUT_M
             // 
             this.txt1DO3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt1DO3.Location = new System.Drawing.Point(15, 226);
-            this.txt1DO3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt1DO3.Margin = new System.Windows.Forms.Padding(2);
             this.txt1DO3.Name = "txt1DO3";
             this.txt1DO3.Size = new System.Drawing.Size(67, 20);
             this.txt1DO3.TabIndex = 26;
@@ -469,7 +509,7 @@ namespace CUT_M
             // 
             this.txt1DO2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt1DO2.Location = new System.Drawing.Point(15, 172);
-            this.txt1DO2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt1DO2.Margin = new System.Windows.Forms.Padding(2);
             this.txt1DO2.Name = "txt1DO2";
             this.txt1DO2.Size = new System.Drawing.Size(67, 20);
             this.txt1DO2.TabIndex = 25;
@@ -478,7 +518,7 @@ namespace CUT_M
             // 
             this.txt1DO1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt1DO1.Location = new System.Drawing.Point(15, 122);
-            this.txt1DO1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt1DO1.Margin = new System.Windows.Forms.Padding(2);
             this.txt1DO1.Name = "txt1DO1";
             this.txt1DO1.Size = new System.Drawing.Size(67, 20);
             this.txt1DO1.TabIndex = 24;
@@ -487,48 +527,19 @@ namespace CUT_M
             // 
             this.txt1DO0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt1DO0.Location = new System.Drawing.Point(15, 72);
-            this.txt1DO0.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt1DO0.Margin = new System.Windows.Forms.Padding(2);
             this.txt1DO0.Name = "txt1DO0";
             this.txt1DO0.Size = new System.Drawing.Size(67, 20);
             this.txt1DO0.TabIndex = 23;
             // 
-            // label17
+            // lblEtat2
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(13, 262);
-            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(32, 13);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "DO 4";
-            // 
-            // txtDO4
-            // 
-            this.txtDO4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDO4.Location = new System.Drawing.Point(15, 283);
-            this.txtDO4.Margin = new System.Windows.Forms.Padding(2);
-            this.txtDO4.Name = "txtDO4";
-            this.txtDO4.Size = new System.Drawing.Size(67, 20);
-            this.txtDO4.TabIndex = 31;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(13, 262);
-            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(32, 13);
-            this.label18.TabIndex = 32;
-            this.label18.Text = "DO 4";
-            // 
-            // txt1DO4
-            // 
-            this.txt1DO4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO4.Location = new System.Drawing.Point(15, 283);
-            this.txt1DO4.Margin = new System.Windows.Forms.Padding(2);
-            this.txt1DO4.Name = "txt1DO4";
-            this.txt1DO4.Size = new System.Drawing.Size(67, 20);
-            this.txt1DO4.TabIndex = 31;
+            this.lblEtat2.AutoSize = true;
+            this.lblEtat2.Location = new System.Drawing.Point(1007, 54);
+            this.lblEtat2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEtat2.Name = "lblEtat2";
+            this.lblEtat2.Size = new System.Drawing.Size(0, 13);
+            this.lblEtat2.TabIndex = 32;
             // 
             // Form1
             // 
@@ -536,6 +547,7 @@ namespace CUT_M
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1283, 733);
+            this.Controls.Add(this.lblEtat2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblEtat);
@@ -553,7 +565,7 @@ namespace CUT_M
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -618,6 +630,8 @@ namespace CUT_M
         private System.Windows.Forms.TextBox txtDO4;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt1DO4;
+        private System.Windows.Forms.Label lblEtat2;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

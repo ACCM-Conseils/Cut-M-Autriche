@@ -17,12 +17,16 @@ namespace CUT_M
     public partial class Form1 : Form
     {
         private bool m_bStart;
-        private AdamSocket adamModbus;
-        private Adam6000Type m_Adam6000Type;
-        private string m_szIP;
-        private int m_iPort;
-        private int m_iDoTotal, m_iDiTotal, m_iCount;
-        private static bool[] bData;
+        private AdamSocket adamModbus1;
+        private AdamSocket adamModbus2;
+        private string m_szIP1;
+        private int m_iPort1;
+        private string m_szIP2;
+        private int m_iPort2;
+        private int m_iDoTotal1, m_iDiTotal1;
+        private static bool[] bData1;
+        private int m_iDoTotal2, m_iDiTotal2;
+        private static bool[] bData2;
         private static bool goodConditions=false;
 
         private static List<Produit> produits = new List<Produit>();
@@ -39,17 +43,18 @@ namespace CUT_M
         private void InitCutM()
         {
             m_bStart = false;			// the action stops at the beginning
-            m_szIP = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam1");	// modbus slave IP address for Adam1
-            m_iPort = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "PortAdam1"));				// modbus TCP port for Adam1
-            adamModbus = new AdamSocket();
-            adamModbus.SetTimeout(1000, 1000, 1000);
+            m_szIP1 = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam1");	// modbus slave IP address for Adam1
+            m_iPort1 = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "PortAdam1"));				// modbus TCP port for Adam1
+            m_szIP2 = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam2");	// modbus slave IP address for Adam1
+            m_iPort2 = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "PortAdam2"));				// modbus TCP port for Adam1
+            adamModbus1 = new AdamSocket();
+            adamModbus1.SetTimeout(1000, 1000, 1000);
+            adamModbus2 = new AdamSocket();
+            adamModbus2.SetTimeout(1000, 1000, 1000);
 
-            if (adamModbus.Connect(m_szIP, ProtocolType.Tcp, m_iPort))
+            if (adamModbus1.Connect(m_szIP1, ProtocolType.Tcp, m_iPort1))
             {
-                lblEtat.Text = "Connecté au module ADAM";
-                lblEtat.ForeColor = Color.Green;
-
-                lblEtat.Text = "Connecté au module ADAM";
+                lblEtat.Text = "Connecté aux modules ADAM 1";
                 lblEtat.ForeColor = Color.Green;
 
                 int iDI = 0, iDO = 0;
@@ -73,8 +78,8 @@ namespace CUT_M
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
 
-                m_iDoTotal = iDO;
-                m_iDiTotal = iDI;
+                m_iDoTotal1 = iDO;
+                m_iDiTotal1 = iDI;
 
                 int iCnt;
                 bool bCommFSV;
@@ -82,12 +87,12 @@ namespace CUT_M
                 bool[] bWDT;
 
                 //if (m_Adam6000Type == Adam6000Type.Adam6055) // no DO for 6055
-                if (m_iDoTotal == 0)
+                if (m_iDoTotal1 == 0)
                 {
                     return;
                 }
 
-                if (adamModbus.DigitalOutput().GetWDTMask(out bCommFSV, out bPtoPFSV, out bWDT) && bWDT.Length == 8)
+                if (adamModbus1.DigitalOutput().GetWDTMask(out bCommFSV, out bPtoPFSV, out bWDT) && bWDT.Length == 8)
                 {
                     iCnt = 0;
                 }
@@ -95,12 +100,68 @@ namespace CUT_M
                     MessageBox.Show("GetWDTMask() failed;");
 
                 this.timer1.Interval = 500;
-                this.timer1.Tick += new System.EventHandler(this.timer1_Tick);                
+                this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             }
             else
             {
-                lblEtat.Text = "Connexion au module ADAM impossible";
+                lblEtat.Text = "Connexion au module ADAM 1 impossible";
                 lblEtat.ForeColor = Color.Red;
+            }
+
+            if (adamModbus2.Connect(m_szIP2, ProtocolType.Tcp, m_iPort2))
+            {
+                lblEtat2.Text = "Connecté aux modules ADAM 2";
+                lblEtat2.ForeColor = Color.Green;
+
+                int iDI = 0, iDO = 0;
+
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+
+                m_iDoTotal2 = iDO;
+                m_iDiTotal2 = iDI;
+
+                int iCnt;
+                bool bCommFSV;
+                bool bPtoPFSV;
+                bool[] bWDT;
+
+                //if (m_Adam6000Type == Adam6000Type.Adam6055) // no DO for 6055
+                if (m_iDoTotal2 == 0)
+                {
+                    return;
+                }
+
+                if (adamModbus2.DigitalOutput().GetWDTMask(out bCommFSV, out bPtoPFSV, out bWDT) && bWDT.Length == 8)
+                {
+                    iCnt = 0;
+                }
+                else
+                    MessageBox.Show("GetWDTMask() failed;");
+
+                this.timer2.Interval = 500;
+                this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            }
+            else
+            {
+                lblEtat2.Text = "Connexion au module ADAM 2 impossible";
+                lblEtat2.ForeColor = Color.Red;
             }
         }
 
@@ -121,46 +182,68 @@ namespace CUT_M
             }
         }
 
-        protected void RefreshDIO()
+        protected void RefreshDIO1()
         {
             int iDiStart = 1, iDoStart = 17;
             int iChTotal;
             bool[] bDiData, bDoData;
 
-            if (adamModbus.Modbus().ReadCoilStatus(iDiStart, m_iDiTotal, out bDiData) &&
-                adamModbus.Modbus().ReadCoilStatus(iDoStart, m_iDoTotal, out bDoData))
+            if (adamModbus1.Modbus().ReadCoilStatus(iDiStart, m_iDiTotal1, out bDiData) &&
+                adamModbus1.Modbus().ReadCoilStatus(iDoStart, m_iDoTotal1, out bDoData))
             {
-                iChTotal = m_iDiTotal + m_iDoTotal;
-                bData = new bool[iChTotal];
-                Array.Copy(bDiData, 0, bData, 0, m_iDiTotal);
-                Array.Copy(bDoData, 0, bData, m_iDiTotal, m_iDoTotal);
+                iChTotal = m_iDiTotal1 + m_iDoTotal1;
+                bData1 = new bool[iChTotal];
+                Array.Copy(bDiData, 0, bData1, 0, m_iDiTotal1);
+                Array.Copy(bDoData, 0, bData1, m_iDiTotal1, m_iDoTotal1);
 
                 bool good = true;
                 String Message = string.Empty;
 
-                if (!bData[0])
+                if (!bData1[0])
                 {
                     Message += "Fermer la porte" + Environment.NewLine;
                     good = false;
                 }
-                if (!bData[1])
+                if (!bData1[1])
                 {
                     Message += "Activer le laser" + Environment.NewLine;
                     good = false;
                 }
 
-                txtDO0.Text = bData[12].ToString();
-                txtDO1.Text = bData[13].ToString();
-                txtDO2.Text = bData[14].ToString();
-                txtDO3.Text = bData[15].ToString();
-                txtDO4.Text = bData[16].ToString();
+                txtDO0.Text = bData1[12].ToString();
+                txtDO1.Text = bData1[13].ToString();
+                txtDO2.Text = bData1[14].ToString();
+                txtDO3.Text = bData1[15].ToString();
+                txtDO4.Text = bData1[16].ToString();
 
                 goodConditions = good;
 
-                if(!goodConditions && bData[16])
-                    ChangeOID(16, 0);
+                if(!goodConditions && bData1[16])
+                    ChangeOID1(16, 0);
 
                 lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
+            }
+        }
+
+        protected void RefreshDIO2()
+        {
+            int iDiStart = 1, iDoStart = 17;
+            int iChTotal;
+            bool[] bDiData, bDoData;
+
+            if (adamModbus2.Modbus().ReadCoilStatus(iDiStart, m_iDiTotal2, out bDiData) &&
+                adamModbus2.Modbus().ReadCoilStatus(iDoStart, m_iDoTotal2, out bDoData))
+            {
+                iChTotal = m_iDiTotal2 + m_iDoTotal2;
+                bData2 = new bool[iChTotal];
+                Array.Copy(bDiData, 0, bData2, 0, m_iDiTotal2);
+                Array.Copy(bDoData, 0, bData2, m_iDiTotal2, m_iDoTotal2);
+
+                txt1DO0.Text = bData2[12].ToString();
+                txt1DO1.Text = bData2[13].ToString();
+                txt1DO2.Text = bData2[14].ToString();
+                txt1DO3.Text = bData2[15].ToString();
+                txt1DO4.Text = bData2[16].ToString();
             }
         }
 
@@ -283,7 +366,8 @@ namespace CUT_M
             if (comboBox1.SelectedIndex > 0)
             {
                 timer1.Start();
-                ChangeOID(16, 0);
+                timer2.Start();
+                ChangeOID1(16, 0);
                 txtRefManuelle.Enabled = false;
                 txtQteManuelle.Enabled = false;
                 lblInfo.Text = "";
@@ -323,16 +407,16 @@ namespace CUT_M
 
         }
 
-        private void ChangeOID(int i_iCh, int etat)
+        private void ChangeOID1(int i_iCh, int etat)
         {
-            int iOnOff, iStart = 17 + i_iCh - m_iDiTotal;
+            int iOnOff, iStart = 17 + i_iCh - m_iDiTotal1;
 
             timer1.Enabled = false;
 
             iOnOff = etat;
 
-            if (adamModbus.Modbus().ForceSingleCoil(iStart, iOnOff))
-                RefreshDIO();
+            if (adamModbus1.Modbus().ForceSingleCoil(iStart, iOnOff))
+                RefreshDIO1();
             else
                 MessageBox.Show("Set digital output failed!", "Error");
 
@@ -351,11 +435,11 @@ namespace CUT_M
                 int DO1 = int.Parse(produit.positionangle[1].ToString());
                 int DO2 = int.Parse(produit.positionangle[2].ToString());
                 int DO3 = int.Parse(produit.positionangle[3].ToString());
-                ChangeOID(12, DO0);
-                ChangeOID(13, DO1);
-                ChangeOID(14, DO2);
-                ChangeOID(15, DO3);
-                ChangeOID(16, 1);
+                ChangeOID1(12, DO0);
+                ChangeOID1(13, DO1);
+                ChangeOID1(14, DO2);
+                ChangeOID1(15, DO3);
+                ChangeOID1(16, 1);
             }
 
             if (goodConditions)
@@ -420,9 +504,18 @@ namespace CUT_M
         {
             timer1.Enabled = false;
 
-            RefreshDIO();
+            RefreshDIO1();
 
             timer1.Enabled = true;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Enabled = false;
+
+            RefreshDIO2();
+
+            timer2.Enabled = true;
         }
     }
 }
