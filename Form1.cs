@@ -260,6 +260,9 @@ namespace CUT_M
                 }
                 else
                     porte = true;
+
+                label37.Invoke(new EventHandler(delegate { label37.Text = porte.ToString(); }));
+
                 if (!bData1[1])
                 {
                     Message += "Activer le laser" + Environment.NewLine;
@@ -267,6 +270,7 @@ namespace CUT_M
                 }
                 else
                     laser = true;
+                label38.Invoke(new EventHandler(delegate { label38.Text = laser.ToString(); }));
                 if (bData1[2])
                 {
                     boutonOperateur = true;
@@ -275,6 +279,7 @@ namespace CUT_M
                 {
                     boutonOperateur = false;
                 }
+                label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
                 if (bData1[3])
                 {
                     finProd = true;
@@ -283,6 +288,8 @@ namespace CUT_M
                 {
                     finProd = false;
                 }
+                label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+                label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
 
                 txtDO0.Text = bData1[12].ToString();
                 txtDO1.Text = bData1[13].ToString();
@@ -325,6 +332,8 @@ namespace CUT_M
                     RazProd();
                 }
 
+                label41.Invoke(new EventHandler(delegate { label41.Text = goodConditions.ToString(); }));
+
                 if (goodConditions && bData1[16] && comboBox1.SelectedIndex > 0)
                 {
                     ChangeOID1(16, 0);
@@ -346,7 +355,7 @@ namespace CUT_M
                     Message = "Découpe en cours";
                 }
 
-                if(!goodConditions)
+                if(!goodConditions && start)
                 {
                     start = false;
                     finProd = true;
