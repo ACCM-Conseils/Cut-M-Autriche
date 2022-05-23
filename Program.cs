@@ -16,7 +16,9 @@ namespace CUT_M
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form1 form1 = new Form1();
+            form1.WindowState = FormWindowState.Maximized;
+            Application.Run(form1);
         }
     }
 }
