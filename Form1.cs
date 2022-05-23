@@ -315,9 +315,12 @@ namespace CUT_M
                 }
 
                 if (porte && laser)
+                {
                     goodConditions = true;
+                }
                 else if((!porte || !laser) && start)
                 {
+                    goodConditions = false;
                     MessageBox.Show("Production interrompue");
                     RazProd();
                 }
@@ -330,7 +333,7 @@ namespace CUT_M
                 {
                     Message = "Positionner la pièce";
                 }
-                else if (goodConditions && comboBox1.SelectedIndex > 0 && start)
+                else if (goodConditions && comboBox1.SelectedIndex > 0 && start && !boutonOperateur)
                 {
                     Message = "En attente de départ de cycle";
                 }
@@ -338,7 +341,18 @@ namespace CUT_M
                 {
                     Message = "Choisir ou saisir une référence";
                 }
-                    
+                else if (goodConditions && comboBox1.SelectedIndex > 0 && start && boutonOperateur)
+                {
+                    Message = "Découpe en cours";
+                }
+
+                if(!goodConditions)
+                {
+                    start = false;
+                    finProd = true;
+                    RazProd();
+                }
+
 
                 lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
             }
@@ -380,11 +394,12 @@ namespace CUT_M
                 table1.Columns.Add("reference");
                 table1.Columns.Add("quantite");
 
-                string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+                string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
 
-                if (File.Exists(pathClient))
+                if (File.Exists(Path.Combine(pathClient, fileClient)))
                 {
-                    using (TextFieldParser parser = new TextFieldParser(pathClient))
+                    using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathClient, fileClient)))
                     {
                         parser.TextFieldType = FieldType.Delimited;
                         parser.SetDelimiters(";");
@@ -407,9 +422,10 @@ namespace CUT_M
 
                     }
 
-                    string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "FichierRef");
+                    string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "DossierRef");
+                    string fileProduit = ut_xml.ValueXML(@".\CUT-M.xml", "FichierRef");
 
-                    using (TextFieldParser parser = new TextFieldParser(pathProduit))
+                    using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathProduit, fileProduit)))
                     {
                         parser.TextFieldType = FieldType.Delimited;
                         parser.SetDelimiters(";");
@@ -430,9 +446,9 @@ namespace CUT_M
                     {
                         if (MessageBox.Show("Impossible de localiser le fichier Client.csv, veuillez en créer un et recommencer.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
                         {
-                            if (File.Exists(pathClient))
+                            if (File.Exists(Path.Combine(pathClient, fileClient)))
                             {
-                                using (TextFieldParser parser = new TextFieldParser(pathClient))
+                                using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathClient, fileClient)))
                                 {
                                     parser.TextFieldType = FieldType.Delimited;
                                     parser.SetDelimiters(";");
@@ -455,9 +471,10 @@ namespace CUT_M
 
                                 }
 
-                                string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "FichierRef");
+                                string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "DossierRef");
+                                string fileProduit = ut_xml.ValueXML(@".\CUT-M.xml", "FichierRef");
 
-                                using (TextFieldParser parser = new TextFieldParser(pathProduit))
+                                using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathProduit, fileProduit)))
                                 {
                                     parser.TextFieldType = FieldType.Delimited;
                                     parser.SetDelimiters(";");
@@ -609,16 +626,12 @@ namespace CUT_M
 
                 if (goodConditions)
                 {
+                    var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                    int qte = obj.restant;
+
                     start = true;
                     comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = false; }));
                     button2.Invoke(new EventHandler(delegate { button2.Enabled = false; }));
-
-                    ListViewItem lv = new ListViewItem("Démarrage production");
-                    lv.ForeColor = Color.Green;
-                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
-
-                    timestart = DateTime.Now.Ticks;
-                    timer3.Start();
 
                     while (!boutonOperateur)
                     {
@@ -629,54 +642,70 @@ namespace CUT_M
                         lvOpe.Refresh();
                     }
 
-                    while (!finProd)
+                    ListViewItem lv = new ListViewItem("Démarrage production");
+                    lv.ForeColor = Color.Green;
+                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                    
+                        timestart = DateTime.Now.Ticks;
+                        timer3.Start();
+
+                        
+                    while (qte > 0 && !finProd && goodConditions)
                     {
-                        lblInfo.Text = "Découpe en cours";
-                        Thread.Sleep(1000);
-                    }
+                            Thread.Sleep(1000);
+                            Application.DoEvents();
 
-                    var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
-                    int qte = obj.restant -= 1;
-                    if (obj != null) obj.restant = qte;
+                            lvOpe.Refresh();
 
-                    String toReplace = string.Empty;
-
-                    foreach (Production p in production)
-                    {
-                        toReplace += p.reference + ";" + p.restant + Environment.NewLine;
-                    }
-
-                    string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
-
-                    try
-                    {
-                        File.WriteAllText(pathClient, toReplace);
-
-                        lblQte.Text = obj.restant.ToString();
-                    }
-                    catch
-                    {
-                        bool ok = false;
-
-                        do
+                        if (finProd)
                         {
-                            if (MessageBox.Show("Impossible de mettre à jour le fichier de production, veuillez fermer le fichier ou redémarrer l'application.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
+                            timer3.Stop();
+                            obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                            qte = obj.restant -= 1;
+                            if (obj != null) obj.restant = qte;
+
+                            String toReplace = string.Empty;
+
+                            foreach (Production p in production)
                             {
-                                try
-                                {
-                                    File.WriteAllText(pathClient, toReplace);
+                                toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                            }
 
-                                    lblQte.Text = obj.restant.ToString();
+                            string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                            string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
 
-                                    ok = true;
-                                }
-                                catch
+                            try
+                            {
+                                File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+
+                                lblQte.Text = obj.restant.ToString();
+                            }
+                            catch
+                            {
+                                bool ok = false;
+
+                                do
                                 {
-                                    ok = false;
+                                    if (MessageBox.Show("Impossible de mettre à jour le fichier de production, veuillez fermer le fichier ou redémarrer l'application.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
+                                    {
+                                        try
+                                        {
+                                            File.WriteAllText(pathClient, toReplace);
+
+                                            lblQte.Text = obj.restant.ToString();
+
+                                            ok = true;
+                                        }
+                                        catch
+                                        {
+                                            ok = false;
+                                        }
+                                    }
                                 }
+                                while (ok == false);
                             }
                         }
-                        while (ok == false);
                     }
                 }
                 else

@@ -35,22 +35,26 @@ namespace CUT_M
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.DodgerBlue;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(800, 40);
+            this.button1.Size = new System.Drawing.Size(800, 68);
             this.button1.TabIndex = 0;
             this.button1.Text = "J\'ai lu les consignes ci-dessous";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 40);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 68);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(800, 410);
+            this.webBrowser1.Size = new System.Drawing.Size(800, 382);
             this.webBrowser1.TabIndex = 1;
             // 
             // Warning
