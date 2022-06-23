@@ -618,7 +618,7 @@ namespace CUT_M
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(51, 712);
+            this.label34.Location = new System.Drawing.Point(318, 683);
             this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(133, 20);
@@ -675,7 +675,7 @@ namespace CUT_M
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(188, 712);
+            this.label40.Location = new System.Drawing.Point(472, 683);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(0, 20);

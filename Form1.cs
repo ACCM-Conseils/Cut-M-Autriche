@@ -74,6 +74,9 @@ namespace CUT_M
             adamModbus1.SetTimeout(1000, 1000, 1000);
             adamModbus2 = new AdamSocket();
             adamModbus2.SetTimeout(1000, 1000, 1000);
+            label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+            label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
+            label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
 
             if (adamModbus1.Connect(m_szIP1, ProtocolType.Tcp, m_iPort1))
             {
@@ -678,9 +681,10 @@ namespace CUT_M
 
                     start = true;
                     comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = false; }));
-                    button2.Invoke(new EventHandler(delegate { button2.Enabled = false; }));                    
+                    button2.Invoke(new EventHandler(delegate { button2.Enabled = false; }));
+                    label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
 
-                        
+
                     while (qte > 0 && goodConditions)
                     {
                         lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "En attente de départ cycle"; }));
@@ -699,6 +703,8 @@ namespace CUT_M
                         }
 
                         finProd = false;
+
+                        label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
 
                         lv = new ListViewItem("Découpe en cours");
                         lv.ForeColor = Color.Green;
@@ -722,6 +728,8 @@ namespace CUT_M
 
                         if (finProd)
                         {
+                            label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+
                             timer3.Stop();
 
                             timer1.Enabled = false;                            
@@ -752,6 +760,9 @@ namespace CUT_M
                                 checkBox4.Checked = false;
                                 finProd = true;
                                 boutonOperateur = false;
+
+                                label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
+                                label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
 
                                 lv = new ListViewItem("Découpe terminée");
                                 lv.ForeColor = Color.Green;
@@ -881,6 +892,8 @@ namespace CUT_M
             else
                 goodConditions = false;
 
+            label41.Invoke(new EventHandler(delegate { label41.Text = goodConditions.ToString(); }));
+
             if (goodConditions && comboBox1.SelectedIndex > 0 && !start)
                 button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
             else
@@ -971,6 +984,7 @@ namespace CUT_M
                 ListViewItem lv = new ListViewItem("Bouton opérateur activé");
                 lv.ForeColor = Color.Green;
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+                label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
             }
         }
 
@@ -988,6 +1002,8 @@ namespace CUT_M
                 lv.ForeColor = Color.Green;
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
             }
+
+            label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
         }
 
         private void button3_Click(object sender, EventArgs e)
