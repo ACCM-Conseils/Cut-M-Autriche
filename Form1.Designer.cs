@@ -124,6 +124,10 @@ namespace CUT_M
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -565,10 +569,10 @@ namespace CUT_M
             this.lvOpe.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.lvOpe.HideSelection = false;
-            this.lvOpe.Location = new System.Drawing.Point(40, 873);
+            this.lvOpe.Location = new System.Drawing.Point(17, 32);
             this.lvOpe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lvOpe.Name = "lvOpe";
-            this.lvOpe.Size = new System.Drawing.Size(619, 463);
+            this.lvOpe.Size = new System.Drawing.Size(646, 1304);
             this.lvOpe.TabIndex = 32;
             this.lvOpe.UseCompatibleStateImageBehavior = false;
             this.lvOpe.View = System.Windows.Forms.View.Details;
@@ -704,6 +708,11 @@ namespace CUT_M
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.lvOpe);
+            this.groupBox5.Controls.Add(this.label45);
+            this.groupBox5.Controls.Add(this.label44);
+            this.groupBox5.Controls.Add(this.label43);
+            this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Controls.Add(this.checkBox4);
             this.groupBox5.Controls.Add(this.checkBox3);
             this.groupBox5.Controls.Add(this.checkBox2);
@@ -721,7 +730,6 @@ namespace CUT_M
             this.groupBox5.Controls.Add(this.label32);
             this.groupBox5.Controls.Add(this.label31);
             this.groupBox5.Controls.Add(this.label30);
-            this.groupBox5.Controls.Add(this.lvOpe);
             this.groupBox5.Controls.Add(this.groupBox3);
             this.groupBox5.Controls.Add(this.groupBox4);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
@@ -732,50 +740,53 @@ namespace CUT_M
             this.groupBox5.Size = new System.Drawing.Size(674, 1357);
             this.groupBox5.TabIndex = 33;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Dbug";
             // 
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(500, 755);
+            this.checkBox4.Location = new System.Drawing.Point(500, 775);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(90, 24);
             this.checkBox4.TabIndex = 49;
             this.checkBox4.Text = "FinProd";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Visible = false;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(325, 754);
+            this.checkBox3.Location = new System.Drawing.Point(325, 774);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(160, 24);
             this.checkBox3.TabIndex = 48;
             this.checkBox3.Text = "Bouton opérateur";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Visible = false;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(199, 755);
+            this.checkBox2.Location = new System.Drawing.Point(199, 775);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(109, 24);
             this.checkBox2.TabIndex = 47;
             this.checkBox2.Text = "Laser actif";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(51, 754);
+            this.checkBox1.Location = new System.Drawing.Point(51, 774);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(127, 24);
             this.checkBox1.TabIndex = 46;
             this.checkBox1.Text = "Porte fermée";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label2
@@ -795,7 +806,7 @@ namespace CUT_M
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.lblDiametre);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(818, 211);
+            this.groupBox1.Location = new System.Drawing.Point(872, 211);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(620, 488);
             this.groupBox1.TabIndex = 36;
@@ -962,7 +973,7 @@ namespace CUT_M
             this.groupBox6.Controls.Add(this.lblPorte);
             this.groupBox6.Controls.Add(this.label29);
             this.groupBox6.Controls.Add(this.label23);
-            this.groupBox6.Location = new System.Drawing.Point(818, 755);
+            this.groupBox6.Location = new System.Drawing.Point(872, 755);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1075,13 +1086,50 @@ namespace CUT_M
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(51, 712);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 20);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "Capot";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(318, 712);
+            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(74, 20);
+            this.label43.TabIndex = 51;
+            this.label43.Text = "Decoupe";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(188, 712);
+            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(0, 20);
+            this.label44.TabIndex = 52;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(472, 712);
+            this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(0, 20);
+            this.label45.TabIndex = 53;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(2529, 1357);
-            this.ControlBox = false;
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox5);
@@ -1208,6 +1256,10 @@ namespace CUT_M
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label43;
     }
 }
 
