@@ -23,6 +23,7 @@ namespace CUT_M
         private AdamSocket adamModbus2;
         private int m_iTempo;
         private int m_iTempoOrigine;
+        private int m_iTempoImpulsion;
         private string m_szIP1;
         private int m_iPort1;
         private string m_szIP2;
@@ -35,7 +36,6 @@ namespace CUT_M
         private static bool boutonOperateur = false;
         private static bool decoupeencours = false;
         private static bool capot = false;
-        private static bool first = true;
         private static bool finProd = true;
         private static bool porte = false;
         private static bool laser = false;
@@ -53,7 +53,7 @@ namespace CUT_M
             Warning warn = new Warning();
             warn.FormBorderStyle = FormBorderStyle.None;
             warn.WindowState = FormWindowState.Maximized;
-            
+
             if (warn.ShowDialog() == DialogResult.OK)
             {
                 InitCutM();
@@ -85,6 +85,7 @@ namespace CUT_M
             dureeWatchdog = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "dureeWatchdog"));
             m_iTempo = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoMoteur"));
             m_iTempoOrigine = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
+            m_iTempoImpulsion = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
             adamModbus1 = new AdamSocket();
             adamModbus1.SetTimeout(1000, 1000, 1000);
             adamModbus2 = new AdamSocket();
@@ -153,7 +154,7 @@ namespace CUT_M
 
                 ChangeOID1(12, 0);
                 ChangeOID1(13, 1);
-                Thread.Sleep(500);
+                Thread.Sleep(m_iTempoImpulsion);
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
@@ -353,7 +354,7 @@ namespace CUT_M
                 txtDI3.Text = bData1[3].ToString();
                 txtDI4.Text = bData1[4].ToString();
 
-                if(porte)
+                if (porte)
                 {
                     lblPorte.Invoke(new EventHandler(delegate { lblPorte.ForeColor = Color.Green; lblPorte.Text = "Fermée"; }));
                 }
@@ -375,7 +376,7 @@ namespace CUT_M
                 {
                     goodConditions = true;
                 }
-                else if((!porte || !laser) && start)
+                else if ((!porte || !laser) && start)
                 {
                     goodConditions = false;
                     MessageBox.Show("Production interrompue");
@@ -388,7 +389,7 @@ namespace CUT_M
                 {
                     ChangeOID1(16, 0);
                 }*/
-                if(goodConditions && comboBox1.SelectedIndex > 0 && !start && !demarrage)
+                if (goodConditions && comboBox1.SelectedIndex > 0 && !start && !demarrage)
                 {
                     Message = "Positionner la pièce";
                 }
@@ -405,7 +406,7 @@ namespace CUT_M
                     Message = "Découpe en cours";
                 }
 
-                if(!goodConditions && start)
+                if (!goodConditions && start)
                 {
                     start = false;
                     finProd = true;
@@ -448,7 +449,7 @@ namespace CUT_M
         protected bool LoadRef()
         {
             try
-            {            
+            {
                 DataTable table1 = new DataTable("references");
                 table1.Columns.Add("reference");
                 table1.Columns.Add("quantite");
@@ -551,9 +552,9 @@ namespace CUT_M
 
                     return false;
                 }
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Impossible de lire le fichier de production");
                 return false;
@@ -594,12 +595,12 @@ namespace CUT_M
                     lblEtage.Text = produit.etage.ToString();
                     lblQte.Text = prod.restant.ToString();
 
-                    if(goodConditions)
+                    if (goodConditions)
                         lblInfo.Text = "Positionner la pièce";
                     else
                     {
                         string Message = "";
-                        if(!porte)
+                        if (!porte)
                             Message += "Fermer la porte" + Environment.NewLine;
                         if (!laser)
                             Message += "Ouvrir le shutter" + Environment.NewLine;
@@ -608,14 +609,307 @@ namespace CUT_M
                     }
 
                     button1.Invoke(new EventHandler(delegate { button1.Enabled = true; }));
-                    if(goodConditions)
-                        button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
+
+                    try
+                    {
+
+                        demarrage = true;
+
+                    }
+                    catch
+                    {
+                        ListViewItem lv = new ListViewItem("Initialisation module Adam 1 impossible");
+                        lv.ForeColor = Color.Red;
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+                    }
+
+                    try
+                    {
+
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Masque : {0}", produit.masque.ToString())); }));
+
+                        int DO0_1 = int.Parse(produit.masque[0].ToString());
+                        int DO0_2 = int.Parse(produit.masque[1].ToString());
+                        int DO0_3 = int.Parse(produit.masque[2].ToString());
+                        int DO0_4 = int.Parse(produit.masque[3].ToString());
+                        int DO0_5 = int.Parse(produit.masque[4].ToString());
+
+                        ChangeOID2(12, DO0_5);
+                        ChangeOID2(13, DO0_4);
+                        ChangeOID2(14, DO0_3);
+                        ChangeOID2(15, DO0_2);
+                        ChangeOID2(16, DO0_1);
+                        Thread.Sleep(1000);
+                        ChangeOID2(17, 1);
+
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 2 OK"); }));
+                    }
+                    catch
+                    {
+                        ListViewItem lv = new ListViewItem("Initialisation module Adam 2 impossible");
+                        lv.ForeColor = Color.Red;
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+                    }
+
+                    if (goodConditions)
+                    {
+                        var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                        int qte = obj.restant;
+
+
+                        comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = false; }));
+                        label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
+
+                        Application.DoEvents();
+
+                        while (qte > 0)
+                        {
+                            ListViewItem lv = new ListViewItem("En attente de départ cycle");
+                            lv.ForeColor = Color.Green;
+                            lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                            Application.DoEvents();
+
+                            while (!boutonOperateur && demarrage)
+                            {
+                                Thread.Sleep(1000);
+
+                                Application.DoEvents();
+
+                                lvOpe.Refresh();
+                            }
+
+                            if (demarrage)
+                            {
+                                Thread.Sleep(1000);
+
+                                capot = true;
+
+                                Application.DoEvents();
+
+                                ChangeOID1(13, 1);
+                                Thread.Sleep(m_iTempoImpulsion);
+                                ChangeOID1(13, 0);
+
+                                Thread.Sleep(m_iTempoOrigine);
+
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Angle : {0}", produit.positionangle.ToString())); }));
+
+                                int rotations = System.Convert.ToInt32(produit.positionangle);
+
+                                for (int i = 0; i < rotations; i++)
+                                {
+                                    ChangeOID1(12, 1);
+                                    Thread.Sleep(m_iTempoImpulsion);
+                                    ChangeOID1(12, 0);
+
+                                    Thread.Sleep(m_iTempo);
+
+                                    Application.DoEvents();
+                                }
+
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 1 OK"); }));
+
+                                Application.DoEvents();
+
+                                capot = false;
+
+                                Thread.Sleep(2000);
+
+                                start = true;
+                                decoupeencours = true;
+
+                                Application.DoEvents();
+
+                                if (goodConditions)
+                                {
+                                    Application.DoEvents();
+
+                                    ChangeOID1(16, 1);
+
+                                    lv = new ListViewItem("Impulsion départ");
+                                    lv.ForeColor = Color.Green;
+                                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                                    Thread.Sleep(1000);
+
+                                    ChangeOID1(16, 0);
+
+                                    lv = new ListViewItem("Fin impulsion départ");
+                                    lv.ForeColor = Color.Green;
+                                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                                    finProd = false;
+
+                                    label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+
+                                    lv = new ListViewItem("Découpe en cours");
+                                    lv.ForeColor = Color.Green;
+                                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Découpe en cours"; }));
+
+                                    Application.DoEvents();
+
+                                    timestart = DateTime.Now.Ticks;
+                                    timer3.Start();
+
+                                    button4.Invoke(new EventHandler(delegate { button4.Enabled = false; }));
+
+                                    while (!finProd)
+                                    {
+                                        Thread.Sleep(1000);
+                                        Application.DoEvents();
+
+                                        lvOpe.Refresh();
+                                    }
+
+                                    if (finProd)
+                                    {
+                                        label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+
+                                        timer3.Stop();
+
+                                        timer1.Enabled = false;
+
+                                        obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                                        qte = obj.restant -= 1;
+                                        if (obj != null) obj.restant = qte;
+
+                                        String toReplace = string.Empty;
+
+                                        foreach (Production p in production)
+                                        {
+                                            toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                                        }
+
+                                        string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                                        string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+
+                                        try
+                                        {
+                                            File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+
+                                            lblQte.Text = obj.restant.ToString();
+
+                                            boutonOperateur = false;
+                                            decoupeencours = false;
+
+                                            Thread.Sleep(1000);
+
+                                            checkBox3.Checked = false;
+                                            checkBox4.Checked = false;
+                                            finProd = true;
+
+                                            label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
+                                            label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
+
+                                            lv = new ListViewItem("Découpe terminée");
+                                            lv.ForeColor = Color.Green;
+                                            lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                                            lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Découpe terminée"; }));
+
+                                            Application.DoEvents();
+
+                                            ChangeOID1(13, 1);
+                                            Thread.Sleep(m_iTempoImpulsion);
+                                            ChangeOID1(13, 0);
+
+                                            Thread.Sleep(m_iTempoOrigine);
+
+                                            start = false;
+                                            timer1.Enabled = true;
+
+                                            button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+                                        }
+                                        catch
+                                        {
+                                            bool ok = false;
+
+                                            do
+                                            {
+                                                if (MessageBox.Show("Impossible de mettre à jour le fichier de production, veuillez fermer le fichier ou redémarrer l'application.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
+                                                {
+                                                    try
+                                                    {
+                                                        File.WriteAllText(pathClient, toReplace);
+
+                                                        lblQte.Text = obj.restant.ToString();
+
+                                                        ok = true;
+                                                    }
+                                                    catch
+                                                    {
+                                                        ok = false;
+                                                    }
+                                                }
+                                            }
+                                            while (ok == false);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    boutonOperateur = false;
+                                    finProd = true;
+                                    start = false;
+                                    demarrage = false;
+
+                                    break;
+                                }
+                            }
+                            else
+                                break;
+                        }
+
+                        if (qte == 0)
+                        {
+                            demarrage = false;
+
+                            comboBox1.Invoke(new EventHandler(delegate { comboBox1.SelectedIndex = 0; }));
+
+                            Thread.Sleep(1000);
+
+                            Application.DoEvents();
+
+                            lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Production terminée"; }));
+
+                            if (MessageBox.Show("Production terminée.", "Information", MessageBoxButtons.OK) == DialogResult.OK)
+                            {
+                                production.Remove(obj);
+
+                                string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                                string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+
+                                String toReplace = string.Empty;
+
+                                foreach (Production p in production)
+                                {
+                                    toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                                }
+
+                                File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+
+                                RazProd();
+
+                                RazInfos();
+
+                                LoadRef();
+
+                                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                                Application.DoEvents();
+                            }
+                        }
+                    }
+                    else
+                        MessageBox.Show("Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information");
                 }
             }
             else
             {
                 button1.Invoke(new EventHandler(delegate { button1.Enabled = false; }));
-                button2.Invoke(new EventHandler(delegate { button2.Enabled = false; }));
                 txtRefManuelle.Enabled = true;
                 button3.Enabled = true;
                 lblDiametre.Text = "";
@@ -666,7 +960,7 @@ namespace CUT_M
             timer2.Enabled = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void button2_Click(object sender, EventArgs e)
         {
             String _ref = comboBox1.Text;
 
@@ -675,9 +969,9 @@ namespace CUT_M
             if (produit != null)
             {
                 try
-                {                   
+                {
 
-                    demarrage = true;                    
+                    demarrage = true;
 
                 }
                 catch
@@ -720,7 +1014,7 @@ namespace CUT_M
                     var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
                     int qte = obj.restant;
 
-                    
+
                     comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = false; }));
                     button2.Invoke(new EventHandler(delegate { button2.Enabled = false; }));
                     label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
@@ -728,12 +1022,12 @@ namespace CUT_M
                     Application.DoEvents();
 
                     while (qte > 0)
-                    {        
+                    {
                         ListViewItem lv = new ListViewItem("En attente de départ cycle");
                         lv.ForeColor = Color.Green;
-                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));                        
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
 
-                        Application.DoEvents();                    
+                        Application.DoEvents();
 
                         while (!boutonOperateur && demarrage)
                         {
@@ -785,7 +1079,7 @@ namespace CUT_M
                         Application.DoEvents();
 
                         if (goodConditions)
-                        {       
+                        {
                             Application.DoEvents();
 
                             ChangeOID1(16, 1);
@@ -801,7 +1095,7 @@ namespace CUT_M
                             lv = new ListViewItem("Fin impulsion départ");
                             lv.ForeColor = Color.Green;
                             lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
-                            
+
                             finProd = false;
 
                             label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
@@ -871,7 +1165,7 @@ namespace CUT_M
                                     lv.ForeColor = Color.Green;
                                     lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
 
-                                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Découpe terminée"; }));                                    
+                                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Découpe terminée"; }));
 
                                     Application.DoEvents();
 
@@ -882,7 +1176,6 @@ namespace CUT_M
                                     Thread.Sleep(m_iTempoOrigine);
 
                                     start = false;
-                                    first = false;
                                     timer1.Enabled = true;
 
                                     button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
@@ -924,11 +1217,11 @@ namespace CUT_M
                         }
                     }
 
-                    if(qte == 0)
+                    if (qte == 0)
                     {
                         demarrage = false;
 
-                        comboBox1.Invoke(new EventHandler(delegate { comboBox1.SelectedIndex=0; }));
+                        comboBox1.Invoke(new EventHandler(delegate { comboBox1.SelectedIndex = 0; }));
 
                         Thread.Sleep(1000);
 
@@ -958,7 +1251,7 @@ namespace CUT_M
 
                             LoadRef();
 
-                            comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));                            
+                            comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
 
                             Application.DoEvents();
                         }
@@ -967,15 +1260,25 @@ namespace CUT_M
                 else
                     MessageBox.Show("Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information");
             }
-        }
+        }*/
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Etes vous sûr ?", "Information", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                demarrage = false;
+
+                Application.DoEvents();
+
                 RazProd();
 
                 RazInfos();
+
+                LoadRef();
+
+                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                Application.DoEvents();
 
                 button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
             }
@@ -1019,12 +1322,7 @@ namespace CUT_M
                 Message = "Positionner la pièce";
                 goodConditions = true;
             }
-            else if (!start && demarrage && !finProd && !decoupeencours && !capot && !boutonOperateur && first)
-            {
-                Message = "En attente de départ cycle";
-                goodConditions = true;
-            }
-            else if (!start && demarrage && !finProd && !decoupeencours && !capot && !boutonOperateur && !first)
+            else if (!start && demarrage && !finProd && !decoupeencours && !capot && !boutonOperateur)
             {
                 Message = "En attente chargement capot et départ cycle";
                 goodConditions = true;
@@ -1039,7 +1337,7 @@ namespace CUT_M
                 Message = "Découpe en cours";
                 goodConditions = true;
             }
-            else if (demarrage && finProd && !decoupeencours && !capot)
+            else if (laser && porte && demarrage && finProd && !decoupeencours && !capot)
             {
                 Message = "Découpe terminée";
                 goodConditions = true;
@@ -1072,12 +1370,11 @@ namespace CUT_M
             TimeSpan ts = TimeSpan.FromTicks(diff);
             double secondesFromTs = ts.TotalSeconds;
 
-            if(start && secondesFromTs > dureeWatchdog)
+            if (start && secondesFromTs > dureeWatchdog)
             {
                 RazProd();
                 MessageBox.Show("Temps de réponse dépassé, production interrompue", "Information");
 
-                button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
                 start = false;
                 demarrage = false;
                 boutonOperateur = false;
@@ -1128,7 +1425,7 @@ namespace CUT_M
                 lv.ForeColor = Color.Green;
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
             }
-             
+
             label38.Invoke(new EventHandler(delegate { label38.Text = laser.ToString(); }));
         }
 
@@ -1205,8 +1502,6 @@ namespace CUT_M
                 }
 
                 button1.Invoke(new EventHandler(delegate { button1.Enabled = true; }));
-                if (goodConditions)
-                    button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
             }
             else
                 MessageBox.Show("Référence inconnue");
@@ -1240,14 +1535,12 @@ namespace CUT_M
         {
             start = false;
             comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = true; }));
-            button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
             ListViewItem lv = new ListViewItem("Production terminée");
             lv.ForeColor = Color.Green;
             lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
             timer3.Stop();
             timer1.Stop();
 
-            button2.Invoke(new EventHandler(delegate { button2.Enabled = true; }));
             start = false;
             demarrage = false;
             boutonOperateur = false;
@@ -1255,11 +1548,27 @@ namespace CUT_M
             checkBox3.Checked = false;
             checkBox4.Checked = false;
             finProd = true;
+
+            ChangeOID1(12, 0);
+            ChangeOID1(13, 0);
+            ChangeOID1(14, 0);
+            ChangeOID1(15, 0);
+            ChangeOID1(16, 0);
+            ChangeOID1(17, 0);
+            ChangeOID1(18, 0);
+
+            ChangeOID2(12, 0);
+            ChangeOID2(13, 0);
+            ChangeOID2(14, 0);
+            ChangeOID2(15, 0);
+            ChangeOID2(16, 0);
+            ChangeOID2(17, 0);
+            ChangeOID2(18, 0);
         }
 
         private void RazInfos()
         {
-            comboBox1.Invoke(new EventHandler(delegate { comboBox1.SelectedIndex=0; }));            
+            comboBox1.Invoke(new EventHandler(delegate { comboBox1.SelectedIndex = 0; }));
         }
     }
 }
