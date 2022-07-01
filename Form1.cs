@@ -85,7 +85,7 @@ namespace CUT_M
             dureeWatchdog = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "dureeWatchdog"));
             m_iTempo = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoMoteur"));
             m_iTempoOrigine = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
-            m_iTempoImpulsion = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
+            m_iTempoImpulsion = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoImpulsion"));
             adamModbus1 = new AdamSocket();
             adamModbus1.SetTimeout(1000, 1000, 1000);
             adamModbus2 = new AdamSocket();
@@ -153,8 +153,8 @@ namespace CUT_M
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Timer 1 démarré"); }));
 
                 ChangeOID1(12, 0);
-                ChangeOID1(13, 1);
-                Thread.Sleep(m_iTempoImpulsion);
+                /*ChangeOID1(13, 1);
+                Thread.Sleep(m_iTempoImpulsion);*/
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
@@ -687,9 +687,14 @@ namespace CUT_M
 
                                 Application.DoEvents();
 
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Début origine"); }));
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Début impulsion"); }));
+
                                 ChangeOID1(13, 1);
                                 Thread.Sleep(m_iTempoImpulsion);
                                 ChangeOID1(13, 0);
+
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Fin impulsion"); }));
 
                                 Thread.Sleep(m_iTempoOrigine);
 
@@ -812,10 +817,6 @@ namespace CUT_M
 
                                             Application.DoEvents();
 
-                                            ChangeOID1(13, 1);
-                                            Thread.Sleep(m_iTempoImpulsion);
-                                            ChangeOID1(13, 0);
-
                                             Thread.Sleep(m_iTempoOrigine);
 
                                             start = false;
@@ -860,7 +861,19 @@ namespace CUT_M
                                 }
                             }
                             else
+                            {                                
+                                MessageBox.Show("Production interrompue.", "Information", MessageBoxButtons.OK);
+                                RazProd();
+
+                                RazInfos();
+
+                                LoadRef();
+
+                                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                                Application.DoEvents();
                                 break;
+                            }
                         }
 
                         if (qte == 0)
@@ -1319,7 +1332,7 @@ namespace CUT_M
             }
             else if (!start && !demarrage && !finProd && comboBox1.SelectedIndex > 0)
             {
-                Message = "Positionner la pièce";
+                Message = "En attente chargement capot et départ cycle";
                 goodConditions = true;
             }
             else if (!start && demarrage && !finProd && !decoupeencours && !capot && !boutonOperateur)
