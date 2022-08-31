@@ -907,12 +907,24 @@ namespace CUT_M
 
                                 String toReplace = string.Empty;
 
-                                foreach (Production p in production)
+                                if (production.Count() > 0)
                                 {
-                                    toReplace += p.reference + ";" + p.restant + Environment.NewLine;
-                                }
+                                    foreach (Production p in production)
+                                    {
+                                        toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                                    }
 
-                                File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+                                    File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+                                }
+                                else
+                                {
+                                    Thread.Sleep(1000);
+
+                                    GC.Collect();
+                                    GC.WaitForPendingFinalizers();
+                                    FileInfo f = new FileInfo(Path.Combine(pathClient, fileClient));
+                                    f.Delete();
+                                }
 
                                 RazProd();
 
