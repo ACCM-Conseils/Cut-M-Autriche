@@ -498,68 +498,21 @@ namespace CUT_M
                         parser.SetDelimiters(";");
                         while (!parser.EndOfData)
                         {
-                            //Processing row
-                            string[] fields = parser.ReadFields();
-                            produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3], etage = System.Convert.ToInt32(fields[4]) });
+                            try
+                            {
+                                //Processing row
+                                string[] fields = parser.ReadFields();
+                                produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3], etage = System.Convert.ToInt32(fields[4]) });
+                            }
+                            catch
+                            { }
                         }
                     }
                     return true;
                 }
                 else
                 {
-                    bool ok = false;
-
-                    do
-                    {
-                        if (MessageBox.Show("Impossible de localiser le fichier Client.csv, veuillez en créer un et recommencer.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
-                        {
-                            if (File.Exists(Path.Combine(pathClient, fileClient)))
-                            {
-                                using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathClient, fileClient)))
-                                {
-                                    production = new List<Production>();
-                                    parser.TextFieldType = FieldType.Delimited;
-                                    parser.SetDelimiters(";");
-                                    while (!parser.EndOfData)
-                                    {
-                                        //Processing row
-                                        string[] fields = parser.ReadFields();
-                                        table1.Rows.Add(fields[0], System.Convert.ToInt32(fields[1]));
-                                        production.Add(new Production() { reference = fields[0], restant = System.Convert.ToInt32(fields[1]) });
-                                    }
-
-                                    DataRow row = table1.NewRow();
-                                    row[0] = "Choisissez une référence";
-                                    row[1] = 0;
-                                    table1.Rows.InsertAt(row, 0);
-
-                                    comboBox1.DataSource = table1;
-                                    comboBox1.DisplayMember = "reference";
-
-
-                                }
-
-                                string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "DossierRef");
-                                string fileProduit = ut_xml.ValueXML(@".\CUT-M.xml", "FichierRef");
-
-                                using (TextFieldParser parser = new TextFieldParser(Path.Combine(pathProduit, fileProduit)))
-                                {
-                                    parser.TextFieldType = FieldType.Delimited;
-                                    parser.SetDelimiters(";");
-                                    while (!parser.EndOfData)
-                                    {
-                                        //Processing row
-                                        string[] fields = parser.ReadFields();
-                                        produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3], etage = System.Convert.ToInt32(fields[4]) });
-                                    }
-                                }
-
-                                return true;
-                            }
-                        }
-                    }
-                    while (ok == false);
-
+                    MessageBox.Show("Impossible de localiser le fichier Client.csv, veuillez en créer un et relancer le programme.", "Information", MessageBoxButtons.OK);
                     return false;
                 }
 
