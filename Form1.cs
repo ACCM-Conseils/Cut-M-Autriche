@@ -512,14 +512,12 @@ namespace CUT_M
                 }
                 else
                 {
-                    MessageBox.Show("Impossible de localiser le fichier Client.csv, veuillez en créer un et relancer le programme.", "Information", MessageBoxButtons.OK);
                     return false;
                 }
 
             }
             catch (Exception e)
             {
-                MessageBox.Show("Impossible de lire le fichier de production");
                 return false;
             }
         }
@@ -646,6 +644,8 @@ namespace CUT_M
                             {
                                 Thread.Sleep(1000);
 
+                                lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = true; }));
+
                                 capot = true;
 
                                 Application.DoEvents();
@@ -734,6 +734,9 @@ namespace CUT_M
 
                                     if (finProd)
                                     {
+
+                                        lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
+
                                         label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
 
                                         timer3.Stop();
@@ -883,9 +886,14 @@ namespace CUT_M
 
                                 RazInfos();
 
-                                LoadRef();
-
-                                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+                                if (LoadRef())
+                                {
+                                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+                                }
+                                else
+                                {
+                                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Items.Clear(); comboBox1.Refresh(); }));
+                                }
 
                                 Application.DoEvents();
                             }
@@ -1217,6 +1225,14 @@ namespace CUT_M
                 ChangeOID2(18, 0);
 
                 this.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(LoadRef())
+            {
+                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
             }
         }
 

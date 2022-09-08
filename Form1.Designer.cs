@@ -127,6 +127,8 @@ namespace CUT_M
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.lblCapot = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -946,6 +948,7 @@ namespace CUT_M
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblCapot);
             this.groupBox2.Controls.Add(this.lblInfo);
             this.groupBox2.Location = new System.Drawing.Point(22, 755);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1061,6 +1064,7 @@ namespace CUT_M
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.groupBox6);
@@ -1105,6 +1109,30 @@ namespace CUT_M
             this.button4.Text = "Quitter";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(759, 335);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 45);
+            this.button2.TabIndex = 49;
+            this.button2.Text = "MAJ";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // lblCapot
+            // 
+            this.lblCapot.AutoSize = true;
+            this.lblCapot.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCapot.ForeColor = System.Drawing.Color.Red;
+            this.lblCapot.Location = new System.Drawing.Point(19, 142);
+            this.lblCapot.Name = "lblCapot";
+            this.lblCapot.Size = new System.Drawing.Size(500, 56);
+            this.lblCapot.TabIndex = 1;
+            this.lblCapot.Text = "Ne pas ouvrir la porte ";
+            this.lblCapot.Visible = false;
             // 
             // Form1
             // 
@@ -1242,6 +1270,8 @@ namespace CUT_M
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lblCapot;
     }
 }
 
