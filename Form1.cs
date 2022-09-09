@@ -81,6 +81,8 @@ namespace CUT_M
             //startInfo.Arguments = "header.h";
             Process.Start(startInfo);
 
+            Thread.Sleep(20000);
+
             m_bStart = false;			// the action stops at the beginning
             m_szIP1 = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam1");	// modbus slave IP address for Adam1
             m_iPort1 = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "PortAdam1"));				// modbus TCP port for Adam1
@@ -149,7 +151,7 @@ namespace CUT_M
                 else
                     MessageBox.Show("GetWDTMask() failed;");
 
-                this.timer1.Interval = 500;
+                this.timer1.Interval = 300;
                 this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 
                 timer1.Start();
@@ -177,7 +179,7 @@ namespace CUT_M
                 lv.ForeColor = Color.Red;
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
 
-                this.timer1.Interval = 500;
+                this.timer1.Interval = 300;
                 this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 
                 timer1.Start();
@@ -234,7 +236,7 @@ namespace CUT_M
                 else
                     MessageBox.Show("GetWDTMask() failed;");
 
-                this.timer2.Interval = 500;
+                this.timer2.Interval = 300;
                 this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
                 timer2.Start();
 
@@ -261,7 +263,7 @@ namespace CUT_M
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
             }
 
-            this.timer3.Interval = 500;
+            this.timer3.Interval = 300;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
         }
 
@@ -512,6 +514,18 @@ namespace CUT_M
                 }
                 else
                 {
+                    table1 = new DataTable("references");
+                    table1.Columns.Add("reference");
+                    table1.Columns.Add("quantite");
+
+                    DataRow row = table1.NewRow();
+                    row[0] = "Aucune référence disponible";
+                    row[1] = 0;
+                    table1.Rows.InsertAt(row, 0);
+
+                    comboBox1.DataSource = table1;
+                    comboBox1.DisplayMember = "reference";
+
                     return false;
                 }
 
@@ -542,8 +556,7 @@ namespace CUT_M
                     lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Selection référénce : {0}", comboBox1.Text)); }));
 
                     ChangeOID1(16, 0);
-                    txtRefManuelle.Enabled = false;
-                    button3.Enabled = false;
+
                     lblInfo.Text = "";
 
                     Production prod = production.FirstOrDefault(m => m.reference == _ref);
@@ -720,6 +733,7 @@ namespace CUT_M
                                     Application.DoEvents();
 
                                     timestart = DateTime.Now.Ticks;
+                                    timer3.Enabled = true;
                                     timer3.Start();
 
                                     button4.Invoke(new EventHandler(delegate { button4.Enabled = false; }));
@@ -740,6 +754,7 @@ namespace CUT_M
                                         label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
 
                                         timer3.Stop();
+                                        timer3.Enabled = false;
 
                                         timer1.Enabled = false;
 
@@ -790,8 +805,10 @@ namespace CUT_M
 
                                             button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
                                         }
-                                        catch
+                                        catch(Exception ex)
                                         {
+                                            lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Erreur : " + ex.Message); }));
+
                                             bool ok = false;
 
                                             do
@@ -886,14 +903,9 @@ namespace CUT_M
 
                                 RazInfos();
 
-                                if (LoadRef())
-                                {
-                                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
-                                }
-                                else
-                                {
-                                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Items.Clear(); comboBox1.Refresh(); }));
-                                }
+                                LoadRef();
+
+                                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
 
                                 Application.DoEvents();
                             }
@@ -906,8 +918,7 @@ namespace CUT_M
             else
             {
                 button1.Invoke(new EventHandler(delegate { button1.Enabled = false; }));
-                txtRefManuelle.Enabled = true;
-                button3.Enabled = true;
+
                 lblDiametre.Text = "";
                 lblEtage.Text = "";
                 lblQte.Text = "";
@@ -969,6 +980,8 @@ namespace CUT_M
                 RazInfos();
 
                 LoadRef();
+
+                lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
 
                 comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
 
@@ -1064,7 +1077,7 @@ namespace CUT_M
             TimeSpan ts = TimeSpan.FromTicks(diff);
             double secondesFromTs = ts.TotalSeconds;
 
-            if (start && secondesFromTs > dureeWatchdog)
+            if (timer3.Enabled && (secondesFromTs > dureeWatchdog))
             {
                 finProd = true;
                 start = false;
@@ -1077,7 +1090,9 @@ namespace CUT_M
 
                 RazProd();
                 MessageBox.Show("Temps de réponse dépassé, production interrompue", "Information");
-                
+
+                lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
+
                 timestart = DateTime.Now.Ticks;
             }
         }
@@ -1159,49 +1174,6 @@ namespace CUT_M
             }
 
             label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            String _ref = txtRefManuelle.Text;
-
-            Produit produit = produits.FirstOrDefault(m => m.reference == _ref);
-
-            if (produit != null)
-            {
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Selection référénce : {0}", comboBox1.Text)); }));
-
-                ChangeOID1(16, 0);
-                txtRefManuelle.Enabled = false;
-                lblInfo.Text = "";
-
-                Production prod = production.FirstOrDefault(m => m.reference == _ref);
-
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Diametre : {0}", produit.diametre.ToString())); }));
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Etage : {0}", produit.etage.ToString())); }));
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Qte : {0}", prod.restant.ToString())); }));
-
-                lblDiametre.Text = produit.diametre.ToString();
-                lblEtage.Text = produit.etage.ToString();
-                lblQte.Text = prod.restant.ToString();
-
-                if (goodConditions)
-                    lblInfo.Text = "Positionner la pièce";
-                else
-                {
-                    string Message = "";
-                    if (!porte)
-                        Message += "Fermer la porte" + Environment.NewLine;
-                    if (!laser)
-                        Message += "Ouvrir le shutter" + Environment.NewLine;
-
-                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
-                }
-
-                button1.Invoke(new EventHandler(delegate { button1.Enabled = true; }));
-            }
-            else
-                MessageBox.Show("Référence inconnue");
         }
 
         private void button4_Click(object sender, EventArgs e)
