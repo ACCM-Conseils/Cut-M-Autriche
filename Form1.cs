@@ -56,11 +56,11 @@ namespace CUT_M
 
             if (warn.ShowDialog() == DialogResult.OK)
             {
-                //InitCutM();
+                InitCutM();
 
                 Application.DoEvents();
 
-                //LoadRef();
+                LoadRef();
 
                 Application.DoEvents();
             }
