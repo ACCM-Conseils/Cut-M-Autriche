@@ -56,11 +56,11 @@ namespace CUT_M
 
             if (warn.ShowDialog() == DialogResult.OK)
             {
-                InitCutM();
+                //InitCutM();
 
                 Application.DoEvents();
 
-                LoadRef();
+                //LoadRef();
 
                 Application.DoEvents();
             }
@@ -1206,6 +1206,13 @@ namespace CUT_M
             {
                 comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.TopMost = true;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void RazProd()
