@@ -189,7 +189,7 @@ namespace CUT_M
             {
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Connecté au module Adam 2"); }));
 
-                lblEtat2.Text = "Connecté aux modules ADAM 2";
+                lblEtat2.Text = "Connecté au modules ADAM 2";
                 lblEtat2.ForeColor = Color.Green;
 
                 int iDI = 0, iDO = 0;
