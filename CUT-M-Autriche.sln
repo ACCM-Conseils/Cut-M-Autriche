@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUT-M", "CUT-M.csproj", "{2E9AC70E-D569-4781-B5F0-03D8B1170D17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUT-M-Autriche", "CUT-M-Autriche.csproj", "{5B36DB6D-BD08-498E-A0B1-0014FA1D1119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2E9AC70E-D569-4781-B5F0-03D8B1170D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E9AC70E-D569-4781-B5F0-03D8B1170D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E9AC70E-D569-4781-B5F0-03D8B1170D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E9AC70E-D569-4781-B5F0-03D8B1170D17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B36DB6D-BD08-498E-A0B1-0014FA1D1119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B36DB6D-BD08-498E-A0B1-0014FA1D1119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B36DB6D-BD08-498E-A0B1-0014FA1D1119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B36DB6D-BD08-498E-A0B1-0014FA1D1119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
