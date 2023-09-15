@@ -241,14 +241,6 @@ namespace CUT_M
 
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Timer 2 démarré"); }));
 
-                ChangeOID2(12, 0);
-                ChangeOID2(13, 0);
-                ChangeOID2(14, 0);
-                ChangeOID2(15, 0);
-                ChangeOID2(16, 0);
-                ChangeOID2(17, 0);
-                ChangeOID2(18, 0);
-
                 RefreshDIO2();
 
             }
@@ -358,14 +350,14 @@ namespace CUT_M
                 label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
                 label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));                
 
-                txtDO0.Text = bData1[12].ToString();
-                txtDO1.Text = bData1[13].ToString();
-                txtDO2.Text = bData1[14].ToString();
-                txtDO3.Text = bData1[15].ToString();
-                txtDO4.Text = bData1[16].ToString();
-                txtDO5.Text = bData1[17].ToString();
-                txtDO6.Text = bData1[18].ToString();
-                txtDO7.Text = bData1[19].ToString();
+                txtDO0.Text = bData1[9].ToString();
+                txtDO1.Text = bData1[10].ToString();
+                txtDO2.Text = bData1[11].ToString();
+                txtDO3.Text = bData1[12].ToString();
+                txtDO4.Text = bData1[13].ToString();
+                txtDO5.Text = bData1[14].ToString();
+                txtDO6.Text = bData1[15].ToString();
+                txtDO7.Text = bData1[16].ToString();
 
                 txtDI0.Text = bData1[0].ToString();
                 txtDI1.Text = bData1[1].ToString();
@@ -453,16 +445,17 @@ namespace CUT_M
                 Array.Copy(bDiData, 0, bData2, 0, m_iDiTotal2);
                 Array.Copy(bDoData, 0, bData2, m_iDiTotal2, m_iDoTotal2);
 
-                txt1DO0.Text = bData2[12].ToString();
-                txt1DO1.Text = bData2[13].ToString();
-                txt1DO3.Text = bData2[14].ToString();
-                txt1DO4.Text = bData2[15].ToString();
-                txt1DO5.Text = bData2[16].ToString();
-                txt1DO6.Text = bData2[17].ToString();
-                txt1DO7.Text = bData2[18].ToString();
-                txt1DO8.Text = bData2[19].ToString();
-                txt1DO9.Text = bData2[20].ToString();
-                txt1DO10.Text = bData2[21].ToString();
+                txt1DO0.Text = bData2[0].ToString();
+                txt1DO1.Text = bData2[1].ToString();
+                txt1DO2.Text = bData2[2].ToString();
+                txt1DO3.Text = bData2[3].ToString();
+                txt1DO4.Text = bData2[4].ToString();
+                txt1DO5.Text = bData2[5].ToString();
+                txt1DO6.Text = bData2[6].ToString();
+                txt1DO7.Text = bData2[7].ToString();
+                txt1DO8.Text = bData2[8].ToString();
+                txt1DO9.Text = bData2[9].ToString();
+                txt1DO10.Text = bData2[10].ToString();
             }
         }
 
@@ -550,12 +543,17 @@ namespace CUT_M
         {
             if (comboBox1.SelectedIndex > 0)
             {
-                ChangeOID2(12, 0);
-                ChangeOID2(13, 0);
-                ChangeOID2(14, 0);
-                ChangeOID2(15, 0);
-                ChangeOID2(16, 0);
-                ChangeOID2(17, 0);
+                ChangeOID2(0, 0);
+                ChangeOID2(1, 0);
+                ChangeOID2(2, 0);
+                ChangeOID2(3, 0);
+                ChangeOID2(4, 0);
+                ChangeOID2(5, 0);
+                ChangeOID2(6, 0);
+                ChangeOID2(7, 0);
+                ChangeOID2(8, 0);
+                ChangeOID2(9, 0);
+                ChangeOID2(10, 0);
 
                 String _ref = comboBox1.Text;
 
@@ -617,14 +615,17 @@ namespace CUT_M
                         int DO0_3 = int.Parse(produit.masque[2].ToString());
                         int DO0_4 = int.Parse(produit.masque[3].ToString());
                         int DO0_5 = int.Parse(produit.masque[4].ToString());
+                        int DO0_6 = int.Parse(produit.masque[5].ToString());
 
-                        ChangeOID2(12, DO0_5);
-                        ChangeOID2(13, DO0_4);
-                        ChangeOID2(14, DO0_3);
-                        ChangeOID2(15, DO0_2);
-                        ChangeOID2(16, DO0_1);
+                        ChangeOID2(1, DO0_6);
+                        ChangeOID2(2, DO0_5);
+                        ChangeOID2(3, DO0_4);
+                        ChangeOID2(4, DO0_3);
+                        ChangeOID2(5, DO0_2);
+                        ChangeOID2(6, DO0_1);
+
                         Thread.Sleep(1000);
-                        ChangeOID2(17, 1);
+                        ChangeOID2(7, 1);
 
                         lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 2 OK"); }));
                     }
@@ -1190,21 +1191,14 @@ namespace CUT_M
         {
             if (MessageBox.Show("Fermer le programme ?", "Information", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                ChangeOID1(8, 0);
+                ChangeOID1(9, 0);
+                ChangeOID1(10, 0);
+                ChangeOID1(11, 0);
                 ChangeOID1(12, 0);
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
-                ChangeOID1(15, 0);
-                ChangeOID1(16, 0);
-                ChangeOID1(17, 0);
-                ChangeOID1(18, 0);
-
-                ChangeOID2(12, 0);
-                ChangeOID2(13, 0);
-                ChangeOID2(14, 0);
-                ChangeOID2(15, 0);
-                ChangeOID2(16, 0);
-                ChangeOID2(17, 0);
-                ChangeOID2(18, 0);
+                ChangeOID1(15, 0)
 
                 this.Close();
             }
@@ -1243,21 +1237,14 @@ namespace CUT_M
             checkBox4.Checked = false;
             finProd = true;
 
+            ChangeOID1(8, 0);
+            ChangeOID1(9, 0);
+            ChangeOID1(10, 0);
+            ChangeOID1(11, 0);
             ChangeOID1(12, 0);
             ChangeOID1(13, 0);
             ChangeOID1(14, 0);
             ChangeOID1(15, 0);
-            ChangeOID1(16, 0);
-            ChangeOID1(17, 0);
-            ChangeOID1(18, 0);
-
-            ChangeOID2(12, 0);
-            ChangeOID2(13, 0);
-            ChangeOID2(14, 0);
-            ChangeOID2(15, 0);
-            ChangeOID2(16, 0);
-            ChangeOID2(17, 0);
-            ChangeOID2(18, 0);
         }
 
         private void RazInfos()
