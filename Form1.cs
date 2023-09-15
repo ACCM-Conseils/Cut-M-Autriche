@@ -36,6 +36,7 @@ namespace CUT_M
         private static bool boutonOperateur = false;
         private static bool decoupeencours = false;
         private static bool capot = false;
+        private static bool pedale = false;
         private static bool finProd = true;
         private static bool porte = false;
         private static bool laser = false;
@@ -159,8 +160,6 @@ namespace CUT_M
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Timer 1 démarré"); }));
 
                 ChangeOID1(12, 0);
-                /*ChangeOID1(13, 1);
-                Thread.Sleep(m_iTempoImpulsion);*/
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
@@ -349,6 +348,13 @@ namespace CUT_M
                 {
                     finProd = false;
                 }
+                if (!bData1[4])
+                {
+                    pedale = false;
+                }
+                else
+                    pedale = true;
+
                 label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
                 label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));                
 
@@ -357,12 +363,17 @@ namespace CUT_M
                 txtDO2.Text = bData1[14].ToString();
                 txtDO3.Text = bData1[15].ToString();
                 txtDO4.Text = bData1[16].ToString();
+                txtDO5.Text = bData1[17].ToString();
+                txtDO6.Text = bData1[18].ToString();
+                txtDO7.Text = bData1[19].ToString();
 
                 txtDI0.Text = bData1[0].ToString();
                 txtDI1.Text = bData1[1].ToString();
                 txtDI2.Text = bData1[2].ToString();
                 txtDI3.Text = bData1[3].ToString();
                 txtDI4.Text = bData1[4].ToString();
+                txtDI5.Text = bData1[5].ToString();
+                txtDI6.Text = bData1[6].ToString();
 
                 if (porte)
                 {
@@ -444,15 +455,14 @@ namespace CUT_M
 
                 txt1DO0.Text = bData2[12].ToString();
                 txt1DO1.Text = bData2[13].ToString();
-                txt1DO2.Text = bData2[14].ToString();
-                txt1DO3.Text = bData2[15].ToString();
-                txt1DO4.Text = bData2[16].ToString();
-
-                txt1DI0.Text = bData2[0].ToString();
-                txt1DI1.Text = bData2[1].ToString();
-                txt1DI2.Text = bData2[2].ToString();
-                txt1DI3.Text = bData2[3].ToString();
-                txt1DI4.Text = bData2[4].ToString();
+                txt1DO3.Text = bData2[14].ToString();
+                txt1DO4.Text = bData2[15].ToString();
+                txt1DO5.Text = bData2[16].ToString();
+                txt1DO6.Text = bData2[17].ToString();
+                txt1DO7.Text = bData2[18].ToString();
+                txt1DO8.Text = bData2[19].ToString();
+                txt1DO9.Text = bData2[20].ToString();
+                txt1DO10.Text = bData2[21].ToString();
             }
         }
 
