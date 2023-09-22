@@ -132,6 +132,12 @@
   <data name="Consigne" xml:space="preserve">
     <value>Ich habe die folgenden Anweisungen gelesen</value>
   </data>
+  <data name="InitAdam1" xml:space="preserve">
+    <value>Initialisierung Adam 1 Modul OK</value>
+  </data>
+  <data name="InitAdam2" xml:space="preserve">
+    <value>Initialisierung Adam 2 Modul OK</value>
+  </data>
   <data name="lblInfos" xml:space="preserve">
     <value>Nachrichten</value>
   </data>

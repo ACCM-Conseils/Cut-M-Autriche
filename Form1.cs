@@ -54,6 +54,8 @@ namespace CUT_M
         private static string ChoixRef = string.Empty;
         private static string ConnectAdam1 = string.Empty;
         private static string ConnectAdam2 = string.Empty;
+        private static string InitAdam1 = string.Empty;
+        private static string InitAdam2 = string.Empty;
 
         //Variables debug
         private static bool forcePorte = false;
@@ -117,6 +119,8 @@ namespace CUT_M
 
             ConnectAdam1 = res_man.GetString("ConnectAdam1");
             ConnectAdam2 = res_man.GetString("ConnectAdam2");
+            InitAdam1 = res_man.GetString("InitAdam1");
+            InitAdam2 = res_man.GetString("InitAdam2");
         }
 
         private void InitCutM()
@@ -170,7 +174,7 @@ namespace CUT_M
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
 
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 1 OK"); }));
+                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, InitAdam1); }));
 
                 m_iDoTotal1 = iDO;
                 m_iDiTotal1 = iDI;
@@ -252,7 +256,7 @@ namespace CUT_M
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
 
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 2 OK"); }));
+                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, InitAdam2); }));
 
                 m_iDoTotal2 = iDO;
                 m_iDiTotal2 = iDI;

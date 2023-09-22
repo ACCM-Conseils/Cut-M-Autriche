@@ -106,6 +106,24 @@ namespace CUT_M {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Initialisierung Adam 1 Modul OK.
+        /// </summary>
+        internal static string InitAdam1 {
+            get {
+                return ResourceManager.GetString("InitAdam1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Initialisierung Adam 2 Modul OK.
+        /// </summary>
+        internal static string InitAdam2 {
+            get {
+                return ResourceManager.GetString("InitAdam2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nachrichten.
         /// </summary>
         internal static string lblInfos {
