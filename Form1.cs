@@ -4,9 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +50,12 @@ namespace CUT_M
         private static long timestart = 0;
         private static long dureeWatchdog = 0;
 
-        //Variablesdebug
+        //Traductions
+        private static string ChoixRef = string.Empty;
+        private static string ConnectAdam1 = string.Empty;
+        private static string ConnectAdam2 = string.Empty;
+
+        //Variables debug
         private static bool forcePorte = false;
         private static bool forceDepart = false;
         private static bool forceShutter = false;
@@ -56,6 +64,8 @@ namespace CUT_M
         private static List<Production> production = new List<Production>();
         public Form1()
         {
+            CultureInfo ci = new CultureInfo ("de"); Thread.CurrentThread.CurrentCulture = ci; Thread.CurrentThread.CurrentUICulture = ci; 
+
             InitializeComponent();
 
             Warning warn = new Warning();
@@ -64,18 +74,49 @@ namespace CUT_M
 
             if (warn.ShowDialog() == DialogResult.OK)
             {
-                InitCutM();
+                InitLang();
 
-                Application.DoEvents();
+                try
+                {
+                    InitCutM();
 
-                LoadRef();
+                    Application.DoEvents();
 
-                Application.DoEvents();
+                    LoadRef();
 
-                InitLaser();
+                    Application.DoEvents();
+
+                    InitLaser();
+                }
+                catch
+                {
+
+                }
             }
             else
                 this.Close();
+        }
+        private void InitLang()
+        {
+            ResourceManager res_man = new ResourceManager("CUT_M.Lang_" + System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, Assembly.GetExecutingAssembly());
+
+            lblRef.Text = res_man.GetString("lblRef");
+            lblInfos.Text = res_man.GetString("lblInfos");
+            lblProd.Text = res_man.GetString("lblProd");
+            btAnnule.Text = res_man.GetString("btAnnule");
+            lblTitreDiametre.Text = res_man.GetString("lblTitreDiametre");
+            lblTitreQte.Text = res_man.GetString("lblTitreQte");
+            lblTitreQte.Text = res_man.GetString("lblTitreQte");
+            lblTitreEtat.Text = res_man.GetString("lblTitreEtat");
+            lblTitreEtage.Text = res_man.GetString("lblTitreEtage");
+            lbltitrePorte.Text = res_man.GetString("lbltitrePorte");
+            lbltitreLaser.Text = res_man.GetString("lbltitreLaser");
+
+            ChoixRef = res_man.GetString("ChoixRef");
+            lblInfo.Text = ChoixRef;
+
+            ConnectAdam1 = res_man.GetString("ConnectAdam1");
+            ConnectAdam2 = res_man.GetString("ConnectAdam2");
         }
 
         private void InitCutM()
@@ -105,9 +146,9 @@ namespace CUT_M
 
             if (adamModbus1.Connect(m_szIP1, ProtocolType.Tcp, m_iPort1))
             {
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Connecté au module Adam 1"); }));
+                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, ConnectAdam1); }));
 
-                lblEtat.Text = "Connecté aux modules ADAM 1";
+                lblEtat.Text = ConnectAdam1;
                 lblEtat.ForeColor = Color.Green;
 
                 int iDI = 0, iDO = 0;
@@ -187,9 +228,9 @@ namespace CUT_M
 
             if (adamModbus2.Connect(m_szIP2, ProtocolType.Tcp, m_iPort2))
             {
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Connecté au module Adam 2"); }));
+                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, ConnectAdam2); }));
 
-                lblEtat2.Text = "Connecté au modules ADAM 2";
+                lblEtat2.Text = ConnectAdam2;
                 lblEtat2.ForeColor = Color.Green;
 
                 int iDI = 0, iDO = 0;
@@ -1066,12 +1107,12 @@ namespace CUT_M
             }
             else
             {
-                button1.Invoke(new EventHandler(delegate { button1.Enabled = false; }));
+                btAnnule.Invoke(new EventHandler(delegate { btAnnule.Enabled = false; }));
 
                 lblDiametre.Text = "";
                 lblEtage.Text = "";
                 lblQte.Text = "";
-                lblInfo.Text = "Choisir ou saisir une référence";
+                lblInfo.Text = ChoixRef;
             }
 
         }

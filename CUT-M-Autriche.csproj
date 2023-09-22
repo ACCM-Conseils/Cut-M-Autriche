@@ -69,6 +69,21 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lang_de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lang_de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Lang_en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lang_en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Lang_fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lang_fr.resx</DependentUpon>
+    </Compile>
     <Compile Include="Production.cs" />
     <Compile Include="Produit.cs" />
     <Compile Include="Program.cs" />
@@ -82,6 +97,18 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang_de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang_de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang_en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang_en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang_fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang_fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

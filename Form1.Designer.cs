@@ -61,30 +61,31 @@ namespace CUT_M
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblProd = new System.Windows.Forms.GroupBox();
             this.lblEtage = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblTitreEtage = new System.Windows.Forms.Label();
             this.lblQte = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblTitreQte = new System.Windows.Forms.Label();
             this.lblDiametre = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblTitreDiametre = new System.Windows.Forms.Label();
+            this.lblRef = new System.Windows.Forms.Label();
+            this.btAnnule = new System.Windows.Forms.Button();
+            this.lblInfos = new System.Windows.Forms.GroupBox();
             this.lblCapot = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lblTitreEtat = new System.Windows.Forms.GroupBox();
             this.lblLaser = new System.Windows.Forms.Label();
             this.lblPorte = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.lbltitreLaser = new System.Windows.Forms.Label();
+            this.lbltitrePorte = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
             this.label65 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtDI6 = new System.Windows.Forms.TextBox();
@@ -141,13 +142,11 @@ namespace CUT_M
             this.txt1DO0 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox5.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this.lblProd.SuspendLayout();
+            this.lblInfos.SuspendLayout();
+            this.lblTitreEtat.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -458,20 +457,20 @@ namespace CUT_M
             this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // groupBox1
+            // lblProd
             // 
-            this.groupBox1.Controls.Add(this.lblEtage);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.lblQte);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.lblDiametre);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(752, 211);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(410, 488);
-            this.groupBox1.TabIndex = 36;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Production en cours";
+            this.lblProd.Controls.Add(this.lblEtage);
+            this.lblProd.Controls.Add(this.lblTitreEtage);
+            this.lblProd.Controls.Add(this.lblQte);
+            this.lblProd.Controls.Add(this.lblTitreQte);
+            this.lblProd.Controls.Add(this.lblDiametre);
+            this.lblProd.Controls.Add(this.lblTitreDiametre);
+            this.lblProd.Location = new System.Drawing.Point(752, 211);
+            this.lblProd.Name = "lblProd";
+            this.lblProd.Size = new System.Drawing.Size(410, 488);
+            this.lblProd.TabIndex = 36;
+            this.lblProd.TabStop = false;
+            this.lblProd.Text = "lblProd";
             // 
             // lblEtage
             // 
@@ -480,18 +479,19 @@ namespace CUT_M
             this.lblEtage.Location = new System.Drawing.Point(30, 326);
             this.lblEtage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEtage.Name = "lblEtage";
-            this.lblEtage.Size = new System.Drawing.Size(0, 33);
+            this.lblEtage.Size = new System.Drawing.Size(47, 33);
             this.lblEtage.TabIndex = 5;
+            this.lblEtage.Text = "__";
             // 
-            // label9
+            // lblTitreEtage
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(32, 272);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(131, 20);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "N° étage mandrin";
+            this.lblTitreEtage.AutoSize = true;
+            this.lblTitreEtage.Location = new System.Drawing.Point(32, 272);
+            this.lblTitreEtage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitreEtage.Name = "lblTitreEtage";
+            this.lblTitreEtage.Size = new System.Drawing.Size(98, 20);
+            this.lblTitreEtage.TabIndex = 4;
+            this.lblTitreEtage.Text = "lblTitreEtage";
             // 
             // lblQte
             // 
@@ -500,18 +500,19 @@ namespace CUT_M
             this.lblQte.Location = new System.Drawing.Point(30, 206);
             this.lblQte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblQte.Name = "lblQte";
-            this.lblQte.Size = new System.Drawing.Size(0, 33);
+            this.lblQte.Size = new System.Drawing.Size(47, 33);
             this.lblQte.TabIndex = 3;
+            this.lblQte.Text = "__";
             // 
-            // label7
+            // lblTitreQte
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(32, 160);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(133, 20);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Quantité restante";
+            this.lblTitreQte.AutoSize = true;
+            this.lblTitreQte.Location = new System.Drawing.Point(32, 160);
+            this.lblTitreQte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitreQte.Name = "lblTitreQte";
+            this.lblTitreQte.Size = new System.Drawing.Size(81, 20);
+            this.lblTitreQte.TabIndex = 2;
+            this.lblTitreQte.Text = "lblTitreQte";
             // 
             // lblDiametre
             // 
@@ -520,56 +521,57 @@ namespace CUT_M
             this.lblDiametre.Location = new System.Drawing.Point(30, 100);
             this.lblDiametre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDiametre.Name = "lblDiametre";
-            this.lblDiametre.Size = new System.Drawing.Size(0, 33);
+            this.lblDiametre.Size = new System.Drawing.Size(47, 33);
             this.lblDiametre.TabIndex = 1;
+            this.lblDiametre.Text = "__";
             // 
-            // label4
+            // lblTitreDiametre
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 62);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 20);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Diamètre";
+            this.lblTitreDiametre.AutoSize = true;
+            this.lblTitreDiametre.Location = new System.Drawing.Point(32, 62);
+            this.lblTitreDiametre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitreDiametre.Name = "lblTitreDiametre";
+            this.lblTitreDiametre.Size = new System.Drawing.Size(120, 20);
+            this.lblTitreDiametre.TabIndex = 0;
+            this.lblTitreDiametre.Text = "lblTitreDiametre";
             // 
-            // label3
+            // lblRef
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(62, 311);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(205, 20);
-            this.label3.TabIndex = 38;
-            this.label3.Text = "Référence à partir du fichier";
+            this.lblRef.AutoSize = true;
+            this.lblRef.Location = new System.Drawing.Point(62, 311);
+            this.lblRef.Name = "lblRef";
+            this.lblRef.Size = new System.Drawing.Size(43, 20);
+            this.lblRef.TabIndex = 38;
+            this.lblRef.Text = "lblref";
             // 
-            // button1
+            // btAnnule
             // 
-            this.button1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button1.Enabled = false;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(66, 555);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(528, 111);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "RAZ production";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btAnnule.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btAnnule.Enabled = false;
+            this.btAnnule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAnnule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btAnnule.ForeColor = System.Drawing.Color.White;
+            this.btAnnule.Location = new System.Drawing.Point(66, 555);
+            this.btAnnule.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btAnnule.Name = "btAnnule";
+            this.btAnnule.Size = new System.Drawing.Size(528, 111);
+            this.btAnnule.TabIndex = 39;
+            this.btAnnule.Text = "btAnnule";
+            this.btAnnule.UseVisualStyleBackColor = false;
+            this.btAnnule.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox2
+            // lblInfos
             // 
-            this.groupBox2.Controls.Add(this.lblCapot);
-            this.groupBox2.Controls.Add(this.lblInfo);
-            this.groupBox2.Location = new System.Drawing.Point(22, 755);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(628, 225);
-            this.groupBox2.TabIndex = 40;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Informations";
+            this.lblInfos.Controls.Add(this.lblCapot);
+            this.lblInfos.Controls.Add(this.lblInfo);
+            this.lblInfos.Location = new System.Drawing.Point(22, 755);
+            this.lblInfos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblInfos.Name = "lblInfos";
+            this.lblInfos.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblInfos.Size = new System.Drawing.Size(628, 225);
+            this.lblInfos.TabIndex = 40;
+            this.lblInfos.TabStop = false;
+            this.lblInfos.Text = "lblInfos";
             // 
             // lblCapot
             // 
@@ -590,9 +592,8 @@ namespace CUT_M
             this.lblInfo.Location = new System.Drawing.Point(18, 71);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(361, 30);
+            this.lblInfo.Size = new System.Drawing.Size(0, 30);
             this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = "Choisir ou saisir une référence";
             // 
             // comboBox1
             // 
@@ -615,20 +616,20 @@ namespace CUT_M
             this.label5.TabIndex = 44;
             this.label5.Text = "Ou";
             // 
-            // groupBox6
+            // lblTitreEtat
             // 
-            this.groupBox6.Controls.Add(this.lblLaser);
-            this.groupBox6.Controls.Add(this.lblPorte);
-            this.groupBox6.Controls.Add(this.label29);
-            this.groupBox6.Controls.Add(this.label23);
-            this.groupBox6.Location = new System.Drawing.Point(752, 755);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox6.Size = new System.Drawing.Size(410, 225);
-            this.groupBox6.TabIndex = 46;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Etat";
+            this.lblTitreEtat.Controls.Add(this.lblLaser);
+            this.lblTitreEtat.Controls.Add(this.lblPorte);
+            this.lblTitreEtat.Controls.Add(this.lbltitreLaser);
+            this.lblTitreEtat.Controls.Add(this.lbltitrePorte);
+            this.lblTitreEtat.Location = new System.Drawing.Point(752, 755);
+            this.lblTitreEtat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblTitreEtat.Name = "lblTitreEtat";
+            this.lblTitreEtat.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblTitreEtat.Size = new System.Drawing.Size(410, 225);
+            this.lblTitreEtat.TabIndex = 46;
+            this.lblTitreEtat.TabStop = false;
+            this.lblTitreEtat.Text = "lblTitreEtat";
             // 
             // lblLaser
             // 
@@ -654,27 +655,27 @@ namespace CUT_M
             this.lblPorte.TabIndex = 2;
             this.lblPorte.Text = "Adam 1 non connecté";
             // 
-            // label29
+            // lbltitreLaser
             // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(32, 118);
-            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(90, 29);
-            this.label29.TabIndex = 1;
-            this.label29.Text = "Laser :";
+            this.lbltitreLaser.AutoSize = true;
+            this.lbltitreLaser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltitreLaser.Location = new System.Drawing.Point(32, 118);
+            this.lbltitreLaser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbltitreLaser.Name = "lbltitreLaser";
+            this.lbltitreLaser.Size = new System.Drawing.Size(144, 29);
+            this.lbltitreLaser.TabIndex = 1;
+            this.lbltitreLaser.Text = "lbltitreLaser";
             // 
-            // label23
+            // lbltitrePorte
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(32, 49);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(87, 29);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "Porte :";
+            this.lbltitrePorte.AutoSize = true;
+            this.lbltitrePorte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltitrePorte.Location = new System.Drawing.Point(32, 49);
+            this.lbltitrePorte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbltitrePorte.Name = "lbltitrePorte";
+            this.lbltitrePorte.Size = new System.Drawing.Size(141, 29);
+            this.lbltitrePorte.TabIndex = 0;
+            this.lbltitrePorte.Text = "lbltitrePorte";
             // 
             // label1
             // 
@@ -688,35 +689,25 @@ namespace CUT_M
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label65);
             this.panel1.Controls.Add(this.groupBox7);
             this.panel1.Controls.Add(this.groupBox8);
             this.panel1.Controls.Add(this.lvOpe);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.groupBox6);
+            this.panel1.Controls.Add(this.lblTitreEtat);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.lblInfos);
+            this.panel1.Controls.Add(this.btAnnule);
+            this.panel1.Controls.Add(this.lblRef);
+            this.panel1.Controls.Add(this.lblProd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(490, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2449, 1202);
             this.panel1.TabIndex = 35;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(66, 431);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(211, 33);
-            this.button3.TabIndex = 53;
-            this.button3.Text = "Masque";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // label65
             // 
@@ -769,6 +760,28 @@ namespace CUT_M
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "ADAM 1";
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(26, 801);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(130, 24);
+            this.checkBox7.TabIndex = 55;
+            this.checkBox7.Text = "Force shutter";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(26, 760);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(165, 24);
+            this.checkBox6.TabIndex = 54;
+            this.checkBox6.Text = "Force départ cycle";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -1279,28 +1292,6 @@ namespace CUT_M
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(26, 760);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(165, 24);
-            this.checkBox6.TabIndex = 54;
-            this.checkBox6.Text = "Force départ cycle";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(26, 801);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(130, 24);
-            this.checkBox7.TabIndex = 55;
-            this.checkBox7.Text = "Force shutter";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1321,12 +1312,12 @@ namespace CUT_M
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
+            this.lblProd.ResumeLayout(false);
+            this.lblProd.PerformLayout();
+            this.lblInfos.ResumeLayout(false);
+            this.lblInfos.PerformLayout();
+            this.lblTitreEtat.ResumeLayout(false);
+            this.lblTitreEtat.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1366,24 +1357,24 @@ namespace CUT_M
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox lblProd;
         private System.Windows.Forms.Label lblEtage;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblTitreEtage;
         private System.Windows.Forms.Label lblQte;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblTitreQte;
         private System.Windows.Forms.Label lblDiametre;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblTitreDiametre;
+        private System.Windows.Forms.Label lblRef;
+        private System.Windows.Forms.Button btAnnule;
+        private System.Windows.Forms.GroupBox lblInfos;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox lblTitreEtat;
         private System.Windows.Forms.Label lblLaser;
         private System.Windows.Forms.Label lblPorte;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label lbltitreLaser;
+        private System.Windows.Forms.Label lbltitrePorte;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button4;
@@ -1448,7 +1439,6 @@ namespace CUT_M
         private System.Windows.Forms.TextBox txt1DO8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txt1DO7;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
