@@ -37,13 +37,20 @@ namespace CUT_M
         private static bool decoupeencours = false;
         private static bool capot = false;
         private static bool pedale = false;
-        private static bool finProd = true;
+        private static bool ouverturePorte = false;
+        private static bool finProd = false;
         private static bool porte = false;
+        private static bool origine = false;
         private static bool laser = false;
         private static bool start = false;
         private static bool demarrage = false;
         private static long timestart = 0;
         private static long dureeWatchdog = 0;
+
+        //Variablesdebug
+        private static bool forcePorte = false;
+        private static bool forceDepart = false;
+        private static bool forceShutter = false;
 
         private static List<Produit> produits = new List<Produit>();
         private static List<Production> production = new List<Production>();
@@ -64,6 +71,8 @@ namespace CUT_M
                 LoadRef();
 
                 Application.DoEvents();
+
+                InitLaser();
             }
             else
                 this.Close();
@@ -75,14 +84,7 @@ namespace CUT_M
             {
                 this.CreateHandle();
 
-            }
-            String exePath = ut_xml.ValueXML(@".\CUT-M.xml", "LaserExe");
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = exePath;
-            //startInfo.Arguments = "header.h";
-            Process.Start(startInfo);
-
-            Thread.Sleep(20000);
+            }            
 
             m_bStart = false;			// the action stops at the beginning
             m_szIP1 = ut_xml.ValueXML(@".\CUT-M.xml", "IPAdam1");	// modbus slave IP address for Adam1
@@ -118,10 +120,8 @@ namespace CUT_M
                 InitChannelItems(true, true, ref iDI, ref iDO);
                 InitChannelItems(true, true, ref iDI, ref iDO);
                 InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
@@ -159,13 +159,14 @@ namespace CUT_M
 
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Timer 1 démarré"); }));
 
+                ChangeOID1(8, 0);
+                ChangeOID1(9, 0);
+                ChangeOID1(10, 0);
+                ChangeOID1(11, 0);
                 ChangeOID1(12, 0);
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
-                ChangeOID1(16, 0);
-                ChangeOID1(17, 0);
-                ChangeOID1(18, 0);
 
                 RefreshDIO1();
             }
@@ -193,18 +194,16 @@ namespace CUT_M
 
                 int iDI = 0, iDO = 0;
 
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
-                InitChannelItems(true, true, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
+                InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
                 InitChannelItems(true, false, ref iDI, ref iDO);
@@ -217,29 +216,13 @@ namespace CUT_M
                 m_iDoTotal2 = iDO;
                 m_iDiTotal2 = iDI;
 
-                int iCnt;
-                bool bCommFSV;
-                bool bPtoPFSV;
-                bool[] bWDT;
-
-                //if (m_Adam6000Type == Adam6000Type.Adam6055) // no DO for 6055
-                if (m_iDoTotal2 == 0)
-                {
-                    return;
-                }
-
-                if (adamModbus2.DigitalOutput().GetWDTMask(out bCommFSV, out bPtoPFSV, out bWDT) && bWDT.Length == 8)
-                {
-                    iCnt = 0;
-                }
-                else
-                    MessageBox.Show("GetWDTMask() failed;");
-
                 this.timer2.Interval = 300;
                 this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
                 timer2.Start();
 
                 lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Timer 2 démarré"); }));
+
+                ChangeOID2(10, 1);
 
                 RefreshDIO2();
 
@@ -256,6 +239,48 @@ namespace CUT_M
 
             this.timer3.Interval = 300;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+        }
+
+        private void InitLaser()
+        {
+            Application.DoEvents();
+
+            if (!porte)
+            {
+                while (!porte)
+                {
+                    Thread.Sleep(1000);
+
+                    Application.DoEvents();
+
+                    MessageBox.Show("Veuillez fermer la porte SVP");
+
+                    Application.DoEvents();
+                }
+            }
+
+            ChangeOID1(15, 1);
+
+            Thread.Sleep(m_iTempoImpulsion);
+
+            ChangeOID1(15, 0);
+
+            String exePath = ut_xml.ValueXML(@".\CUT-M.xml", "LaserExe");
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = exePath;
+            //startInfo.Arguments = "header.h";
+            Process.Start(startInfo);
+
+            Thread.Sleep(1500);
+
+            while (!origine)
+            {
+                Application.DoEvents();
+            }
+
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            Application.DoEvents();
         }
 
         protected void InitChannelItems(bool i_bVisable, bool i_bIsDI, ref int i_iDI, ref int i_iDO)
@@ -302,7 +327,7 @@ namespace CUT_M
 
                 label37.Invoke(new EventHandler(delegate { label37.Text = porte.ToString(); }));
 
-                if (!bData1[1])
+                if (!bData1[1] && !forceShutter)
                 {
                     Message += "Ouvrir le shutter" + Environment.NewLine;
                     laser = false;
@@ -310,16 +335,18 @@ namespace CUT_M
                 else
                     laser = true;
                 label38.Invoke(new EventHandler(delegate { label38.Text = laser.ToString(); }));
-                if (bData1[2])
+                if (bData1[2] || forceDepart)
                 {
                     if (laser && porte)
                     {
                         boutonOperateur = true;
                         start = true;
+
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Démarrage découpe"; }));
                     }
                     else
                     {
-                        MessageBox.Show("Veuillez fermer la porte et ouvrir le shutter.", "Information", MessageBoxButtons.OK);
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Veuillez fermer la porte et ouvrir le shutter."; }));
                     }
                 }
                 else
@@ -330,15 +357,22 @@ namespace CUT_M
                 label40.Invoke(new EventHandler(delegate { label40.Text = boutonOperateur.ToString(); }));
                 if (bData1[3])
                 {
-                    finProd = true;
+                    if (!decoupeencours)
+                    {
+                        ouverturePorte = true;
 
-                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Fin prod reçue"); }));
+                        ChangeOID2(10, 0);
 
-                    Application.DoEvents();
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Ouverture porte reçu"); }));
+
+                        Application.DoEvents();
+                    }
                 }
                 else
                 {
-                    finProd = false;
+                    ouverturePorte = false;
+
+                    ChangeOID2(10, 1);
                 }
                 if (!bData1[4])
                 {
@@ -347,17 +381,24 @@ namespace CUT_M
                 else
                     pedale = true;
 
+                if (!bData1[6])
+                {
+                    origine = false;
+                }
+                else
+                    origine = true;
+
                 label42.Invoke(new EventHandler(delegate { label42.Text = finProd.ToString(); }));
                 label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));                
 
-                txtDO0.Text = bData1[9].ToString();
-                txtDO1.Text = bData1[10].ToString();
-                txtDO2.Text = bData1[11].ToString();
-                txtDO3.Text = bData1[12].ToString();
-                txtDO4.Text = bData1[13].ToString();
-                txtDO5.Text = bData1[14].ToString();
-                txtDO6.Text = bData1[15].ToString();
-                txtDO7.Text = bData1[16].ToString();
+                txtDO0.Text = bData1[8].ToString();
+                txtDO1.Text = bData1[9].ToString();
+                txtDO2.Text = bData1[10].ToString();
+                txtDO3.Text = bData1[11].ToString();
+                txtDO4.Text = bData1[12].ToString();
+                txtDO5.Text = bData1[13].ToString();
+                txtDO6.Text = bData1[14].ToString();
+                txtDO7.Text = bData1[15].ToString();
 
                 txtDI0.Text = bData1[0].ToString();
                 txtDI1.Text = bData1[1].ToString();
@@ -402,7 +443,7 @@ namespace CUT_M
                 {
                     ChangeOID1(16, 0);
                 }*/
-                if (goodConditions && comboBox1.SelectedIndex > 0 && !start && !demarrage)
+                /*if (goodConditions && comboBox1.SelectedIndex > 0 && !start && !demarrage)
                 {
                     Message = "Positionner la pièce";
                 }
@@ -417,7 +458,7 @@ namespace CUT_M
                 else if (goodConditions && comboBox1.SelectedIndex > 0 && start && boutonOperateur)
                 {
                     Message = "Découpe en cours";
-                }
+                }*/
 
                 if (!goodConditions && start)
                 {
@@ -425,9 +466,6 @@ namespace CUT_M
                     finProd = true;
                     RazProd();
                 }
-
-
-                lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
             }
         }
 
@@ -435,27 +473,49 @@ namespace CUT_M
         {
             int iDiStart = 1, iDoStart = 17;
             int iChTotal;
-            bool[] bDiData, bDoData;
+            bool[] bDiData, bDoData, bData;
 
-            if (adamModbus2.Modbus().ReadCoilStatus(iDiStart, m_iDiTotal2, out bDiData) &&
-                adamModbus2.Modbus().ReadCoilStatus(iDoStart, m_iDoTotal2, out bDoData))
+            if (adamModbus2.Modbus().ReadCoilStatus(iDoStart, m_iDoTotal2, out bDoData))
             {
-                iChTotal = m_iDiTotal2 + m_iDoTotal2;
-                bData2 = new bool[iChTotal];
-                Array.Copy(bDiData, 0, bData2, 0, m_iDiTotal2);
-                Array.Copy(bDoData, 0, bData2, m_iDiTotal2, m_iDoTotal2);
-
-                txt1DO0.Text = bData2[0].ToString();
-                txt1DO1.Text = bData2[1].ToString();
-                txt1DO2.Text = bData2[2].ToString();
-                txt1DO3.Text = bData2[3].ToString();
-                txt1DO4.Text = bData2[4].ToString();
-                txt1DO5.Text = bData2[5].ToString();
-                txt1DO6.Text = bData2[6].ToString();
-                txt1DO7.Text = bData2[7].ToString();
-                txt1DO8.Text = bData2[8].ToString();
-                txt1DO9.Text = bData2[9].ToString();
-                txt1DO10.Text = bData2[10].ToString();
+                iChTotal = m_iDoTotal2;
+                bData = new bool[iChTotal];
+                Array.Copy(bDoData, 0, bData, 0, m_iDoTotal2);
+                if (iChTotal > 0)
+                    txt1DO0.Text = bData[0].ToString();
+                if (iChTotal > 1)
+                    txt1DO1.Text = bData[1].ToString();
+                if (iChTotal > 2)
+                    txt1DO2.Text = bData[2].ToString();
+                if (iChTotal > 3)
+                    txt1DO3.Text = bData[3].ToString();
+                if (iChTotal > 4)
+                    txt1DO4.Text = bData[4].ToString();
+                if (iChTotal > 5)
+                    txt1DO5.Text = bData[5].ToString();
+                if (iChTotal > 6)
+                    txt1DO6.Text = bData[6].ToString();
+                if (iChTotal > 7)
+                    txt1DO7.Text = bData[7].ToString();
+                if (iChTotal > 8)
+                    txt1DO8.Text = bData[8].ToString();
+                if (iChTotal > 9)
+                    txt1DO9.Text = bData[9].ToString();
+                if (iChTotal > 10)
+                    txt1DO10.Text = bData[10].ToString();
+            }
+            else
+            {
+                txt1DO0.Text = "Fail";
+                txt1DO1.Text = "Fail";
+                txt1DO2.Text = "Fail";
+                txt1DO3.Text = "Fail";
+                txt1DO4.Text = "Fail";
+                txt1DO5.Text = "Fail";
+                txt1DO6.Text = "Fail";
+                txt1DO7.Text = "Fail";
+                txt1DO8.Text = "Fail";
+                txt1DO9.Text = "Fail";
+                txt1DO10.Text = "Fail";
             }
         }
 
@@ -563,10 +623,6 @@ namespace CUT_M
                 {
                     lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Selection référénce : {0}", comboBox1.Text)); }));
 
-                    ChangeOID1(16, 0);
-
-                    lblInfo.Text = "";
-
                     Production prod = production.FirstOrDefault(m => m.reference == _ref);
 
                     lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Diametre : {0}", produit.diametre.ToString())); }));
@@ -577,8 +633,121 @@ namespace CUT_M
                     lblEtage.Text = produit.etage.ToString();
                     lblQte.Text = prod.restant.ToString();
 
-                    if (goodConditions)
-                        lblInfo.Text = "Positionner la pièce";
+                    try
+                    {
+
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Masque : {0}", produit.masque.ToString())); }));
+
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Chargement du masque"; }));
+
+                        Application.DoEvents();
+
+                        int DO0_1 = int.Parse(produit.masque[0].ToString());
+                        int DO0_2 = int.Parse(produit.masque[1].ToString());
+                        int DO0_3 = int.Parse(produit.masque[2].ToString());
+                        int DO0_4 = int.Parse(produit.masque[3].ToString());
+                        int DO0_5 = int.Parse(produit.masque[4].ToString());
+                        int DO0_6 = int.Parse(produit.masque[5].ToString());
+
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_1 : {0}", DO0_1.ToString())); }));
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_2 : {0}", DO0_2.ToString())); }));
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_3 : {0}", DO0_3.ToString())); }));
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_4 : {0}", DO0_4.ToString())); }));
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_5 : {0}", DO0_5.ToString())); }));
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("DO0_6 : {0}", DO0_6.ToString())); }));
+
+                        Application.DoEvents();
+
+                        ChangeOID2(1, DO0_6);
+                        ChangeOID2(2, DO0_5);
+                        ChangeOID2(3, DO0_4);
+                        ChangeOID2(4, DO0_3);
+                        ChangeOID2(5, DO0_2);
+                        ChangeOID2(6, DO0_1);
+
+                        Thread.Sleep(1000);
+                        ChangeOID2(0, 1);
+                        Thread.Sleep(m_iTempoImpulsion);
+                        ChangeOID2(0, 0);
+
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Chargement masque OK"); }));
+
+                        Application.DoEvents();
+
+                        Thread.Sleep(m_iTempo);
+                    }
+                    catch
+                    {
+                        ListViewItem lv = new ListViewItem("Chargement masque impossible");
+                        lv.ForeColor = Color.Red;
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+                    }
+
+                    var obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                    int qte = obj.restant;
+
+
+                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = false; }));
+                    label39.Invoke(new EventHandler(delegate { label39.Text = start.ToString(); }));
+
+                    Application.DoEvents();
+
+                    while (qte > 0)
+                    {
+                        demarrage = true;
+
+                        if (porte)
+                        {
+                            lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Ouvrir la porte"; }));
+
+                            Application.DoEvents();
+
+                            while (porte && !forcePorte)
+                            {
+                                Thread.Sleep(1000);
+
+                                Application.DoEvents();
+                            }
+                        }
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Placer le capot et fermer la porte"; }));
+
+                        Application.DoEvents();
+
+                        while (!porte || forcePorte)
+                        {
+                            Thread.Sleep(1000);
+
+                            Application.DoEvents();
+                        }
+
+                        ListViewItem lv = new ListViewItem("En attente de départ cycle");
+                        lv.ForeColor = Color.Green;
+                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "En attente de départ cycle"; }));
+
+                        Application.DoEvents();
+
+                        while (!boutonOperateur && demarrage)
+                        {
+                            Thread.Sleep(1000);
+
+                            Application.DoEvents();
+                        }
+
+                        if(goodConditions)
+                        {
+                            ChangeOID1(15, 1);
+                            Thread.Sleep(m_iTempoImpulsion);
+                            ChangeOID1(15, 0);
+
+                            MessageBox.Show("OK");
+                        }
+
+                    }
+
+                    /*if (goodConditions)
+                        lblInfo.Text = "Placer le capot";
                     else
                     {
                         string Message = "";
@@ -603,38 +772,7 @@ namespace CUT_M
                         ListViewItem lv = new ListViewItem("Initialisation module Adam 1 impossible");
                         lv.ForeColor = Color.Red;
                         lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
-                    }
-
-                    try
-                    {
-
-                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Masque : {0}", produit.masque.ToString())); }));
-
-                        int DO0_1 = int.Parse(produit.masque[0].ToString());
-                        int DO0_2 = int.Parse(produit.masque[1].ToString());
-                        int DO0_3 = int.Parse(produit.masque[2].ToString());
-                        int DO0_4 = int.Parse(produit.masque[3].ToString());
-                        int DO0_5 = int.Parse(produit.masque[4].ToString());
-                        int DO0_6 = int.Parse(produit.masque[5].ToString());
-
-                        ChangeOID2(1, DO0_6);
-                        ChangeOID2(2, DO0_5);
-                        ChangeOID2(3, DO0_4);
-                        ChangeOID2(4, DO0_3);
-                        ChangeOID2(5, DO0_2);
-                        ChangeOID2(6, DO0_1);
-
-                        Thread.Sleep(1000);
-                        ChangeOID2(7, 1);
-
-                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Initialisation module Adam 2 OK"); }));
-                    }
-                    catch
-                    {
-                        ListViewItem lv = new ListViewItem("Initialisation module Adam 2 impossible");
-                        lv.ForeColor = Color.Red;
-                        lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
-                    }
+                    }                    
 
                     if (goodConditions)
                     {
@@ -649,20 +787,20 @@ namespace CUT_M
 
                         while (qte > 0)
                         {
-                            ListViewItem lv = new ListViewItem("En attente de départ cycle");
-                            lv.ForeColor = Color.Green;
-                            lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
+                            //ListViewItem lv = new ListViewItem("En attente de départ cycle");
+                            //lv.ForeColor = Color.Green;
+                            //lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, lv); }));
 
-                            Application.DoEvents();
+                            //Application.DoEvents();
 
-                            while (!boutonOperateur && demarrage)
-                            {
-                                Thread.Sleep(1000);
+                            //while (!boutonOperateur && demarrage)
+                            //{
+                            //    Thread.Sleep(1000);
 
-                                Application.DoEvents();
+                            //    Application.DoEvents();
 
-                                lvOpe.Refresh();
-                            }
+                            //    lvOpe.Refresh();
+                            //}
 
                             if (demarrage)
                             {
@@ -920,11 +1058,11 @@ namespace CUT_M
 
                                 Application.DoEvents();
                             }
-                        }
-                    }
+                        }*/
+                }
                     else
                         MessageBox.Show("Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information");
-                }
+                
             }
             else
             {
@@ -1035,7 +1173,7 @@ namespace CUT_M
                 Message = "Choisir ou saisir un référence";
                 goodConditions = true;
             }
-            else if (!start && !demarrage && !finProd && comboBox1.SelectedIndex > 0)
+            /*else if (!start && !demarrage && !finProd && comboBox1.SelectedIndex > 0)
             {
                 Message = "En attente chargement capot et départ cycle";
                 goodConditions = true;
@@ -1044,7 +1182,7 @@ namespace CUT_M
             {
                 Message = "En attente chargement capot et départ cycle";
                 goodConditions = true;
-            }
+            }*/
             else if (demarrage && !finProd && !decoupeencours && capot)
             {
                 Message = "Mise en référence capot";
@@ -1067,7 +1205,8 @@ namespace CUT_M
 
             label41.Invoke(new EventHandler(delegate { label41.Text = goodConditions.ToString(); }));
 
-            lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
+            if(!string.IsNullOrEmpty(Message))
+                lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
 
             timer1.Enabled = true;
         }
@@ -1198,7 +1337,7 @@ namespace CUT_M
                 ChangeOID1(12, 0);
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
-                ChangeOID1(15, 0)
+                ChangeOID1(15, 0);
 
                 this.Close();
             }
@@ -1217,6 +1356,40 @@ namespace CUT_M
             this.TopMost = true;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked)
+            {
+                forcePorte = true;
+            }
+            else
+                forcePorte = false;
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox6.Checked)
+            {
+                forceDepart = true;
+            }
+            else
+            {
+                forceDepart = false;
+            }
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox7.Checked)
+            {
+                forceShutter = true;
+            }
+            else
+            {
+                forceShutter = false;
+            }
         }
 
         private void RazProd()

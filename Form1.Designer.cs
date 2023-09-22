@@ -82,9 +82,20 @@ namespace CUT_M
             this.label23 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label65 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtDI6 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtDO7 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtDO6 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtDO5 = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.txtDI5 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDI4 = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
@@ -106,6 +117,18 @@ namespace CUT_M
             this.txtDO1 = new System.Windows.Forms.TextBox();
             this.txtDO0 = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txt1DO10 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txt1DO9 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txt1DO8 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txt1DO7 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txt1DO6 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txt1DO5 = new System.Windows.Forms.TextBox();
             this.label56 = new System.Windows.Forms.Label();
             this.txt1DO4 = new System.Windows.Forms.TextBox();
             this.label58 = new System.Windows.Forms.Label();
@@ -116,29 +139,10 @@ namespace CUT_M
             this.txt1DO2 = new System.Windows.Forms.TextBox();
             this.txt1DO1 = new System.Windows.Forms.TextBox();
             this.txt1DO0 = new System.Windows.Forms.TextBox();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.txtDI5 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtDO5 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtDO6 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtDO7 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtDI6 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txt1DO5 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txt1DO6 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txt1DO7 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txt1DO8 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txt1DO9 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txt1DO10 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -157,7 +161,7 @@ namespace CUT_M
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(490, 1135);
+            this.pictureBox1.Size = new System.Drawing.Size(490, 1202);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -186,7 +190,7 @@ namespace CUT_M
             this.lvOpe.Location = new System.Drawing.Point(1234, 29);
             this.lvOpe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lvOpe.Name = "lvOpe";
-            this.lvOpe.Size = new System.Drawing.Size(482, 46);
+            this.lvOpe.Size = new System.Drawing.Size(482, 1127);
             this.lvOpe.TabIndex = 32;
             this.lvOpe.UseCompatibleStateImageBehavior = false;
             this.lvOpe.View = System.Windows.Forms.View.Details;
@@ -684,6 +688,7 @@ namespace CUT_M
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label65);
             this.panel1.Controls.Add(this.groupBox7);
             this.panel1.Controls.Add(this.groupBox8);
@@ -701,36 +706,33 @@ namespace CUT_M
             this.panel1.Location = new System.Drawing.Point(490, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2394, 1135);
+            this.panel1.Size = new System.Drawing.Size(2449, 1202);
             this.panel1.TabIndex = 35;
             // 
-            // button2
+            // button3
             // 
-            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(634, 335);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 45);
-            this.button2.TabIndex = 49;
-            this.button2.Text = "MAJ";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button3.Location = new System.Drawing.Point(66, 431);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(211, 33);
+            this.button3.TabIndex = 53;
+            this.button3.Text = "Masque";
+            this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // label65
             // 
-            this.button4.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(32, 1014);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(424, 88);
-            this.button4.TabIndex = 36;
-            this.button4.Text = "Quitter";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(1736, 20);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(167, 55);
+            this.label65.TabIndex = 52;
+            this.label65.Text = "Debug";
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.checkBox7);
+            this.groupBox7.Controls.Add(this.checkBox6);
+            this.groupBox7.Controls.Add(this.checkBox5);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.txtDI6);
             this.groupBox7.Controls.Add(this.label11);
@@ -767,7 +769,102 @@ namespace CUT_M
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "ADAM 1";
-            this.groupBox7.Visible = false;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(26, 713);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(117, 24);
+            this.checkBox5.TabIndex = 53;
+            this.checkBox5.Text = "Force porte";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(180, 549);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(101, 20);
+            this.label12.TabIndex = 52;
+            this.label12.Text = "DI 6 / Origine";
+            // 
+            // txtDI6
+            // 
+            this.txtDI6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDI6.Location = new System.Drawing.Point(184, 579);
+            this.txtDI6.Name = "txtDI6";
+            this.txtDI6.Size = new System.Drawing.Size(100, 26);
+            this.txtDI6.TabIndex = 51;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(22, 622);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 20);
+            this.label11.TabIndex = 50;
+            this.label11.Text = "DO 7";
+            // 
+            // txtDO7
+            // 
+            this.txtDO7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDO7.Location = new System.Drawing.Point(24, 654);
+            this.txtDO7.Name = "txtDO7";
+            this.txtDO7.Size = new System.Drawing.Size(100, 26);
+            this.txtDO7.TabIndex = 49;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(22, 549);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 20);
+            this.label10.TabIndex = 48;
+            this.label10.Text = "DO 6";
+            // 
+            // txtDO6
+            // 
+            this.txtDO6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDO6.Location = new System.Drawing.Point(24, 581);
+            this.txtDO6.Name = "txtDO6";
+            this.txtDO6.Size = new System.Drawing.Size(100, 26);
+            this.txtDO6.TabIndex = 47;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(20, 473);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 20);
+            this.label8.TabIndex = 46;
+            this.label8.Text = "DO 5";
+            // 
+            // txtDO5
+            // 
+            this.txtDO5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDO5.Location = new System.Drawing.Point(22, 505);
+            this.txtDO5.Name = "txtDO5";
+            this.txtDO5.Size = new System.Drawing.Size(100, 26);
+            this.txtDO5.TabIndex = 45;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(182, 473);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(107, 20);
+            this.label66.TabIndex = 44;
+            this.label66.Text = "DI 5 / fin cycle";
+            // 
+            // txtDI5
+            // 
+            this.txtDI5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDI5.Location = new System.Drawing.Point(186, 503);
+            this.txtDI5.Name = "txtDI5";
+            this.txtDI5.Size = new System.Drawing.Size(100, 26);
+            this.txtDI5.TabIndex = 43;
             // 
             // label2
             // 
@@ -969,7 +1066,108 @@ namespace CUT_M
             this.groupBox8.TabIndex = 51;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "ADAM 2";
-            this.groupBox8.Visible = false;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(24, 864);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(55, 20);
+            this.label18.TabIndex = 64;
+            this.label18.Text = "DO 10";
+            // 
+            // txt1DO10
+            // 
+            this.txt1DO10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO10.Location = new System.Drawing.Point(26, 896);
+            this.txt1DO10.Name = "txt1DO10";
+            this.txt1DO10.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO10.TabIndex = 63;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(22, 782);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(46, 20);
+            this.label17.TabIndex = 62;
+            this.label17.Text = "DO 9";
+            // 
+            // txt1DO9
+            // 
+            this.txt1DO9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO9.Location = new System.Drawing.Point(24, 814);
+            this.txt1DO9.Name = "txt1DO9";
+            this.txt1DO9.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO9.TabIndex = 61;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(20, 700);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(46, 20);
+            this.label16.TabIndex = 60;
+            this.label16.Text = "DO 8";
+            // 
+            // txt1DO8
+            // 
+            this.txt1DO8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO8.Location = new System.Drawing.Point(22, 732);
+            this.txt1DO8.Name = "txt1DO8";
+            this.txt1DO8.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO8.TabIndex = 59;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(18, 622);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(46, 20);
+            this.label15.TabIndex = 58;
+            this.label15.Text = "DO 7";
+            // 
+            // txt1DO7
+            // 
+            this.txt1DO7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO7.Location = new System.Drawing.Point(20, 654);
+            this.txt1DO7.Name = "txt1DO7";
+            this.txt1DO7.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO7.TabIndex = 57;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 549);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 20);
+            this.label14.TabIndex = 56;
+            this.label14.Text = "DO 6";
+            // 
+            // txt1DO6
+            // 
+            this.txt1DO6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO6.Location = new System.Drawing.Point(20, 581);
+            this.txt1DO6.Name = "txt1DO6";
+            this.txt1DO6.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO6.TabIndex = 55;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 473);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 20);
+            this.label13.TabIndex = 54;
+            this.label13.Text = "DO 5";
+            // 
+            // txt1DO5
+            // 
+            this.txt1DO5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt1DO5.Location = new System.Drawing.Point(18, 505);
+            this.txt1DO5.Name = "txt1DO5";
+            this.txt1DO5.Size = new System.Drawing.Size(100, 26);
+            this.txt1DO5.TabIndex = 53;
             // 
             // label56
             // 
@@ -1056,218 +1254,66 @@ namespace CUT_M
             this.txt1DO0.Size = new System.Drawing.Size(100, 26);
             this.txt1DO0.TabIndex = 23;
             // 
-            // label65
+            // button2
             // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(1736, 20);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(167, 55);
-            this.label65.TabIndex = 52;
-            this.label65.Text = "Debug";
+            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(634, 335);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 45);
+            this.button2.TabIndex = 49;
+            this.button2.Text = "MAJ";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label66
+            // button4
             // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(182, 473);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(107, 20);
-            this.label66.TabIndex = 44;
-            this.label66.Text = "DI 5 / fin cycle";
+            this.button4.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(32, 1014);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(424, 88);
+            this.button4.TabIndex = 36;
+            this.button4.Text = "Quitter";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // txtDI5
+            // checkBox6
             // 
-            this.txtDI5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDI5.Location = new System.Drawing.Point(186, 503);
-            this.txtDI5.Name = "txtDI5";
-            this.txtDI5.Size = new System.Drawing.Size(100, 26);
-            this.txtDI5.TabIndex = 43;
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(26, 760);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(165, 24);
+            this.checkBox6.TabIndex = 54;
+            this.checkBox6.Text = "Force départ cycle";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
-            // label8
+            // checkBox7
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 473);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 20);
-            this.label8.TabIndex = 46;
-            this.label8.Text = "DO 5";
-            // 
-            // txtDO5
-            // 
-            this.txtDO5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDO5.Location = new System.Drawing.Point(22, 505);
-            this.txtDO5.Name = "txtDO5";
-            this.txtDO5.Size = new System.Drawing.Size(100, 26);
-            this.txtDO5.TabIndex = 45;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(22, 549);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 20);
-            this.label10.TabIndex = 48;
-            this.label10.Text = "DO 6";
-            // 
-            // txtDO6
-            // 
-            this.txtDO6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDO6.Location = new System.Drawing.Point(24, 581);
-            this.txtDO6.Name = "txtDO6";
-            this.txtDO6.Size = new System.Drawing.Size(100, 26);
-            this.txtDO6.TabIndex = 47;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(22, 622);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 20);
-            this.label11.TabIndex = 50;
-            this.label11.Text = "DO 7";
-            // 
-            // txtDO7
-            // 
-            this.txtDO7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDO7.Location = new System.Drawing.Point(24, 654);
-            this.txtDO7.Name = "txtDO7";
-            this.txtDO7.Size = new System.Drawing.Size(100, 26);
-            this.txtDO7.TabIndex = 49;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(180, 549);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(101, 20);
-            this.label12.TabIndex = 52;
-            this.label12.Text = "DI 6 / Origine";
-            // 
-            // txtDI6
-            // 
-            this.txtDI6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDI6.Location = new System.Drawing.Point(184, 579);
-            this.txtDI6.Name = "txtDI6";
-            this.txtDI6.Size = new System.Drawing.Size(100, 26);
-            this.txtDI6.TabIndex = 51;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 473);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(46, 20);
-            this.label13.TabIndex = 54;
-            this.label13.Text = "DO 5";
-            // 
-            // txt1DO5
-            // 
-            this.txt1DO5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO5.Location = new System.Drawing.Point(18, 505);
-            this.txt1DO5.Name = "txt1DO5";
-            this.txt1DO5.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO5.TabIndex = 53;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(18, 549);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 20);
-            this.label14.TabIndex = 56;
-            this.label14.Text = "DO 6";
-            // 
-            // txt1DO6
-            // 
-            this.txt1DO6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO6.Location = new System.Drawing.Point(20, 581);
-            this.txt1DO6.Name = "txt1DO6";
-            this.txt1DO6.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO6.TabIndex = 55;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(18, 622);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(46, 20);
-            this.label15.TabIndex = 58;
-            this.label15.Text = "DO 7";
-            // 
-            // txt1DO7
-            // 
-            this.txt1DO7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO7.Location = new System.Drawing.Point(20, 654);
-            this.txt1DO7.Name = "txt1DO7";
-            this.txt1DO7.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO7.TabIndex = 57;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(20, 700);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(46, 20);
-            this.label16.TabIndex = 60;
-            this.label16.Text = "DO 8";
-            // 
-            // txt1DO8
-            // 
-            this.txt1DO8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO8.Location = new System.Drawing.Point(22, 732);
-            this.txt1DO8.Name = "txt1DO8";
-            this.txt1DO8.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO8.TabIndex = 59;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(22, 782);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(46, 20);
-            this.label17.TabIndex = 62;
-            this.label17.Text = "DO 9";
-            // 
-            // txt1DO9
-            // 
-            this.txt1DO9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO9.Location = new System.Drawing.Point(24, 814);
-            this.txt1DO9.Name = "txt1DO9";
-            this.txt1DO9.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO9.TabIndex = 61;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(24, 864);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(55, 20);
-            this.label18.TabIndex = 64;
-            this.label18.Text = "DO 10";
-            // 
-            // txt1DO10
-            // 
-            this.txt1DO10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt1DO10.Location = new System.Drawing.Point(26, 896);
-            this.txt1DO10.Name = "txt1DO10";
-            this.txt1DO10.Size = new System.Drawing.Size(100, 26);
-            this.txt1DO10.TabIndex = 63;
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(26, 801);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(130, 24);
+            this.checkBox7.TabIndex = 55;
+            this.checkBox7.Text = "Force shutter";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(2884, 1135);
+            this.ClientSize = new System.Drawing.Size(2939, 1202);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.lblEtat2);
             this.Controls.Add(this.lblEtat);
             this.Controls.Add(this.pictureBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CUT-M";
@@ -1402,6 +1448,10 @@ namespace CUT_M
         private System.Windows.Forms.TextBox txt1DO8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txt1DO7;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox7;
     }
 }
 
