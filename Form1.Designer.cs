@@ -49,7 +49,6 @@ namespace CUT_M
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -189,7 +188,7 @@ namespace CUT_M
             this.lvOpe.Location = new System.Drawing.Point(1234, 29);
             this.lvOpe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lvOpe.Name = "lvOpe";
-            this.lvOpe.Size = new System.Drawing.Size(482, 1127);
+            this.lvOpe.Size = new System.Drawing.Size(432, 1127);
             this.lvOpe.TabIndex = 32;
             this.lvOpe.UseCompatibleStateImageBehavior = false;
             this.lvOpe.View = System.Windows.Forms.View.Details;
@@ -306,16 +305,6 @@ namespace CUT_M
             this.label39.TabIndex = 42;
             this.label39.Visible = false;
             // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(472, 683);
-            this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(0, 20);
-            this.label40.TabIndex = 43;
-            this.label40.Visible = false;
-            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -348,7 +337,6 @@ namespace CUT_M
             this.groupBox5.Controls.Add(this.checkBox1);
             this.groupBox5.Controls.Add(this.label42);
             this.groupBox5.Controls.Add(this.label41);
-            this.groupBox5.Controls.Add(this.label40);
             this.groupBox5.Controls.Add(this.label39);
             this.groupBox5.Controls.Add(this.label38);
             this.groupBox5.Controls.Add(this.label37);
@@ -639,9 +627,8 @@ namespace CUT_M
             this.lblLaser.Location = new System.Drawing.Point(136, 118);
             this.lblLaser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLaser.Name = "lblLaser";
-            this.lblLaser.Size = new System.Drawing.Size(260, 29);
+            this.lblLaser.Size = new System.Drawing.Size(0, 29);
             this.lblLaser.TabIndex = 3;
-            this.lblLaser.Text = "Adam 1 non connecté";
             // 
             // lblPorte
             // 
@@ -651,9 +638,8 @@ namespace CUT_M
             this.lblPorte.Location = new System.Drawing.Point(136, 49);
             this.lblPorte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPorte.Name = "lblPorte";
-            this.lblPorte.Size = new System.Drawing.Size(260, 29);
+            this.lblPorte.Size = new System.Drawing.Size(0, 29);
             this.lblPorte.TabIndex = 2;
-            this.lblPorte.Text = "Adam 1 non connecté";
             // 
             // lbltitreLaser
             // 
@@ -1349,7 +1335,6 @@ namespace CUT_M
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.GroupBox groupBox5;

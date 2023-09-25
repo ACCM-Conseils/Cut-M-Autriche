@@ -61,6 +61,15 @@ namespace CUT_M {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adam 1 not connected.
+        /// </summary>
+        internal static string Adam1NotConnected {
+            get {
+                return ResourceManager.GetString("Adam1NotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Production cancellation.
         /// </summary>
         internal static string btAnnule {
@@ -70,11 +79,29 @@ namespace CUT_M {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choose a reference.
+        /// </summary>
+        internal static string ChoisirRef {
+            get {
+                return ResourceManager.GetString("ChoisirRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Choose or enter a reference.
         /// </summary>
         internal static string ChoixRef {
             get {
                 return ResourceManager.GetString("ChoixRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please close the door and open the shutter..
+        /// </summary>
+        internal static string CloseAndStart {
+            get {
+                return ResourceManager.GetString("CloseAndStart", resourceCulture);
             }
         }
         
@@ -102,6 +129,42 @@ namespace CUT_M {
         internal static string Consigne {
             get {
                 return ResourceManager.GetString("Consigne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Start cutting.
+        /// </summary>
+        internal static string DemarrageDecoupe {
+            get {
+                return ResourceManager.GetString("DemarrageDecoupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Waiting to load cover and start cycle.
+        /// </summary>
+        internal static string DepartCycle {
+            get {
+                return ResourceManager.GetString("DepartCycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Closed.
+        /// </summary>
+        internal static string Fermee {
+            get {
+                return ResourceManager.GetString("Fermee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Close the door.
+        /// </summary>
+        internal static string FermerPorte {
+            get {
+                return ResourceManager.GetString("FermerPorte", resourceCulture);
             }
         }
         
@@ -201,6 +264,87 @@ namespace CUT_M {
         internal static string lblTitreQte {
             get {
                 return ResourceManager.GetString("lblTitreQte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adam 1 module initialisation impossible.
+        /// </summary>
+        internal static string NoConnectAdam1 {
+            get {
+                return ResourceManager.GetString("NoConnectAdam1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adam 2 module initialisation impossible.
+        /// </summary>
+        internal static string NoConnectAdam2 {
+            get {
+                return ResourceManager.GetString("NoConnectAdam2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à No reference available.
+        /// </summary>
+        internal static string NoRef {
+            get {
+                return ResourceManager.GetString("NoRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Open the door.
+        /// </summary>
+        internal static string OuvrirPorte {
+            get {
+                return ResourceManager.GetString("OuvrirPorte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Open the shutter.
+        /// </summary>
+        internal static string OuvrirShutter {
+            get {
+                return ResourceManager.GetString("OuvrirShutter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Positioning the workpiece.
+        /// </summary>
+        internal static string PlacerPiece {
+            get {
+                return ResourceManager.GetString("PlacerPiece", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Close.
+        /// </summary>
+        internal static string Quitter {
+            get {
+                return ResourceManager.GetString("Quitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Timer 1 started.
+        /// </summary>
+        internal static string Timer1Start {
+            get {
+                return ResourceManager.GetString("Timer1Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Timer 2 started.
+        /// </summary>
+        internal static string Timer2Start {
+            get {
+                return ResourceManager.GetString("Timer2Start", resourceCulture);
             }
         }
     }

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Adam1NotConnected" xml:space="preserve">
+    <value>Adam 1 non connecté</value>
+  </data>
   <data name="btAnnule" xml:space="preserve">
     <value>Annulation production</value>
   </data>
+  <data name="ChoisirRef" xml:space="preserve">
+    <value>Choisissez une référence</value>
+  </data>
   <data name="ChoixRef" xml:space="preserve">
     <value>Choisir ou saisir une référence</value>
+  </data>
+  <data name="CloseAndStart" xml:space="preserve">
+    <value>Veuillez fermer la porte et ouvrir le shutter.</value>
   </data>
   <data name="ConnectAdam1" xml:space="preserve">
     <value>Connecté au module Adam 1</value>
@@ -131,6 +140,18 @@
   </data>
   <data name="Consigne" xml:space="preserve">
     <value>J'ai lu les consignes ci-dessous</value>
+  </data>
+  <data name="DemarrageDecoupe" xml:space="preserve">
+    <value>Démarrage découpe</value>
+  </data>
+  <data name="DepartCycle" xml:space="preserve">
+    <value>En attente chargement capot et départ cycle</value>
+  </data>
+  <data name="Fermee" xml:space="preserve">
+    <value>Fermée</value>
+  </data>
+  <data name="FermerPorte" xml:space="preserve">
+    <value>Fermer la porte</value>
   </data>
   <data name="InitAdam1" xml:space="preserve">
     <value>Initialisation module Adam 1 OK</value>
@@ -164,5 +185,32 @@
   </data>
   <data name="lblTitreQte" xml:space="preserve">
     <value>Quantité restante</value>
+  </data>
+  <data name="NoConnectAdam1" xml:space="preserve">
+    <value>Initialisation module Adam 1 impossible</value>
+  </data>
+  <data name="NoConnectAdam2" xml:space="preserve">
+    <value>Initialisation module Adam 2 impossible</value>
+  </data>
+  <data name="NoRef" xml:space="preserve">
+    <value>Aucune référence disponible</value>
+  </data>
+  <data name="OuvrirPorte" xml:space="preserve">
+    <value>Ouvrir la porte</value>
+  </data>
+  <data name="OuvrirShutter" xml:space="preserve">
+    <value>Ouvrir le shutter</value>
+  </data>
+  <data name="PlacerPiece" xml:space="preserve">
+    <value>Positionner la pièce</value>
+  </data>
+  <data name="Quitter" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Timer1Start" xml:space="preserve">
+    <value>Timer 1 démarré</value>
+  </data>
+  <data name="Timer2Start" xml:space="preserve">
+    <value>Timer 2 démarré</value>
   </data>
 </root>
