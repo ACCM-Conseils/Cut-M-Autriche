@@ -133,6 +133,24 @@ namespace CUT_M {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à In Arbeit.
+        /// </summary>
+        internal static string Decoupe {
+            get {
+                return ResourceManager.GetString("Decoupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Schneiden beendet.
+        /// </summary>
+        internal static string DecoupeTermine {
+            get {
+                return ResourceManager.GetString("DecoupeTermine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Schnitt starten.
         /// </summary>
         internal static string DemarrageDecoupe {
@@ -264,6 +282,15 @@ namespace CUT_M {
         internal static string lblTitreQte {
             get {
                 return ResourceManager.GetString("lblTitreQte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Laden der Maske.
+        /// </summary>
+        internal static string LoadMask {
+            get {
+                return ResourceManager.GetString("LoadMask", resourceCulture);
             }
         }
         

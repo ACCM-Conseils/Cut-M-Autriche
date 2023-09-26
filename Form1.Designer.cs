@@ -61,8 +61,6 @@ namespace CUT_M
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lblProd = new System.Windows.Forms.GroupBox();
-            this.lblEtage = new System.Windows.Forms.Label();
-            this.lblTitreEtage = new System.Windows.Forms.Label();
             this.lblQte = new System.Windows.Forms.Label();
             this.lblTitreQte = new System.Windows.Forms.Label();
             this.lblDiametre = new System.Windows.Forms.Label();
@@ -447,8 +445,6 @@ namespace CUT_M
             // 
             // lblProd
             // 
-            this.lblProd.Controls.Add(this.lblEtage);
-            this.lblProd.Controls.Add(this.lblTitreEtage);
             this.lblProd.Controls.Add(this.lblQte);
             this.lblProd.Controls.Add(this.lblTitreQte);
             this.lblProd.Controls.Add(this.lblDiametre);
@@ -459,27 +455,6 @@ namespace CUT_M
             this.lblProd.TabIndex = 36;
             this.lblProd.TabStop = false;
             this.lblProd.Text = "lblProd";
-            // 
-            // lblEtage
-            // 
-            this.lblEtage.AutoSize = true;
-            this.lblEtage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEtage.Location = new System.Drawing.Point(30, 326);
-            this.lblEtage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblEtage.Name = "lblEtage";
-            this.lblEtage.Size = new System.Drawing.Size(47, 33);
-            this.lblEtage.TabIndex = 5;
-            this.lblEtage.Text = "__";
-            // 
-            // lblTitreEtage
-            // 
-            this.lblTitreEtage.AutoSize = true;
-            this.lblTitreEtage.Location = new System.Drawing.Point(32, 272);
-            this.lblTitreEtage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitreEtage.Name = "lblTitreEtage";
-            this.lblTitreEtage.Size = new System.Drawing.Size(98, 20);
-            this.lblTitreEtage.TabIndex = 4;
-            this.lblTitreEtage.Text = "lblTitreEtage";
             // 
             // lblQte
             // 
@@ -1343,8 +1318,6 @@ namespace CUT_M
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.GroupBox lblProd;
-        private System.Windows.Forms.Label lblEtage;
-        private System.Windows.Forms.Label lblTitreEtage;
         private System.Windows.Forms.Label lblQte;
         private System.Windows.Forms.Label lblTitreQte;
         private System.Windows.Forms.Label lblDiametre;

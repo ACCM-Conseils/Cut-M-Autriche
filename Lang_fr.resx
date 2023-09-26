@@ -141,6 +141,12 @@
   <data name="Consigne" xml:space="preserve">
     <value>J'ai lu les consignes ci-dessous</value>
   </data>
+  <data name="Decoupe" xml:space="preserve">
+    <value>Découpe en cours</value>
+  </data>
+  <data name="DecoupeTermine" xml:space="preserve">
+    <value>Découpe terminée</value>
+  </data>
   <data name="DemarrageDecoupe" xml:space="preserve">
     <value>Démarrage découpe</value>
   </data>
@@ -185,6 +191,9 @@
   </data>
   <data name="lblTitreQte" xml:space="preserve">
     <value>Quantité restante</value>
+  </data>
+  <data name="LoadMask" xml:space="preserve">
+    <value>Chargement du masque</value>
   </data>
   <data name="NoConnectAdam1" xml:space="preserve">
     <value>Initialisation module Adam 1 impossible</value>

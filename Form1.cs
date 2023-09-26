@@ -40,6 +40,7 @@ namespace CUT_M
         private static bool goodConditions = false;
         private static bool boutonOperateur = false;
         private static bool decoupeencours = false;
+        private static bool cycleTermine = false;
         private static bool capot = false;
         private static bool pedale = false;
         private static bool ouverturePorte = false;
@@ -74,6 +75,9 @@ namespace CUT_M
         private static string OuvrirPorte = string.Empty;
         private static string PlacerPiece = string.Empty;
         private static string DepartCycle = string.Empty;
+        private static string LoadMask = string.Empty;
+        private static string Decoupe = string.Empty;
+        private static string DecoupeTermine = string.Empty;
 
         //Variables debug
         private static bool forcePorte = false;
@@ -137,9 +141,7 @@ namespace CUT_M
             btAnnule.Text = res_man.GetString("btAnnule");
             lblTitreDiametre.Text = res_man.GetString("lblTitreDiametre");
             lblTitreQte.Text = res_man.GetString("lblTitreQte");
-            lblTitreQte.Text = res_man.GetString("lblTitreQte");
             lblTitreEtat.Text = res_man.GetString("lblTitreEtat");
-            lblTitreEtage.Text = res_man.GetString("lblTitreEtage");
             lbltitrePorte.Text = res_man.GetString("lbltitrePorte");
             lbltitreLaser.Text = res_man.GetString("lbltitreLaser");
 
@@ -165,6 +167,10 @@ namespace CUT_M
             OuvrirPorte = res_man.GetString("OuvrirPorte");
             PlacerPiece = res_man.GetString("PlacerPiece");
             DepartCycle = res_man.GetString("DepartCycle");
+            LoadMask = res_man.GetString("LoadMask");
+            Decoupe = res_man.GetString("Decoupe");
+            DemarrageDecoupe = res_man.GetString("DemarrageDecoupe");
+            DecoupeTermine = res_man.GetString("DecoupeTermine");
 
             log.Error("Loading translations OK");
         }
@@ -364,7 +370,7 @@ namespace CUT_M
                         Thread.Sleep(1000);
 
                         Application.DoEvents();
-                        this.TopMost = false;
+                        this.TopMost = true;
                         MessageBox.Show(new Form { TopMost = true }, CloseAndStart, "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = CloseAndStart; }));
 
@@ -408,6 +414,10 @@ namespace CUT_M
                 log.Info("Origin OK");
 
                 ChangeOID1(15, 0);
+
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+                this.TopMost = true;
 
                 Application.DoEvents();
             }
@@ -470,6 +480,7 @@ namespace CUT_M
                     }
                     else
                         laser = true;
+                    
                     //label38.Invoke(new EventHandler(delegate { label38.Text = laser.ToString(); }));
                     if (bData1[2] || forceDepart)
                     {
@@ -572,10 +583,11 @@ namespace CUT_M
                     {
                         goodConditions = true;
                     }
-                    else if ((!porte || !laser) && start)
+                    else if ((!porte || !laser) && decoupeencours)
                     {
                         goodConditions = false;
-                        MessageBox.Show("Production interrompue");
+                        MessageBox.Show(new Form { TopMost = true }, "Production interrompue", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                         RazProd();
                     }
 
@@ -654,6 +666,30 @@ namespace CUT_M
                     txt1DO9.Text = bData[9].ToString();
                 if (iChTotal > 10)
                     txt1DO10.Text = bData[10].ToString();
+
+                if (laser && porte)
+                {
+                    if (!System.Convert.ToBoolean(bData[8]))
+                    {
+                        ChangeOID2(8, 1);
+                    }
+                }
+                else
+                {
+                    if (System.Convert.ToBoolean(bData[8]))
+                    {
+                        ChangeOID2(8, 0);
+                    }
+                }
+
+                /*if (pedale)
+                {
+                    ChangeOID2(9, 1);
+                }
+                else
+                {
+                    ChangeOID2(9, 0);
+                }*/
             }
             else
             {
@@ -719,7 +755,7 @@ namespace CUT_M
                             {
                                 //Processing row
                                 string[] fields = parser.ReadFields();
-                                produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3], etage = System.Convert.ToInt32(fields[4]) });
+                                produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3] });
                             }
                             catch
                             { }
@@ -756,6 +792,8 @@ namespace CUT_M
             if (comboBox1.SelectedIndex > 0)
             {
                 start = true;
+                demarrage = true;
+
                 ChangeOID2(0, 0);
                 ChangeOID2(1, 0);
                 ChangeOID2(2, 0);
@@ -786,7 +824,6 @@ namespace CUT_M
                     log.Info(string.Format("Quantity : {0}", prod.restant.ToString()));
 
                     lblDiametre.Text = produit.diametre.ToString();
-                    lblEtage.Text = produit.etage.ToString();
                     lblQte.Text = prod.restant.ToString();
 
                     try
@@ -795,7 +832,7 @@ namespace CUT_M
                         lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, String.Format("Masque : {0}", produit.masque.ToString())); }));
 
                         log.Info("Loading mask");
-                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Chargement du masque"; }));
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = LoadMask; }));
 
                         Application.DoEvents();
 
@@ -857,8 +894,6 @@ namespace CUT_M
 
                     while (qte > 0)
                     {
-
-                        demarrage = true;
                         decoupeencours = false;
 
                         if (porte)
@@ -934,7 +969,7 @@ namespace CUT_M
 
                         ChangeOID1(15, 1);
 
-                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = "Démarrage découpe"; }));
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DemarrageDecoupe; }));
 
                         lv = new ListViewItem("Démarrage découpe");
                         lv.ForeColor = Color.Green;
@@ -947,8 +982,6 @@ namespace CUT_M
                         if (goodConditions)
                         {
                             decoupeencours = true;
-
-                            boutonOperateur = false;
 
                             int Angle_1 = int.Parse(produit.positionangle[0].ToString());
                             int Angle_2 = int.Parse(produit.positionangle[1].ToString());
@@ -997,7 +1030,7 @@ namespace CUT_M
                                 Application.DoEvents();
 
                                 lv = new ListViewItem("finProd");
-                                if(finProd)
+                                if (finProd)
                                     lv.ForeColor = Color.Green;
                                 else
                                     lv.ForeColor = Color.Red;
@@ -1015,13 +1048,71 @@ namespace CUT_M
 
                             ChangeOID1(15, 0);
 
-                            Thread.Sleep(2000);
+                            Stopwatch s = new Stopwatch();
+                            s.Start();
+                            while (s.Elapsed < TimeSpan.FromSeconds(5))
+                            {
+                                lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DecoupeTermine; }));
+                                Application.DoEvents();
+                            }
 
-                            demarrage = false;
+                            s.Stop();
+
+                            boutonOperateur = false;
                             decoupeencours = false;
+
+                            obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
+                            qte = obj.restant -= 1;
+                            if (obj != null) obj.restant = qte;
+
+                            String toReplace = string.Empty;
+
+                            foreach (Production p in production)
+                            {
+                                toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                            }
+
+                            string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                            string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+
+                            try
+                            {
+                                File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+
+                                lblQte.Text = obj.restant.ToString();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Erreur : " + ex.Message); }));
+
+                                bool ok = false;
+
+                                do
+                                {
+                                    if (MessageBox.Show("Impossible de mettre à jour le fichier de production, veuillez fermer le fichier ou redémarrer l'application.", "Information", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
+                                    {
+                                        try
+                                        {
+                                            File.WriteAllText(pathClient, toReplace);
+
+                                            lblQte.Text = obj.restant.ToString();
+
+                                            ok = true;
+                                        }
+                                        catch
+                                        {
+                                            ok = false;
+                                        }
+                                    }
+                                }
+                                while (ok == false);
+                            }
                         }
                     }
 
+
+                    demarrage = false;
                     start = false;
 
                     /*if (goodConditions)
@@ -1339,7 +1430,7 @@ namespace CUT_M
                         }*/
                 }
                     else
-                        MessageBox.Show("Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information");
+                        MessageBox.Show(new Form { TopMost = true }, "Impossible de démarrer la production, veuillez consulter le(s) message(s) d'erreur ci-dessous", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
             }
             else
@@ -1347,7 +1438,6 @@ namespace CUT_M
                 btAnnule.Invoke(new EventHandler(delegate { btAnnule.Enabled = false; }));
 
                 lblDiametre.Text = "";
-                lblEtage.Text = "";
                 lblQte.Text = "";
                 lblInfo.Text = ChoixRef;
             }
@@ -1396,7 +1486,7 @@ namespace CUT_M
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Etes vous sûr ?", "Information", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(new Form { TopMost = true }, "Etes vous sûr ?", "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 demarrage = false;
 
@@ -1450,7 +1540,7 @@ namespace CUT_M
 
                 if (!start && !demarrage && !finProd && comboBox1.SelectedIndex == 0 && laser)
                 {
-                    Message = "Choisir ou saisir un référence";
+                    Message = ChoixRef;
                     goodConditions = true;
                 }
                 /*else if (!start && !demarrage && !finProd && comboBox1.SelectedIndex > 0)
@@ -1463,25 +1553,16 @@ namespace CUT_M
                     Message = "En attente chargement capot et départ cycle";
                     goodConditions = true;
                 }*/
-                else if (demarrage && !finProd && !decoupeencours && capot)
+                else if (demarrage && !finProd && decoupeencours && !capot && !cycleTermine)
                 {
-                    Message = "Mise en référence capot";
-                    goodConditions = true;
-                }
-                else if (demarrage && !finProd && decoupeencours && !capot)
-                {
-                    Message = "Découpe en cours";
-                    goodConditions = true;
-                }
-                else if (laser && porte && !start)
-                {
-                    Message = "Découpe terminée";
+                    Message = Decoupe;
                     goodConditions = true;
                 }
                 else if (!laser || !porte)
                 {
                     goodConditions = false;
                 }
+                
 
                 label41.Invoke(new EventHandler(delegate { label41.Text = goodConditions.ToString(); }));
 
@@ -1516,7 +1597,7 @@ namespace CUT_M
             {
                 finProd = true;
                 start = false;
-                demarrage = false;
+                //demarrage = false;
                 boutonOperateur = false;
 
                 checkBox3.Checked = false;
@@ -1524,7 +1605,8 @@ namespace CUT_M
                 timer3.Stop();
 
                 RazProd();
-                MessageBox.Show("Temps de réponse dépassé, production interrompue", "Information");
+
+                MessageBox.Show(new Form { TopMost = true }, "Temps de réponse dépassé, production interrompue", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
 
@@ -1612,7 +1694,7 @@ namespace CUT_M
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Fermer le programme ?", "Information", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(new Form { TopMost = true }, "Fermer le programme ?", "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
             {
                 ChangeOID1(8, 0);
                 ChangeOID1(9, 0);
@@ -1687,7 +1769,7 @@ namespace CUT_M
             timer1.Stop();
 
             start = false;
-            demarrage = false;
+            //demarrage = false;
             boutonOperateur = false;
 
             checkBox3.Checked = false;
