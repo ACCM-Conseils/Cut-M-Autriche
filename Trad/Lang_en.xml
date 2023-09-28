@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Lang>
+  <Adam1NotConnected>Adam 1 not connected</Adam1NotConnected>
+  <btAnnule>Production cancellation</btAnnule>
+  <ChoisirRef>Choose a reference</ChoisirRef>
+  <ChoixRef>Choose or enter a reference</ChoixRef>
+  <CloseAndStart>Please close the door and open the shutter.</CloseAndStart>
+  <ConnectAdam1>Connected to Adam 1 module</ConnectAdam1>
+  <ConnectAdam2>Connected to Adam 2 module</ConnectAdam2>
+  <Consigne>I have read the instructions below</Consigne>
+  <Decoupe>Cutting in progress</Decoupe>
+  <DecoupeTermine>Cut finished</DecoupeTermine>
+  <DemarrageDecoupe>Start cutting</DemarrageDecoupe>
+  <DepartCycle>Waiting to load cover and start cycle</DepartCycle>
+  <Fermee>Closed</Fermee>
+  <FermerPorte>Close the door</FermerPorte>
+  <InitAdam1>Adam 1 module initialisation OK</InitAdam1>
+  <InitAdam2>Adam 2 module initialisation OK</InitAdam2>
+  <lblInfos>Informations</lblInfos>
+  <lblProd>Production in progress</lblProd>
+  <lblRef>Reference from file</lblRef>
+  <lblTitreDiametre>Diameter</lblTitreDiametre>
+  <lblTitreEtage>Mandrel floor number</lblTitreEtage>
+  <lblTitreEtat>State</lblTitreEtat>
+  <lbltitreLaser>Laser :</lbltitreLaser>
+  <lbltitrePorte>Door :</lbltitrePorte>
+  <lblTitreQte>Quantity remaining</lblTitreQte>
+  <LoadMask>Loading the mask</LoadMask>
+  <NoConnectAdam1>Adam 1 module initialisation impossible</NoConnectAdam1>
+  <NoConnectAdam2>Adam 2 module initialisation impossible</NoConnectAdam2>
+  <NoRef>No reference available</NoRef>
+  <OuvrirPorte>Open the door</OuvrirPorte>
+  <OuvrirShutter>Open the shutter</OuvrirShutter>
+  <Ouverte>Open</Ouverte>
+  <PlacerPiece>Positioning the workpiece</PlacerPiece>
+  <Quitter>Quit</Quitter>
+  <Timer1Start>Timer 1 started</Timer1Start>
+  <Timer2Start>Timer 2 started</Timer2Start>
+  <Confirme>Are you sure ?</Confirme>
+  <ShutterOuvert>Shutter opened</ShutterOuvert>
+  <ShutterFerme>Shutter closed</ShutterFerme>
+  <BoutonOperateur>Operator button activated</BoutonOperateur>
+  <FinProd>Production End</FinProd>
+  <InterProd>Production suspended</InterProd>
+  <TempsReponse>Response time exceeded, production interrupted</TempsReponse>
+  <FermePrg>Close the program?</FermePrg>
+  <ErreurFichier>Unable to update production file, please close the file or restart the application.</ErreurFichier>
+  <NoProd>Product not found.</NoProd>
+</Lang>

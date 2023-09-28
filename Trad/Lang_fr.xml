@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Lang>
+  <Adam1NotConnected>Adam 1 non connecté</Adam1NotConnected>
+  <btAnnule>Annulation production</btAnnule>
+  <ChoisirRef>Choisissez une référence</ChoisirRef>
+  <ChoixRef>Choisir ou saisir une référence</ChoixRef>
+  <CloseAndStart>Veuillez fermer la porte et ouvrir le shutter.</CloseAndStart>
+  <ConnectAdam1>Connecté au module Adam 1</ConnectAdam1>
+  <ConnectAdam2>Connecté au module Adam 2</ConnectAdam2>
+  <Consigne>J'ai lu les consignes ci-dessous</Consigne>
+  <Decoupe>Découpe en cours</Decoupe>
+  <DecoupeTermine>Découpe terminée</DecoupeTermine>
+  <DemarrageDecoupe>Démarrage découpe</DemarrageDecoupe>
+  <DepartCycle>En attente chargement capot et départ cycle</DepartCycle>
+  <Fermee>Fermée</Fermee>
+  <FermerPorte>Fermer la porte</FermerPorte>
+  <InitAdam1>Initialisation module Adam 1 OK</InitAdam1>
+  <InitAdam2>Initialisation module Adam 2 OK</InitAdam2>
+  <lblInfos>Informations</lblInfos>
+  <lblProd>Production en cours</lblProd>
+  <lblRef>Référence à partir du fichier</lblRef>
+  <lblTitreDiametre>Diamètre</lblTitreDiametre>
+  <lblTitreEtage>N° étage mandrin</lblTitreEtage>
+  <lblTitreEtat>Etat</lblTitreEtat>
+  <lbltitreLaser>Laser :</lbltitreLaser>
+  <lbltitrePorte>Porte :</lbltitrePorte>
+  <lblTitreQte>Quantité restante</lblTitreQte>
+  <LoadMask>Chargement du masque</LoadMask>
+  <NoConnectAdam1>Initialisation module Adam 1 impossible</NoConnectAdam1>
+  <NoConnectAdam2>Initialisation module Adam 2 impossible</NoConnectAdam2>
+  <NoRef>Aucune référence disponible</NoRef>
+  <OuvrirPorte>Ouvrir la porte</OuvrirPorte>
+  <OuvrirShutter>Ouvrir le shutter</OuvrirShutter>
+  <Ouverte>Ouverte</Ouverte>
+  <PlacerPiece>Positionner la pièce</PlacerPiece>
+  <Quitter>Fermer</Quitter>
+  <Timer1Start>Timer 1 démarré</Timer1Start>
+  <Timer2Start>Timer 2 démarré</Timer2Start>
+  <Confirme>Etes vous sûr ?</Confirme>
+  <ShutterOuvert>Shutter ouvert</ShutterOuvert>
+  <ShutterFerme>Shutter fermé</ShutterFerme>
+  <BoutonOperateur>Bouton opérateur activé</BoutonOperateur>
+  <FinProd>Fin de production</FinProd>
+  <InterProd>Production interrompue</InterProd>
+  <TempsReponse>Temps de réponse dépassé, production interrompue</TempsReponse>
+  <FermePrg>Fermer le programme ?</FermePrg>
+  <ErreurFichier>Impossible de mettre à jour le fichier de production, veuillez fermer le fichier ou redémarrer l'application.</ErreurFichier>
+  <NoProd>Produit introuvable.</NoProd>
+</Lang>

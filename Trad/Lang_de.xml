@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Lang>
+  <Adam1NotConnected>Adam 1 nicht verbunden</Adam1NotConnected>
+  <btAnnule>Abbruch der Produktion</btAnnule>
+  <ChoisirRef>Wählen Sie eine Referenz</ChoisirRef>
+  <ChoixRef>Wählen Sie eine Materialnummer</ChoixRef>
+  <CloseAndStart>Bitte schließen Sie die Türe und öffnen Sie den Shutter.</CloseAndStart>
+  <ConnectAdam1>Mit dem Adam 1 verbunden</ConnectAdam1>
+  <ConnectAdam2>Mit dem Adam 2 verbunden</ConnectAdam2>
+  <Consigne>Ich habe die folgenden Anweisungen gelesen</Consigne>
+  <Decoupe>In Arbeit</Decoupe>
+  <DecoupeTermine>Schneiden beendet</DecoupeTermine>
+  <DemarrageDecoupe>Schnitt starten</DemarrageDecoupe>
+  <DepartCycle>Warten auf Einspannen der Lüfterhaube und Zyklusstart</DepartCycle>
+  <Fermee>Geschlossen</Fermee>
+  <FermerPorte>Schließen Sie die Tür</FermerPorte>
+  <InitAdam1>Initialisierung Adam 1 Modul OK</InitAdam1>
+  <InitAdam2>Initialisierung Adam 2 Modul OK</InitAdam2>
+  <lblInfos>Nachrichten</lblInfos>
+  <lblProd>Produktion im Gange</lblProd>
+  <lblRef>Referenz aus Datei</lblRef>
+  <lblTitreDiametre>Durchmesser</lblTitreDiametre>
+  <lblTitreEtage>Dorn-Bodennummer</lblTitreEtage>
+  <lblTitreEtat>Zustand</lblTitreEtat>
+  <lbltitreLaser>Laser :</lbltitreLaser>
+  <lbltitrePorte>Tür :</lbltitrePorte>
+  <lblTitreQte>Verbleibende Menge</lblTitreQte>
+  <LoadMask>Laden der Maske</LoadMask>
+  <NoConnectAdam1>Initialisierung Adam 1 Modul nicht möglich</NoConnectAdam1>
+  <NoConnectAdam2>Initialisierung Adam 2 Modul nicht möglich</NoConnectAdam2>
+  <NoRef>Keine Referenz verfügbar</NoRef>
+  <OuvrirPorte>Öffne die Tür</OuvrirPorte>
+  <OuvrirShutter>Shutter öffnen</OuvrirShutter>
+  <Ouverte>Offen</Ouverte>
+  <PlacerPiece>Werkstück positionieren</PlacerPiece>
+  <Quitter>Schließen</Quitter>
+  <Timer1Start>Timer 1 gestartet</Timer1Start>
+  <Timer2Start>Timer 2 gestartet</Timer2Start>
+  <Confirme>Sind Sie sicher?</Confirme>
+  <ShutterOuvert>Shutter offen</ShutterOuvert>
+  <ShutterFerme>Shutter geschlossen</ShutterFerme>
+  <BoutonOperateur>Bedienertaste aktiviert</BoutonOperateur>
+  <FinProd>Produktionsende</FinProd>
+  <InterProd>Produktion unterbrochen</InterProd>
+  <TempsReponse>Reaktionszeit überschritten, Produktion unterbrochen</TempsReponse>
+  <FermePrg>Programm schließen?</FermePrg>
+  <ErreurFichier>Die Produktionsdatei konnte nicht aktualisiert werden. Bitte schließen Sie die Datei oder starten Sie die Anwendung neu.</ErreurFichier>
+  <NoProd>Produkt nicht gefunden.</NoProd>
+</Lang>

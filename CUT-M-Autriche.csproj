@@ -144,5 +144,10 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Trad\Lang_de.xml" />
+    <Content Include="Trad\Lang_en.xml" />
+    <Content Include="Trad\Lang_fr.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
