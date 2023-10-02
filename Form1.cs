@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,6 +56,7 @@ namespace CUT_M
         private static long timestart = 0;
         private static long dureeWatchdog = 0;
         private static string locale = string.Empty;
+        private static Process p;
 
         //Traductions
         private static string ChoixRef = string.Empty;
@@ -94,9 +96,11 @@ namespace CUT_M
         private static string NoProd = string.Empty;
 
         //Variables debug
-        private static bool forcePorte = false;
+        /*private static bool forcePorte = true;
         private static bool forceDepart = false;
-        private static bool forceShutter = false;
+        private static bool forceShutter = true;
+        private static bool forceGoodconditions = false;
+        private static bool forceFinprod = false;*/
 
         private static List<Produit> produits = new List<Produit>();
         private static List<Production> production = new List<Production>();
@@ -113,6 +117,7 @@ namespace CUT_M
             timer2.Tick += new System.EventHandler(this.timer2_Tick);
 
             Warning warn = new Warning();
+            warn.TopMost = true;
             warn.FormBorderStyle = FormBorderStyle.None;
             warn.WindowState = FormWindowState.Maximized;
 
@@ -124,9 +129,9 @@ namespace CUT_M
 
                 try
                 {
-                    InitCutM();
-
                     InitLang();
+
+                    InitCutM();
 
                     Application.DoEvents();
 
@@ -147,8 +152,10 @@ namespace CUT_M
         }
         private void InitLang()
         {
+            locale = ut_xml.ValueXML(@".\CUT-M.xml", "Locale");
+            log.Info(string.Format("Locale : {0}", locale));
+
             lblRef.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblRef");
-            lblInfos.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblInfos");
             lblProd.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblProd");
             btAnnule.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "btAnnule");
             lblTitreDiametre.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblTitreDiametre");
@@ -224,9 +231,7 @@ namespace CUT_M
             m_iTempoOrigine = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
             log.Info(string.Format("TempoOrigine : {0}", m_iTempoOrigine));
             m_iTempoImpulsion = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoImpulsion"));
-            log.Info(string.Format("TempoImpulsion : {0}", m_iTempoImpulsion));
-            locale = ut_xml.ValueXML(@".\CUT-M.xml", "Locale");
-            log.Info(string.Format("Locale : {0}", locale));
+            log.Info(string.Format("TempoImpulsion : {0}", m_iTempoImpulsion));            
 
             log.Error("Loading params OK");
 
@@ -392,7 +397,7 @@ namespace CUT_M
 
                 Application.DoEvents();
 
-                if (!porte || !laser)
+                if ((!porte/* && !forcePorte*/) || (!laser/* && !forceShutter*/))
                 {
                     while (!porte || !laser)
                     {
@@ -415,13 +420,16 @@ namespace CUT_M
 
                 log.Info("Launching CutMaker");
 
-                Process[] workers = Process.GetProcessesByName("CutMaker.exe");
-                foreach (Process worker in workers)
+                Process[] processAlreadyRunning = Process.GetProcesses();
+                foreach (Process pr in processAlreadyRunning)
                 {
-                    log.Info("Closing CutMaker.exe");
-                    worker.Kill();
-                    worker.WaitForExit();
-                    worker.Dispose();
+                    if (pr.ProcessName.Contains("CutMaker"))
+                    {
+                        log.Info("Closing CutMaker.exe");
+                        pr.Kill();
+                        pr.WaitForExit();
+                        pr.Dispose();
+                    }
                 }
 
                 Thread.Sleep(2000);
@@ -429,8 +437,10 @@ namespace CUT_M
                 String exePath = ut_xml.ValueXML(@".\CUT-M.xml", "LaserExe");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = exePath;
+                startInfo.UseShellExecute = true;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 //startInfo.Arguments = "header.h";
-                Process.Start(startInfo);
+                p = Process.Start(startInfo);
 
                 log.Info("Launching CutMaker OK");
 
@@ -477,13 +487,12 @@ namespace CUT_M
 
                 Application.DoEvents();
 
-                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Motor angle end"); }));
+                lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, "Motor angle end"); }));                
 
                 launch = false;
 
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-                this.TopMost = true;
+                this.WindowState = FormWindowState.Maximized;
+                this.TopMost = true;                
 
                 Application.DoEvents();
             }
@@ -529,7 +538,7 @@ namespace CUT_M
                     bool good = true;
                     String Message = string.Empty;
 
-                    if (!bData1[0])
+                    if (!bData1[0]/* && !forcePorte*/)
                     {
                         Message += FermerPorte + Environment.NewLine;
                         porte = false;
@@ -537,15 +546,19 @@ namespace CUT_M
                     else
                         porte = true;
 
-                    if (!bData1[1] && !forceShutter)
+                    if (!bData1[1]/* && !forceShutter*/)
                     {
                         Message += OuvrirShutter + Environment.NewLine;
                         laser = false;
+                        pictureBox2.Visible = false;
                     }
                     else
+                    {
+                        pictureBox2.Visible = true;
                         laser = true;
+                    }
                     
-                    if (bData1[2] || forceDepart)
+                    if (bData1[2] /*|| forceDepart*/)
                     {
                         if (laser && porte)
                         {                     
@@ -553,7 +566,7 @@ namespace CUT_M
 
                             boutonOperateur = true;
                             checkBox6.Checked = false;
-                            forceDepart = false;
+                            //forceDepart = false;
 
                             lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DemarrageDecoupe; }));
                         }
@@ -623,7 +636,7 @@ namespace CUT_M
                     txtDI5.Text = bData1[5].ToString();
                     txtDI6.Text = bData1[6].ToString();
 
-                    if (porte)
+                    if (porte/* || forcePorte*/)
                     {
                         lblPorte.Invoke(new EventHandler(delegate { lblPorte.ForeColor = Color.Green; lblPorte.Text = Fermee; }));
                     }
@@ -632,7 +645,7 @@ namespace CUT_M
                         lblPorte.Invoke(new EventHandler(delegate { lblPorte.ForeColor = Color.Red; lblPorte.Text = Ouverte; }));
                     }
 
-                    if (laser)
+                    if (laser/* || forceShutter*/)
                     {
                         lblLaser.Invoke(new EventHandler(delegate { lblLaser.ForeColor = Color.Green; lblLaser.Text = ShutterOuvert; }));
                     }
@@ -653,40 +666,71 @@ namespace CUT_M
                         RazProd();
                     }
 
-                    //label41.Invoke(new EventHandler(delegate { label41.Text = goodConditions.ToString(); }));
-
-                    /*if (goodConditions && bData1[16] && comboBox1.SelectedIndex > 0)
-                    {
-                        ChangeOID1(16, 0);
-                    }*/
-                    /*if (goodConditions && comboBox1.SelectedIndex > 0 && !start && !demarrage)
-                    {
-                        Message = "Positionner la pièce";
-                    }
-                    else if (goodConditions && comboBox1.SelectedIndex > 0 && start && !boutonOperateur)
-                    {
-                        Message = "En attente de départ de cycle";
-                    }
-                    else if (goodConditions && comboBox1.SelectedIndex == 0)
-                    {
-                        Message = "Choisir ou saisir une référence";
-                    }
-                    else if (goodConditions && comboBox1.SelectedIndex > 0 && start && boutonOperateur)
-                    {
-                        Message = "Découpe en cours";
-                    }*/
-
-
-                    if (!goodConditions && start)
+                    if ((!goodConditions /*|| !forceGoodconditions*/) && start)
                     {
                         start = false;
                         finProd = true;
                         RazProd();
                     }
                 }
+                else
+                {
+                    if ((!goodConditions/* || !forceGoodconditions*/) && start)
+                    {
+                        if (MessageBox.Show("Erreur de communication") == DialogResult.OK)
+                        {
+                            demarrage = false;
+                            finProd = true;
+
+                            Application.DoEvents();
+
+                            RazProd();
+
+                            RazInfos();
+
+                            LoadRef();
+
+                            comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                            Application.DoEvents();
+
+                            button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
+                            timer1.Stop();
+                            timer2.Stop();
+                            timer3.Stop();
+                        }
+                    }
+                }
             }
             catch(Exception ex)
             {
+                if ((!goodConditions /*|| !forceGoodconditions*/) && start)
+                {
+                    if (MessageBox.Show("Erreur de communication") == DialogResult.OK)
+                    {
+                        demarrage = false;
+                        finProd = true;
+
+                        Application.DoEvents();
+
+                        RazProd();
+
+                        RazInfos();
+
+                        LoadRef();
+
+                        comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                        Application.DoEvents();
+
+                        button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
+                        timer1.Stop();
+                        timer2.Stop();
+                        timer3.Stop();
+                    }
+                }
                 log.Error(ex);
             }
         }
@@ -945,15 +989,17 @@ namespace CUT_M
 
                     while (qte > 0)
                     {
+                        btAnnule.Enabled = true;
+
                         decoupeencours = false;
 
-                        if (porte)
+                        if (porte/* || forcePorte*/)
                         {
                             lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = OuvrirPorte; }));
 
                             Application.DoEvents();
 
-                            while (porte && !forcePorte)
+                            while (porte && demarrage/* || forcePorte*/)
                             {
                                 Thread.Sleep(1000);
 
@@ -964,7 +1010,7 @@ namespace CUT_M
 
                         Application.DoEvents();
 
-                        while (!porte || forcePorte)
+                        while (!porte && demarrage/* && !forcePorte*/)
                         {
                             Thread.Sleep(1000);
 
@@ -981,7 +1027,7 @@ namespace CUT_M
 
                         Application.DoEvents();
 
-                        while (!boutonOperateur && demarrage)
+                        while ((!boutonOperateur /*&& !forceDepart*/) && demarrage)
                         {
                             Thread.Sleep(1000);
 
@@ -992,7 +1038,7 @@ namespace CUT_M
 
                         lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DemarrageDecoupe; }));
 
-                        if (goodConditions)
+                        if (goodConditions/* || forceGoodconditions*/)
                         {
                             decoupeencours = true;
 
@@ -1035,27 +1081,27 @@ namespace CUT_M
                             Thread.Sleep(m_iTempoImpulsion);
                             ChangeOID2(7, 0);
 
-                            while (!finProd)
+                            while (!finProd/* && !forceFinprod*/)
                             {
                                 Thread.Sleep(1000);
                                 Application.DoEvents();
                             }
 
-                            log.Info("End signal recceived");
+                            log.Info("End signal received");
 
                             finProd = false;
 
                             log.Info("Quantity : "+qte);
 
-                            Stopwatch s = new Stopwatch();
-                            s.Start();
-                            while (s.Elapsed < TimeSpan.FromSeconds(5))
+                            Stopwatch s2 = new Stopwatch();
+                            s2.Start();
+                            while (s2.Elapsed < TimeSpan.FromSeconds(5))
                             {
                                 lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DecoupeTermine; }));
                                 Application.DoEvents();
                             }
 
-                            s.Stop();
+                            s2.Stop();
 
                             boutonOperateur = false;
                             decoupeencours = false;
@@ -1079,8 +1125,6 @@ namespace CUT_M
 
                             Thread.Sleep(m_iTempo);
 
-                            ChangeOID1(15, 0);
-
                             Application.DoEvents();
 
                             log.Info("Motor angle end");
@@ -1089,19 +1133,19 @@ namespace CUT_M
                             qte = obj.restant -= 1;
                             if (obj != null) obj.restant = qte;
 
-                            String toReplace = string.Empty;
+                            String toReplaceFinish = string.Empty;
 
                             foreach (Production p in production)
                             {
-                                toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                                toReplaceFinish += p.reference + ";" + p.restant + Environment.NewLine;
                             }
 
-                            string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
-                            string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+                            string pathClientFinish = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                            string fileClientFinish = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
 
                             try
                             {
-                                File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+                                File.WriteAllText(Path.Combine(pathClientFinish, fileClientFinish), toReplaceFinish);
 
                                 log.Info("Write quantity OK");
 
@@ -1120,7 +1164,7 @@ namespace CUT_M
                                     {
                                         try
                                         {
-                                            File.WriteAllText(pathClient, toReplace);
+                                            File.WriteAllText(pathClientFinish, fileClientFinish);
 
                                             lblQte.Text = obj.restant.ToString();
 
@@ -1134,10 +1178,79 @@ namespace CUT_M
                                 }
                                 while (ok == false);
                             }
+
+                            ChangeOID1(15, 0);
                         }
                     }
+
+                    Stopwatch s = new Stopwatch();
+                    s.Start();
+                    while (s.Elapsed < TimeSpan.FromSeconds(5))
+                    {
+                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = FinProd; }));
+                        Application.DoEvents();
+                    }
+
+                    s.Stop();
+
+                    log.Info(FinProd);
+
+                    production.Remove(obj);
+
+                    string pathClient = ut_xml.ValueXML(@".\CUT-M.xml", "DossierClient");
+                    string fileClient = ut_xml.ValueXML(@".\CUT-M.xml", "FichierClient");
+
+                    String toReplace = string.Empty;
+
+                    if (production.Count() > 0)
+                    {
+                        foreach (Production p in production)
+                        {
+                            toReplace += p.reference + ";" + p.restant + Environment.NewLine;
+                        }
+
+                        File.WriteAllText(Path.Combine(pathClient, fileClient), toReplace);
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        FileInfo f = new FileInfo(Path.Combine(pathClient, fileClient));
+                        f.Delete();
+                    }
+
                     demarrage = false;
                     start = false;
+                    finProd = true;
+
+                    Application.DoEvents();
+
+                    RazProd();
+
+                    RazInfos();
+
+                    LoadRef();
+
+                    comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                    Application.DoEvents();
+
+                    button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
+                    ChangeOID1(8, 0);
+                    ChangeOID1(9, 0);
+                    ChangeOID1(10, 0);
+                    ChangeOID1(11, 0);
+                    ChangeOID1(12, 0);
+                    ChangeOID1(13, 0);
+                    ChangeOID1(14, 0);
+                    ChangeOID1(15, 0);
+
+                    timer1.Stop();
+                    timer2.Stop();
+                    timer3.Stop();
                 }
                     else
                         MessageBox.Show(new Form { TopMost = true }, NoProd, "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1195,6 +1308,7 @@ namespace CUT_M
             if (MessageBox.Show(new Form { TopMost = true }, Confirme, "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 demarrage = false;
+                finProd = true;
 
                 Application.DoEvents();
 
@@ -1203,8 +1317,6 @@ namespace CUT_M
                 RazInfos();
 
                 LoadRef();
-
-                lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
 
                 comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
 
@@ -1253,7 +1365,11 @@ namespace CUT_M
                 else if (!laser || !porte)
                 {
                     goodConditions = false;
-                }                
+                }       
+                /*else if(forcePorte && forceShutter)
+                {
+                    goodConditions = true;
+                }*/
 
                 if (!string.IsNullOrEmpty(Message))
                     lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = Message; }));
@@ -1294,8 +1410,6 @@ namespace CUT_M
                 RazProd();
 
                 MessageBox.Show(new Form { TopMost = true }, TempsReponse, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                lblCapot.Invoke(new EventHandler(delegate { lblCapot.Visible = false; }));
 
                 timestart = DateTime.Now.Ticks;
             }
@@ -1371,8 +1485,25 @@ namespace CUT_M
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(new Form { TopMost = true }, FermePrg, "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+            if (MessageBox.Show(new Form { TopMost = true }, FermePrg, "Information", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
+                demarrage = false;
+                finProd = true;
+
+                Application.DoEvents();
+
+                RazProd();
+
+                RazInfos();
+
+                LoadRef();
+
+                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
+
+                Application.DoEvents();
+
+                button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
                 ChangeOID1(8, 0);
                 ChangeOID1(9, 0);
                 ChangeOID1(10, 0);
@@ -1382,16 +1513,16 @@ namespace CUT_M
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
 
+                timer1.Stop();
+                timer2.Stop();
+                timer3.Stop();
+
                 this.Close();
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(LoadRef())
-            {
-                comboBox1.Invoke(new EventHandler(delegate { comboBox1.Refresh(); }));
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -1403,24 +1534,24 @@ namespace CUT_M
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox5.Checked)
+            /*if (checkBox5.Checked)
             {
                 forcePorte = true;
             }
             else
-                forcePorte = false;
+                forcePorte = false;*/
         }
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox6.Checked)
+            /*if(checkBox6.Checked)
             {
                 forceDepart = true;
             }
             else
             {
                 forceDepart = false;
-            }
+            }*/
         }
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
@@ -1433,6 +1564,56 @@ namespace CUT_M
             {
                 boutonOperateur = false;
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            Rectangle rect = Screen.PrimaryScreen.WorkingArea;
+            this.Width = rect.Width;
+            this.Height = rect.Height;
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+
+            this.Refresh();
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            this.TopMost = true;
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            /*if (checkBox8.Checked)
+            {
+                forceGoodconditions = true;
+            }
+            else
+            {
+                forceGoodconditions = false;
+            }*/
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            /*if (checkBox8.Checked)
+            {
+                forceFinprod = true;
+            }
+            else
+            {
+                forceFinprod = false;
+            }*/
+        }
+
+        private void btHide_Click(object sender, EventArgs e)
+        {
         }
 
         private void RazProd()

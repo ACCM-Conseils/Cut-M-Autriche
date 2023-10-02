@@ -123,6 +123,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Warning.resx">
       <DependentUpon>Warning.cs</DependentUpon>
@@ -145,6 +146,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\panneau-de-danger-rayonnement-laser-008572460-product_zoom.jpg" />
     <Content Include="Trad\Lang_de.xml" />
     <Content Include="Trad\Lang_en.xml" />
     <Content Include="Trad\Lang_fr.xml" />
