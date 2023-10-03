@@ -446,7 +446,7 @@ namespace CUT_M
 
                 ChangeOID1(15, 1);
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 while (!origine)
                 {
@@ -473,7 +473,7 @@ namespace CUT_M
                 ChangeOID1(13, 0);
                 ChangeOID1(14, 0);
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 Application.DoEvents();
 
@@ -941,6 +941,8 @@ namespace CUT_M
 
                         Application.DoEvents();
 
+                        ChangeOID1(15, 1);
+
                         int DO0_1 = int.Parse(produit.masque[0].ToString());
                         int DO0_2 = int.Parse(produit.masque[1].ToString());
                         int DO0_3 = int.Parse(produit.masque[2].ToString());
@@ -964,12 +966,14 @@ namespace CUT_M
                         ChangeOID2(5, DO0_2);
                         ChangeOID2(6, DO0_1);
 
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                         ChangeOID2(0, 1);
                         Thread.Sleep(m_iTempoImpulsion);
                         ChangeOID2(0, 0);
 
                         log.Info("Loading mask OK");
+
+                        ChangeOID1(15, 0);
 
                         Application.DoEvents();
                     }
@@ -988,7 +992,7 @@ namespace CUT_M
                     Application.DoEvents();
 
                     while (qte > 0)
-                    {
+                    {                 
                         btAnnule.Enabled = true;
 
                         decoupeencours = false;
@@ -1036,6 +1040,29 @@ namespace CUT_M
 
                         ChangeOID1(15, 1);
 
+                        log.Info("Motor angle start");
+
+                        ChangeOID1(9, 1);
+                        ChangeOID1(10, 0);
+                        ChangeOID1(11, 0);
+                        ChangeOID1(12, 0);
+                        ChangeOID1(13, 0);
+                        ChangeOID1(14, 0);
+
+                        Thread.Sleep(500);
+
+                        Application.DoEvents();
+
+                        log.Info("Bit validation");
+
+                        ChangeOID1(8, 1);
+                        Thread.Sleep(m_iTempoImpulsion);
+                        ChangeOID1(8, 0);
+
+                        Thread.Sleep(m_iTempo);
+
+                        log.Info("Motor angle end");
+
                         lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DemarrageDecoupe; }));
 
                         if (goodConditions/* || forceGoodconditions*/)
@@ -1065,7 +1092,7 @@ namespace CUT_M
                             ChangeOID1(13, Angle_2);
                             ChangeOID1(14, Angle_1);
 
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
 
                             Application.DoEvents();
 
@@ -1095,7 +1122,7 @@ namespace CUT_M
 
                             Stopwatch s2 = new Stopwatch();
                             s2.Start();
-                            while (s2.Elapsed < TimeSpan.FromSeconds(5))
+                            while (s2.Elapsed < TimeSpan.FromSeconds(m_iTempo))
                             {
                                 lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DecoupeTermine; }));
                                 Application.DoEvents();
@@ -1104,7 +1131,6 @@ namespace CUT_M
                             s2.Stop();
 
                             boutonOperateur = false;
-                            decoupeencours = false;
 
                             log.Info("Motor angle start");
 
@@ -1115,7 +1141,7 @@ namespace CUT_M
                             ChangeOID1(13, 0);
                             ChangeOID1(14, 0);
 
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
 
                             Application.DoEvents();
 
@@ -1129,9 +1155,15 @@ namespace CUT_M
 
                             log.Info("Motor angle end");
 
+                            ChangeOID1(15, 0);
+
                             obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
                             qte = obj.restant -= 1;
                             if (obj != null) obj.restant = qte;
+
+
+                            if (qte > 0)
+                                decoupeencours = false;
 
                             String toReplaceFinish = string.Empty;
 
@@ -1238,6 +1270,31 @@ namespace CUT_M
                     Application.DoEvents();
 
                     button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
+                    log.Info("Motor angle start");
+
+                    ChangeOID1(9, 1);
+                    ChangeOID1(10, 0);
+                    ChangeOID1(11, 0);
+                    ChangeOID1(12, 0);
+                    ChangeOID1(13, 0);
+                    ChangeOID1(14, 0);
+
+                    Thread.Sleep(1000);
+
+                    Application.DoEvents();
+
+                    ChangeOID1(8, 1);
+                    Thread.Sleep(m_iTempoImpulsion);
+                    ChangeOID1(8, 0);
+
+                    Thread.Sleep(m_iTempo);
+
+                    Application.DoEvents();
+
+                    log.Info("Motor angle end");
+
+                    decoupeencours = false;
 
                     ChangeOID1(8, 0);
                     ChangeOID1(9, 0);
