@@ -49,6 +49,7 @@ namespace CUT_M
         private static bool finProd = false;
         private static bool porte = false;
         private static bool origine = false;
+        private static bool mandrin = false;
         private static bool laser = false;
         private static bool start = false;
         private static bool demarrage = false;
@@ -544,7 +545,7 @@ namespace CUT_M
                         porte = false;
                     }
                     else
-                        porte = true;
+                        porte = true;                    
 
                     if (!bData1[1]/* && !forceShutter*/)
                     {
@@ -769,7 +770,12 @@ namespace CUT_M
                 if (iChTotal > 10)
                     txt1DO10.Text = bData[10].ToString();
 
-                if (laser && porte)
+                if (!System.Convert.ToBoolean(bData[9]))
+                    mandrin = false;
+                else
+                    mandrin = true;
+
+                    if (laser && porte)
                 {
                     if (!System.Convert.ToBoolean(bData[8]))
                     {
@@ -782,25 +788,7 @@ namespace CUT_M
                     {
                         ChangeOID2(8, 0);
                     }
-                }
-
-                try
-                {
-                    if (pedale && !porte)
-                    {
-                        if (!System.Convert.ToBoolean(bData[9]))
-                            ChangeOID2(9, 1);
-                    }
-                    else
-                    {
-                        if (System.Convert.ToBoolean(bData[9]))
-                            ChangeOID2(9, 0);
-                    }
-                }
-                catch(Exception ex)
-                {
-                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, ex.Message); }));
-                }
+                }                
             }
             else
             {
@@ -1108,6 +1096,8 @@ namespace CUT_M
                             Thread.Sleep(m_iTempoImpulsion);
                             ChangeOID2(7, 0);
 
+                            log.Info("Start cutting");
+
                             while (!finProd/* && !forceFinprod*/)
                             {
                                 Thread.Sleep(1000);
@@ -1119,16 +1109,6 @@ namespace CUT_M
                             finProd = false;
 
                             log.Info("Quantity : "+qte);
-
-                            Stopwatch s2 = new Stopwatch();
-                            s2.Start();
-                            while (s2.Elapsed < TimeSpan.FromSeconds(m_iTempo))
-                            {
-                                lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = DecoupeTermine; }));
-                                Application.DoEvents();
-                            }
-
-                            s2.Stop();
 
                             boutonOperateur = false;
 
@@ -1153,9 +1133,11 @@ namespace CUT_M
 
                             Application.DoEvents();
 
+                            ChangeOID1(15, 0);
+
                             log.Info("Motor angle end");
 
-                            ChangeOID1(15, 0);
+                            decoupeencours = false;
 
                             obj = production.FirstOrDefault(x => x.reference == comboBox1.Text);
                             qte = obj.restant -= 1;
@@ -1210,8 +1192,6 @@ namespace CUT_M
                                 }
                                 while (ok == false);
                             }
-
-                            ChangeOID1(15, 0);
                         }
                     }
 
@@ -1271,6 +1251,8 @@ namespace CUT_M
 
                     button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
 
+                    ChangeOID1(15, 1);
+
                     log.Info("Motor angle start");
 
                     ChangeOID1(9, 1);
@@ -1293,6 +1275,8 @@ namespace CUT_M
                     Application.DoEvents();
 
                     log.Info("Motor angle end");
+
+                    ChangeOID1(15, 0);
 
                     decoupeencours = false;
 
@@ -1389,7 +1373,23 @@ namespace CUT_M
             {
                 timer1.Enabled = false;
 
-                RefreshDIO1();
+                try
+                {
+                    if (pedale && !porte)
+                    {
+                        if (!mandrin)
+                            ChangeOID2(9, 1);
+                    }
+                    else
+                    {
+                        if (mandrin)
+                            ChangeOID2(9, 0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lvOpe.Invoke(new EventHandler(delegate { lvOpe.Items.Insert(0, ex.Message); }));
+                }
 
                 String Message = string.Empty;
 
@@ -1408,6 +1408,8 @@ namespace CUT_M
                 }
                 else
                     laser = true;
+
+                RefreshDIO1();                
 
                 if (!start && !demarrage && !finProd && comboBox1.SelectedIndex == 0 && laser)
                 {
