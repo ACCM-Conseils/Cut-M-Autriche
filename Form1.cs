@@ -57,6 +57,7 @@ namespace CUT_M
         private static long timestart = 0;
         private static long dureeWatchdog = 0;
         private static string locale = string.Empty;
+        private static string licence = string.Empty;
         private static Process p;
 
         //Traductions
@@ -106,10 +107,14 @@ namespace CUT_M
         private static List<Produit> produits = new List<Produit>();
         private static List<Production> production = new List<Production>();
         public Form1()
-        {
-            CultureInfo ci = new CultureInfo ("en"); Thread.CurrentThread.CurrentCulture = ci; Thread.CurrentThread.CurrentUICulture = ci;
-
+        {      
             InitializeComponent();
+
+            InitLang();
+
+            CultureInfo ci = new CultureInfo(locale); Thread.CurrentThread.CurrentCulture = ci; Thread.CurrentThread.CurrentUICulture = ci;
+
+            Application.DoEvents();
 
             timer1.Interval = 150;
             timer1.Tick += new System.EventHandler(this.timer1_Tick);
@@ -124,28 +129,31 @@ namespace CUT_M
 
             if (warn.ShowDialog() == DialogResult.OK)
             {
-                log4net.Config.XmlConfigurator.Configure();
-
-                log.Info("Starting Cut-M");
-
-                try
+                if (DateTime.Today < new DateTime(2024, 1, 1) || licence == "e4067309-5107-43bf-a127-e29ee91ee96e")
                 {
-                    InitLang();
+                    log4net.Config.XmlConfigurator.Configure();
 
-                    InitCutM();
+                    log.Info("Starting Cut-M");
 
-                    Application.DoEvents();
+                    try
+                    {
+                        InitCutM();
 
-                    LoadRef();
+                        LoadRef();
 
-                    Application.DoEvents();
+                        Application.DoEvents();
 
-                    InitLaser();
+                        InitLaser();
 
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e);
+                    }
                 }
-                catch(Exception e)
+                else
                 {
-                    log.Error(e);
+                    MessageBox.Show(new Form { TopMost = true }, "Invalid license", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -155,6 +163,8 @@ namespace CUT_M
         {
             locale = ut_xml.ValueXML(@".\CUT-M.xml", "Locale");
             log.Info(string.Format("Locale : {0}", locale));
+            licence = ut_xml.ValueXML(@".\CUT-M.xml", "Licence");
+            log.Info(string.Format("Licence : {0}", licence));
 
             lblRef.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblRef");
             lblProd.Text = ut_xml.ValueXML(@"C:\CUT-M\Trad\Lang_" + locale + ".xml", "lblProd");
@@ -232,7 +242,7 @@ namespace CUT_M
             m_iTempoOrigine = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoOrigine"));
             log.Info(string.Format("TempoOrigine : {0}", m_iTempoOrigine));
             m_iTempoImpulsion = System.Convert.ToInt32(ut_xml.ValueXML(@".\CUT-M.xml", "TempoImpulsion"));
-            log.Info(string.Format("TempoImpulsion : {0}", m_iTempoImpulsion));            
+            log.Info(string.Format("TempoImpulsion : {0}", m_iTempoImpulsion));
 
             log.Error("Loading params OK");
 
@@ -993,7 +1003,7 @@ namespace CUT_M
 
                             while (porte && demarrage/* || forcePorte*/)
                             {
-                                Thread.Sleep(1000);
+                                Thread.Sleep(100);
 
                                 Application.DoEvents();
                             }
@@ -1004,7 +1014,7 @@ namespace CUT_M
 
                         while (!porte && demarrage/* && !forcePorte*/)
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(100);
 
                             Application.DoEvents();
                         }
@@ -1021,7 +1031,7 @@ namespace CUT_M
 
                         while ((!boutonOperateur /*&& !forceDepart*/) && demarrage)
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(100);
 
                             Application.DoEvents();
                         }
@@ -1100,7 +1110,7 @@ namespace CUT_M
 
                             while (!finProd/* && !forceFinprod*/)
                             {
-                                Thread.Sleep(1000);
+                                Thread.Sleep(100);
                                 Application.DoEvents();
                             }
 
