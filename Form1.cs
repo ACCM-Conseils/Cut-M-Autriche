@@ -129,7 +129,7 @@ namespace CUT_M
 
             if (warn.ShowDialog() == DialogResult.OK)
             {
-                if (DateTime.Today < new DateTime(2024, 1, 1) || licence == "e4067309-5107-43bf-a127-e29ee91ee96e")
+                if (DateTime.Today < new DateTime(2024, 1, 31) || licence == "e4067309-5107-43bf-a127-e29ee91ee96e")
                 {
                     log4net.Config.XmlConfigurator.Configure();
 
@@ -1057,7 +1057,7 @@ namespace CUT_M
                         Thread.Sleep(m_iTempoImpulsion);
                         ChangeOID1(8, 0);
 
-                        Thread.Sleep(m_iTempo);
+                        Thread.Sleep(m_iTempoOrigine);
 
                         log.Info("Motor angle end");
 
@@ -1655,6 +1655,7 @@ namespace CUT_M
         {
             this.WindowState = FormWindowState.Maximized;
             this.TopMost = true;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
