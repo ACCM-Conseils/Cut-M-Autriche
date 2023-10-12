@@ -707,8 +707,6 @@ namespace CUT_M
 
                             button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
 
-                            timer1.Stop();
-                            timer2.Stop();
                             timer3.Stop();
                         }
                     }
@@ -737,8 +735,6 @@ namespace CUT_M
 
                         button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
 
-                        timer1.Stop();
-                        timer2.Stop();
                         timer3.Stop();
                     }
                 }
@@ -864,7 +860,7 @@ namespace CUT_M
                             {
                                 //Processing row
                                 string[] fields = parser.ReadFields();
-                                produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[2], masque = fields[3] });
+                                produits.Add(new Produit() { reference = fields[0], diametre = System.Convert.ToInt32(fields[1]), positionangle = fields[3], masque = fields[2] });
                             }
                             catch
                             { }
@@ -1205,15 +1201,8 @@ namespace CUT_M
                         }
                     }
 
-                    Stopwatch s = new Stopwatch();
-                    s.Start();
-                    while (s.Elapsed < TimeSpan.FromSeconds(5))
-                    {
-                        lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = FinProd; }));
-                        Application.DoEvents();
-                    }
-
-                    s.Stop();
+                    lblInfo.Invoke(new EventHandler(delegate { lblInfo.Text = FinProd; }));
+                    Application.DoEvents();
 
                     log.Info(FinProd);
 
@@ -1272,7 +1261,7 @@ namespace CUT_M
                     ChangeOID1(13, 0);
                     ChangeOID1(14, 0);
 
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
 
                     Application.DoEvents();
 
@@ -1284,23 +1273,10 @@ namespace CUT_M
 
                     Application.DoEvents();
 
-                    log.Info("Motor angle end");
-
                     ChangeOID1(15, 0);
 
                     decoupeencours = false;
 
-                    ChangeOID1(8, 0);
-                    ChangeOID1(9, 0);
-                    ChangeOID1(10, 0);
-                    ChangeOID1(11, 0);
-                    ChangeOID1(12, 0);
-                    ChangeOID1(13, 0);
-                    ChangeOID1(14, 0);
-                    ChangeOID1(15, 0);
-
-                    timer1.Stop();
-                    timer2.Stop();
                     timer3.Stop();
                 }
                     else
@@ -1582,8 +1558,6 @@ namespace CUT_M
                 ChangeOID1(14, 0);
                 ChangeOID1(15, 0);
 
-                timer1.Stop();
-                timer2.Stop();
                 timer3.Stop();
 
                 this.Close();
@@ -1693,7 +1667,6 @@ namespace CUT_M
             comboBox1.Invoke(new EventHandler(delegate { comboBox1.Enabled = true; }));
             log.Info(FinProd);
             timer3.Stop();
-            timer1.Stop();
 
             start = false;
             //demarrage = false;
