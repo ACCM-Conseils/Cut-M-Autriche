@@ -845,6 +845,8 @@ namespace CUT_M
 
                         comboBox1.DataSource = table1;
                         comboBox1.DisplayMember = "reference";
+                        comboBox1.SelectedIndex = -1;
+                        comboBox1.Enabled = true;
                     }
 
                     string pathProduit = ut_xml.ValueXML(@".\CUT-M.xml", "DossierRef");
@@ -1350,6 +1352,35 @@ namespace CUT_M
                 Application.DoEvents();
 
                 button4.Invoke(new EventHandler(delegate { button4.Enabled = true; }));
+
+                ChangeOID1(15, 1);
+
+                log.Info("Motor angle start");
+
+                ChangeOID1(9, 1);
+                ChangeOID1(10, 0);
+                ChangeOID1(11, 0);
+                ChangeOID1(12, 0);
+                ChangeOID1(13, 0);
+                ChangeOID1(14, 0);
+
+                Thread.Sleep(500);
+
+                Application.DoEvents();
+
+                ChangeOID1(8, 1);
+                Thread.Sleep(m_iTempoImpulsion);
+                ChangeOID1(8, 0);
+
+                Thread.Sleep(m_iTempo);
+
+                Application.DoEvents();
+
+                ChangeOID1(15, 0);
+
+                decoupeencours = false;
+
+                timer3.Stop();
             }
         }
 
